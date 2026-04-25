@@ -27,7 +27,7 @@ const TICKER_ITEMS = [...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA]
 
 export function SNTicker({ className, direction = 'up', speed = 50 }) {
   return (
-    <div className={cn("flex flex-col overflow-hidden select-none pointer-events-none opacity-20", className)} aria-hidden="true">
+    <div className={cn("flex flex-col overflow-hidden select-none pointer-events-none opacity-80", className)} aria-hidden="true">
       <motion.div
         animate={{
           y: direction === 'up' ? ['0%', '-50%'] : ['-50%', '0%']
@@ -40,7 +40,7 @@ export function SNTicker({ className, direction = 'up', speed = 50 }) {
         className="flex flex-col gap-6 whitespace-nowrap"
       >
         {TICKER_ITEMS.map((item, i) => (
-          <span key={i} className="text-sm sm:text-base font-mono font-bold text-slate-400 tracking-widest uppercase">
+          <span key={i} className="text-base sm:text-lg font-mono font-bold text-slate-200 tracking-widest uppercase">
             {item}
           </span>
         ))}

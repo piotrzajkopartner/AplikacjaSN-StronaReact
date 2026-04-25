@@ -406,10 +406,12 @@ Aplikacja przeszła redesign w kierunku Ultra-Premium B2B SaaS, wprowadzając za
 
 Wprowadzone nowości:
 - **Katalog `src/components/magicui/`**: 
-  - `DotPattern` (techniczna siatka w tle sekcji Hero).
+  - `InteractiveGridPattern` (zastąpił DotPattern; autorski skaner siatki reagujący globalnie na kursor myszy na całej stronie).
+  - `LaserReveal` (autorska animacja startowa; opadająca pozioma wiązka lasera odsłaniająca stronę przy pierwszym ładowaniu).
+  - `SNTicker` (animowane w nieskończonej pętli zanonimizowane dane magazynowe i logi przesuwające się w tle na krawędziach strony).
   - `WordPullUp` (efektowny wjazd głównego nagłówka).
   - `ShimmerButton` (zintegrowany jako wariant `premium` w głównym `Button.jsx`).
-  - `MagicCard` i `BentoGrid` (karty śledzące ruch kursora w sekcjach Korzyści i Funkcje).
+  - `MagicCard` i `BentoGrid` (karty śledzące ruch kursora w sekcjach Korzyści i Funkcje w systemie kolumn 2+3).
   - `BorderBeam` (animowana, pulsująca krawędź na karcie Cennika).
   - `ShinyText` (połyskujące elementy `eyebrow` w nagłówkach sekcji).
 - **Zaawansowany system Cookie Consent (GDPR)**:
