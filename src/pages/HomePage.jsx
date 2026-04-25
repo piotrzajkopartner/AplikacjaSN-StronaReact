@@ -14,7 +14,7 @@ import { siteContent } from '../content/siteContent.js'
 
 function HomePage() {
   return (
-    <div className="space-y-12 md:space-y-16">
+    <div className="space-y-14 md:space-y-20">
       <HeroSection content={siteContent.hero} />
       <ProblemSection content={siteContent.problems} />
       <SolutionSection content={siteContent.solution} />

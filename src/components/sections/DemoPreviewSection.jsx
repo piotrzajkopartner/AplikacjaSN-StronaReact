@@ -4,10 +4,10 @@ import SectionHeading from '../ui/SectionHeading.jsx'
 
 function DemoPreviewSection({ content }) {
   return (
-    <section id="demo-preview" className="space-y-6">
+    <section id="demo-preview" className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
       <SectionHeading eyebrow={content.subheadline} title={content.headline} description={content.body} />
 
-      <div className="grid gap-4 md:grid-cols-2">
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
         {content.placeholders.map((item) => (
           <PlaceholderImage
             key={item.title}
@@ -19,9 +19,11 @@ function DemoPreviewSection({ content }) {
         ))}
       </div>
 
-      <Button to={content.cta.href} variant="secondary">
-        {content.cta.label}
-      </Button>
+      <div className="mt-6">
+        <Button to={content.cta.href} variant="secondary">
+          {content.cta.label}
+        </Button>
+      </div>
     </section>
   )
 }
