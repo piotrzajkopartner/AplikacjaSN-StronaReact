@@ -4,9 +4,10 @@ import SectionHeading from '../ui/SectionHeading.jsx'
 
 function FinalCTASection({ content }) {
   return (
-    <section id="kontakt" className="space-y-6 rounded-3xl border border-slate-200 bg-gradient-to-b from-slate-100 to-white p-6 md:p-8">
-      <SectionHeading eyebrow={content.subheadline} title={content.headline} description={content.body} align="center" />
-      <Card as="div" className="mx-auto max-w-3xl">
+    <section id="kontakt" className="relative space-y-8 rounded-3xl bg-slate-50 p-6 md:p-12 animate-fade-in-up overflow-hidden">
+      <div className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2 w-full max-w-3xl h-64 bg-blue-100/50 blur-[80px]" />
+      <SectionHeading eyebrow={content.subheadline} title={content.headline} description={content.body} align="center" className="relative z-10" />
+      <Card as="div" className="mx-auto max-w-3xl relative z-10 shadow-2xl shadow-slate-200/50">
         <ContactForm content={content} />
       </Card>
     </section>

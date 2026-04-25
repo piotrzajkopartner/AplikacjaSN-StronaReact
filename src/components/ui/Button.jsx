@@ -2,10 +2,10 @@ import { Link } from 'react-router-dom'
 
 const variantClasses = {
   primary:
-    'border border-blue-950 bg-blue-950 text-white shadow-sm hover:bg-blue-900 hover:border-blue-900 focus-visible:outline-blue-900',
+    'border border-brand-blue bg-brand-blue text-white shadow-md shadow-brand-blue/30 hover:bg-brand-blue-hover hover:border-brand-blue-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-blue/40 focus-visible:outline-brand-blue',
   secondary:
-    'border border-slate-300 bg-white text-slate-900 hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-slate-500',
-  ghost: 'bg-transparent text-slate-700 hover:bg-slate-100 focus-visible:outline-slate-500',
+    'border border-slate-200 bg-white text-brand-text hover:border-slate-300 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm focus-visible:outline-slate-200',
+  ghost: 'bg-transparent text-brand-muted hover:bg-slate-50 hover:text-brand-text focus-visible:outline-slate-200',
 }
 
 function Button({

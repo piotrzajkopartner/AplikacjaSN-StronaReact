@@ -90,6 +90,8 @@ src/
 │   │   ├── Layout.jsx
 │   │   ├── Navbar.jsx
 │   │   └── Footer.jsx
+│   ├── seo/
+│   │   └── SeoManager.jsx
 │   ├── sections/
 │   │   ├── HeroSection.jsx
 │   │   ├── ProblemSection.jsx
@@ -316,14 +318,27 @@ Minimalny punkt podmiany jest juz przygotowany:
 - funkcja `mockSubmit` w `handleSubmit`.
 
 ## 15. SEO - aktualny stan
-Dane SEO sa przygotowane w `siteContent.seo` (`title`, `description`, `og`).
-Obecnie dane istnieja jako warstwa danych i stanowia gotowy punkt pod dalsze wdrozenie meta tagow runtime/build-time.
+Dane SEO sa przechowywane w `siteContent.seo` (`title`, `description`, `og`) i aktywnie podpinane do dokumentu.
+
+Aktualna implementacja:
+- `index.html`:
+  - `lang="pl"`
+  - domyslny `title`
+  - domyslny `meta description`
+  - podstawowe Open Graph (`og:type`, `og:title`, `og:description`)
+- `src/components/seo/SeoManager.jsx`:
+  - ustawia runtime `document.title` i meta tagi dla `/` oraz `/demo`
+  - podmienia `description`, `og:title`, `og:description`, `og:image`
+- `src/App.jsx`:
+  - podpiecie `SeoManager` globalnie nad routingiem
+
+Wymaganie "jeden `h1` na stronie glównej" jest zachowane (naglowek `h1` w `HeroSection`).
 
 ## 16. Znane ograniczenia i uwagi
 - aplikacja jest SPA; anchory dzialaja przez klasyczne `href`.
 - brak backendu formularza (celowo; tryb mock).
 - `lucide-react` jest zainstalowane, ale na teraz nieuzywane.
-- nie wszystkie elementy mobile navbara maja pełne menu sekcyjne (intencjonalne uproszczenie obecnego etapu).
+- brak rozszerzen SEO: canonical, `robots.txt`, `sitemap.xml`.
 
 ## 17. Checklist utrzymaniowy przed release
 - `npm run build` przechodzi bez bledow
@@ -342,8 +357,25 @@ Obecnie dane istnieja jako warstwa danych i stanowia gotowy punkt pod dalsze wdr
 6. `src/components/sections/PricingSection.jsx` - ekspozycja ceny
 7. `src/components/sections/HeroSection.jsx` - główny przekaz i CTA
 8. `src/App.jsx` - routing
-9. `src/main.jsx` - bootstrap aplikacji
-10. `src/index.css` - globalne style bazowe
+9. `src/components/seo/SeoManager.jsx` - runtime SEO per trasa
+10. `src/index.css` - globalne style bazowe i scroll pod sticky navbar
+
+## 19. Aktualizacja po Etapie 8 i 9
+Zrealizowane zmiany techniczne:
+- responsywnosc:
+  - mobilny pasek linkow sekcyjnych w navbarze
+  - poprawiona nawigacja anchorow z `/demo` do sekcji na `/`
+  - globalne `scroll-behavior: smooth`
+  - `scroll-margin-top` dla sekcji z `id` (kompensacja sticky navbara)
+- SEO:
+  - rozbudowa `index.html` o podstawowe metadane
+  - dodanie `SeoManager` do dynamicznego SEO po zmianie trasy
+- cleanup:
+  - usuniete pliki scaffoldingu Vite, ktore nie byly uzywane (`src/App.css`, pliki z `src/assets/`)
+
+## 20. Plan rozszerzen SEO
+Szczegolowy plan zostal przeniesiony do osobnego dokumentu:
+- `ai/11_seo_expansion_plan.md`
 
 ---
 Dokument odzwierciedla aktualny stan implementacji i jest przeznaczony jako szybka mapa orientacyjna dla kolejnych iteracji rozwoju projektu.

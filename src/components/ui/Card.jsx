@@ -1,5 +1,5 @@
 function Card({ children, className = '', as: Component = 'article' }) {
-  const classes = `rounded-2xl border border-slate-200 bg-white p-6 shadow-[0_1px_2px_0_rgba(2,6,23,0.06)] transition-shadow duration-200 hover:shadow-[0_10px_25px_-20px_rgba(2,6,23,0.45)] ${className}`.trim()
+  const classes = `rounded-2xl border border-slate-100 bg-white p-6 shadow-xl shadow-slate-200/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/60 ${className}`.trim()
 
   return <Component className={classes}>{children}</Component>
 }

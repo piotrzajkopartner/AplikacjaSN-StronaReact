@@ -2,12 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .bg-grid-slate-100 {
+    background-image: linear-gradient(to right, #f1f5f9 1px, transparent 1px),
+      linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   background-color: #f8fafc;
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #0f172a;
+  color: #1e293b;
 }
 
 * {

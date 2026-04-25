@@ -5,41 +5,44 @@ function HeroSection({ content }) {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 p-6 text-white md:p-10"
+      className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50 p-6 md:p-10 bg-grid-slate-100"
     >
-      <div className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-20 left-12 h-64 w-64 rounded-full bg-blue-300/20 blur-3xl" />
+      {/* Blurred background orbs for mesh gradient effect */}
+      <div className="pointer-events-none absolute -right-16 -top-24 h-96 w-96 rounded-full bg-blue-400/20 blur-[100px] animate-pulse-slow" />
+      <div className="pointer-events-none absolute -bottom-20 left-12 h-80 w-80 rounded-full bg-sky-300/20 blur-[100px] animate-pulse-slow" style={{ animationDelay: '1.5s' }} />
 
       <div className="relative grid gap-8 md:grid-cols-2 md:items-center">
-        <div>
-          <p className="mb-4 inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-blue-100">
+        <div className="animate-fade-in-up">
+          <p className="mb-4 inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-brand-blue ring-1 ring-inset ring-blue-500/10">
             {content.badge}
           </p>
-          <h1 className="text-3xl font-bold tracking-tight text-white md:text-5xl">{content.headline}</h1>
-          <p className="mt-5 max-w-xl text-sm leading-relaxed text-slate-200 md:text-base">{content.body}</p>
+          <h1 className="text-4xl font-bold tracking-tight text-brand-text md:text-6xl">{content.headline}</h1>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-brand-muted md:text-lg">{content.body}</p>
 
-          <div className="mt-5 rounded-xl border border-emerald-300/35 bg-emerald-400/10 p-4">
-            <p className="text-sm font-semibold text-emerald-100">{content.pricingNote}</p>
+          <div className="mt-6 rounded-xl border border-brand-blue/20 bg-blue-50/50 p-4 shadow-sm backdrop-blur-sm">
+            <p className="text-sm font-semibold text-brand-blue">{content.pricingNote}</p>
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Button href={content.primaryCta.href} className="bg-emerald-500 text-emerald-950 hover:bg-emerald-400">
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button href={content.primaryCta.href}>
               {content.primaryCta.label}
             </Button>
-            <Button to={content.secondaryCta.href} variant="secondary" className="border-white/35 bg-white/10 text-white hover:bg-white/20">
+            <Button to={content.secondaryCta.href} variant="secondary">
               {content.secondaryCta.label}
             </Button>
           </div>
 
-          <p className="mt-4 text-sm text-blue-100/90">{content.supportingNote}</p>
+          <p className="mt-5 text-sm text-brand-muted">{content.supportingNote}</p>
         </div>
 
-        <PlaceholderImage
-          title={content.imagePlaceholder.title}
-          alt={content.imagePlaceholder.alt}
-          description="Miejsce na finalny asset hero"
-          className="border-white/30 bg-white/95"
-        />
+        <div className="animate-fade-in-up transition-transform duration-700 hover:-translate-y-2" style={{ animationDelay: '0.2s' }}>
+          <PlaceholderImage
+            title={content.imagePlaceholder.title}
+            alt={content.imagePlaceholder.alt}
+            description="Miejsce na finalny asset hero"
+            className="border-slate-200 bg-white shadow-2xl shadow-blue-900/10"
+          />
+        </div>
       </div>
     </section>
   )
