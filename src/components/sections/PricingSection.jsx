@@ -1,5 +1,6 @@
 import Card from '../ui/Card.jsx'
 import SectionHeading from '../ui/SectionHeading.jsx'
+import { BorderBeam } from '../magicui/border-beam.jsx'
 
 function PricingSection({ content }) {
   return (
@@ -8,6 +9,7 @@ function PricingSection({ content }) {
 
       <div className="grid gap-6 lg:grid-cols-[1.1fr_1.6fr]">
         <Card as="div" className="relative overflow-hidden border-t-4 border-t-brand-blue bg-white shadow-xl shadow-brand-blue/10">
+          <BorderBeam duration={8} size={250} />
           <div className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-brand-blue/10 blur-2xl" />
           <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-blue">Abonament</p>
           <p className="mt-4 text-4xl font-bold leading-none md:text-5xl text-brand-text">300 zł</p>
