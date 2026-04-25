@@ -1,5 +1,5 @@
 import Button from '../ui/Button.jsx'
-import PlaceholderImage from '../ui/PlaceholderImage.jsx'
+import { LiveTerminal } from '../magicui/terminal.jsx'
 import { InteractiveGridPattern } from '../magicui/interactive-grid-pattern.jsx'
 import { WordPullUp } from '../magicui/word-pull-up.jsx'
 
@@ -44,13 +44,8 @@ function HeroSection({ content }) {
           <p className="mt-5 text-sm text-brand-muted">{content.supportingNote}</p>
         </div>
 
-        <div className="animate-fade-in-up transition-transform duration-700 hover:-translate-y-2" style={{ animationDelay: '0.2s' }}>
-          <PlaceholderImage
-            title={content.imagePlaceholder.title}
-            alt={content.imagePlaceholder.alt}
-            description="Miejsce na finalny asset hero"
-            className="border-slate-200 bg-white shadow-2xl shadow-blue-900/10"
-          />
+        <div className="animate-fade-in-up transition-transform duration-700 hover:-translate-y-2 lg:ml-8" style={{ animationDelay: '0.2s' }}>
+          <LiveTerminal />
         </div>
       </div>
     </section>
