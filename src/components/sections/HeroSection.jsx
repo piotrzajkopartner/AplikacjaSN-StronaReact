@@ -1,6 +1,6 @@
 import Button from '../ui/Button.jsx'
 import PlaceholderImage from '../ui/PlaceholderImage.jsx'
-import { DotPattern } from '../magicui/dot-pattern.jsx'
+import { InteractiveGridPattern } from '../magicui/interactive-grid-pattern.jsx'
 import { WordPullUp } from '../magicui/word-pull-up.jsx'
 
 function HeroSection({ content }) {
@@ -9,11 +9,11 @@ function HeroSection({ content }) {
       id="hero"
       className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white/80 backdrop-blur-xl shadow-xl shadow-slate-200/50 p-6 md:p-10"
     >
-      <DotPattern
-        className="[mask-image:radial-gradient(400px_circle_at_center,white,transparent)] inset-0"
-        cr={1.5}
-        cx={1}
-        cy={1}
+      <InteractiveGridPattern
+        className="[mask-image:radial-gradient(600px_circle_at_center,white,transparent)] inset-0 absolute"
+        width={40}
+        height={40}
+        squares={[40, 40]}
       />
       
       {/* Blurred background orbs for mesh gradient effect */}
