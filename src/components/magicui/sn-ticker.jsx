@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 import { cn } from '../../lib/utils'
 
 const MOCK_DATA = [
@@ -26,6 +27,14 @@ const MOCK_DATA = [
 const TICKER_ITEMS = [...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA]
 
 export function SNTicker({ className, direction = 'up', speed = 50 }) {
+  const [highlightedItem, setHighlightedItem] = useState(null)
+
+  useEffect(() => {
+    const handleScan = (e) => setHighlightedItem(e.detail)
+    window.addEventListener('sn-scanned', handleScan)
+    return () => window.removeEventListener('sn-scanned', handleScan)
+  }, [])
+
   return (
     <div className={cn("flex flex-col overflow-hidden select-none pointer-events-none opacity-50", className)} aria-hidden="true">
       <motion.div
@@ -40,7 +49,15 @@ export function SNTicker({ className, direction = 'up', speed = 50 }) {
         className="flex flex-col gap-6 whitespace-nowrap"
       >
         {TICKER_ITEMS.map((item, i) => (
-          <span key={i} className="text-base sm:text-lg font-mono font-bold text-slate-200 tracking-widest uppercase">
+          <span 
+            key={i} 
+            className={cn(
+              "text-base sm:text-lg font-mono tracking-widest uppercase transition-all duration-300",
+              item === highlightedItem
+                ? "text-emerald-400 font-extrabold scale-110 drop-shadow-[0_0_12px_rgba(16,185,129,0.9)]"
+                : "text-slate-200 font-bold"
+            )}
+          >
             {item}
           </span>
         ))}

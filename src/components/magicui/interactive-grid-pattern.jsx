@@ -40,12 +40,15 @@ export function InteractiveGridPattern({
       })
       
       setIsScanning(true)
+      window.dispatchEvent(new CustomEvent('sn-scanned', { detail: null }))
 
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
       
       timeoutRef.current = setTimeout(() => {
         setIsScanning(false)
-        setScannedValue(TICKER_ITEMS[Math.floor(Math.random() * TICKER_ITEMS.length)])
+        const found = TICKER_ITEMS[Math.floor(Math.random() * TICKER_ITEMS.length)]
+        setScannedValue(found)
+        window.dispatchEvent(new CustomEvent('sn-scanned', { detail: found }))
       }, 150)
     }
 
