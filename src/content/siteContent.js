@@ -279,17 +279,19 @@ export const siteContent = {
       moduleName: 'Moduł Numerów Seryjnych - środowisko demonstracyjne',
       modeLabel: 'Tryb DEMO',
       lastSyncLabel: 'Synchronizacja danych: 30.04.2026 09:15',
+      logoPath: '/partner-assets/logo_new.jpg',
+      logoAlt: 'Logo Partner-Net',
     },
     tabs: [
+      {
+        id: 'documents',
+        label: 'Dokumenty',
+        description: 'Lista dokumentów PZ/ZK/WZ z filtrami, statusami i podglądem przypisanych numerów seryjnych.',
+      },
       {
         id: 'dashboard',
         label: 'Dashboard',
         description: 'Szybki podgląd KPI i najnowszych operacji wykonanych na numerach seryjnych.',
-      },
-      {
-        id: 'documents',
-        label: 'Dokumenty',
-        description: 'Tabela dokumentów FS/WZ z podglądem pozycji, wartości i przypisanych numerów seryjnych.',
       },
       {
         id: 'products',
@@ -320,12 +322,34 @@ export const siteContent = {
     documents: {
       listTitle: 'Dokumenty handlowo-magazynowe',
       detailsTitle: 'Szczegóły pozycji dokumentu',
+      updatedLabel: 'Ostatnia aktualizacja',
+      updatedAt: '30.04.2026 09:15',
       columns: {
         number: 'Numer dokumentu',
         contractor: 'Kontrahent',
         date: 'Data',
         total: 'Wartość brutto',
       },
+      filters: {
+        defaultDocType: 'WZ',
+        defaultStatus: 'pending',
+        docTypes: [
+          { value: 'all', label: 'Wszystkie' },
+          { value: 'PZ', label: 'PZ' },
+          { value: 'ZK', label: 'ZK' },
+          { value: 'WZ', label: 'WZ' },
+        ],
+        statuses: [
+          { value: 'pending', label: 'Do uzupełnienia' },
+          { value: 'completed', label: 'Uzupełnione' },
+          { value: 'all', label: 'Wszystkie statusy' },
+        ],
+        searchPlaceholder: 'Szukaj po numerze dokumentu lub kontrahencie',
+        emptyState: 'Brak dokumentów dla wybranych filtrów.',
+      },
+      requiredLabel: 'Wymagane SN',
+      savedLabel: 'Zapisane SN',
+      totalLabel: 'Wartość dokumentu',
       quantityLabel: 'Ilość',
       vatLabel: 'VAT',
       lineValueLabel: 'Wartość pozycji',

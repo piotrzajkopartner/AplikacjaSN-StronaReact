@@ -49,9 +49,16 @@ function DemoAppShell({ content }) {
     <section className="space-y-6 rounded-2xl border border-slate-200 bg-slate-50 p-3 md:p-4">
       <header className="rounded-xl border border-slate-200 bg-white p-4">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
-          <div>
+          <div className="flex items-center gap-3">
+            <img
+              src={content.shell.logoPath}
+              alt={content.shell.logoAlt}
+              className="h-10 w-10 rounded-lg border border-slate-200 bg-white object-contain"
+            />
+            <div>
             <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">{content.shell.moduleLabel}</p>
             <p className="mt-1 text-base font-semibold text-slate-900">{content.shell.moduleName}</p>
+            </div>
           </div>
           <div className="flex flex-wrap items-center gap-2 text-xs font-medium">
             <span className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-emerald-700">

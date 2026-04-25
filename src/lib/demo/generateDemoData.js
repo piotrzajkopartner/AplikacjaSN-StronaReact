@@ -134,6 +134,7 @@ export function generateDemoData(seed = 17771465, options = {}) {
   const products = generateProducts()
   const contractors = generateContractors()
   const statuses = ['zeskanowane', 'wydane', 'reklamacja']
+  const documentTypes = ['PZ', 'ZK', 'WZ']
 
   const documents = []
   const serials = []
@@ -143,17 +144,19 @@ export function generateDemoData(seed = 17771465, options = {}) {
   let serialCounter = 1
 
   for (let docIndex = 0; docIndex < 14; docIndex += 1) {
-    const type = docIndex % 2 === 0 ? 'FS' : 'WZ'
+    const type = documentTypes[docIndex % documentTypes.length]
     const selectedProducts = pickUnique(random, products, 2 + Math.floor(random() * 2))
     const contractor = contractors[docIndex % contractors.length]
     const date = toIsoDate(referenceDate, 85 - docIndex * 5)
-    const number = `${type}/${String(docIndex + 1).padStart(3, '0')}/04/2026`
+    const number = `${type} ${String(docIndex + 1).padStart(3, '0')}/MAG/04/2026`
 
     const items = selectedProducts.map((product, itemIndex) => {
-      const quantity = 1 + Math.floor(random() * 3)
+      const requiredQuantity = 1 + Math.floor(random() * 3)
+      const deltaPool = [-1, 0, 0, 0, 1]
+      const savedQuantity = Math.max(0, requiredQuantity + pick(random, deltaPool))
       const serialIds = []
 
-      for (let unit = 0; unit < quantity; unit += 1) {
+      for (let unit = 0; unit < savedQuantity; unit += 1) {
         const status = pick(random, statuses)
         const serialId = `SER-${String(serialCounter).padStart(4, '0')}`
         const serialCode = `${product.sku}-${String(serialCounter).padStart(5, '0')}`
@@ -201,7 +204,7 @@ export function generateDemoData(seed = 17771465, options = {}) {
           })
         })
 
-        if (type === 'FS') {
+        if (type === 'WZ') {
           const warrantyNumber = `GW/${String(docIndex + 1).padStart(3, '0')}/${String(unit + 1).padStart(2, '0')}/2026`
           warranties.push({
             id: `WAR-${serialId}`,
@@ -220,12 +223,12 @@ export function generateDemoData(seed = 17771465, options = {}) {
         serialCounter += 1
       }
 
-      const lineNet = quantity * product.priceNet
+      const lineNet = requiredQuantity * product.priceNet
 
       return {
         id: `${number}-ITEM-${itemIndex + 1}`,
         productId: product.id,
-        quantity,
+        quantity: requiredQuantity,
         unitPriceNet: product.priceNet,
         vatRate: product.vatRate,
         lineNet,
@@ -243,19 +246,32 @@ export function generateDemoData(seed = 17771465, options = {}) {
       items,
       totalNet: items.reduce((sum, item) => sum + item.lineNet, 0),
       totalGross: items.reduce((sum, item) => sum + item.lineGross, 0),
+      requiredItems: items.reduce((sum, item) => sum + item.quantity, 0),
+      savedItems: items.reduce((sum, item) => sum + item.serialIds.length, 0),
     })
   }
 
+  const normalizedDocuments = documents.map((document) => {
+    const hasItemExcess = document.savedItems > document.requiredItems
+    const isComplete = document.savedItems >= document.requiredItems && !hasItemExcess
+
+    return {
+      ...document,
+      hasItemExcess,
+      isComplete,
+    }
+  })
+
   const dashboard = {
-    documentsCount: documents.length,
-    positionsCount: documents.reduce((sum, document) => sum + document.items.length, 0),
+    documentsCount: normalizedDocuments.length,
+    positionsCount: normalizedDocuments.reduce((sum, document) => sum + document.items.length, 0),
     serialsCount: serials.length,
     complaintsCount: serials.filter((serial) => serial.status === 'reklamacja').length,
   }
 
   return {
     dashboard,
-    documents,
+    documents: normalizedDocuments,
     products,
     contractors,
     serials,

@@ -6,6 +6,12 @@ function formatDate(value) {
   return dateFormatter.format(new Date(value))
 }
 
+function toPdfText(value) {
+  return String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+}
+
 function getExtension(path) {
   return path.toLowerCase().split('?')[0].split('.').pop()
 }
@@ -27,7 +33,7 @@ async function embedImageFromPath(pdfDoc, imagePath) {
 }
 
 function drawLabeledValue(page, font, x, y, label, value, color = rgb(0.11, 0.18, 0.32)) {
-  page.drawText(label, {
+  page.drawText(toPdfText(label), {
     x,
     y,
     size: 9,
@@ -35,7 +41,7 @@ function drawLabeledValue(page, font, x, y, label, value, color = rgb(0.11, 0.18
     color: rgb(0.44, 0.5, 0.63),
   })
 
-  page.drawText(value, {
+  page.drawText(toPdfText(value), {
     x,
     y: y - 14,
     size: 11,
@@ -108,7 +114,7 @@ export async function buildWarrantyPdf({ warranty, company, product, serial, con
     })
   }
 
-  page.drawText(company.name, {
+  page.drawText(toPdfText(company.name), {
     x: logoImage ? 280 : 42,
     y: height - 54,
     size: 24,
@@ -116,7 +122,7 @@ export async function buildWarrantyPdf({ warranty, company, product, serial, con
     color: rgb(0.32, 0.94, 0.81),
   })
 
-  page.drawText(company.tagline, {
+  page.drawText(toPdfText(company.tagline), {
     x: logoImage ? 280 : 42,
     y: height - 78,
     size: 11,
@@ -124,7 +130,7 @@ export async function buildWarrantyPdf({ warranty, company, product, serial, con
     color: rgb(0.84, 0.9, 0.98),
   })
 
-  page.drawText(labels.documentTitle, {
+  page.drawText(toPdfText(labels.documentTitle), {
     x: 42,
     y: height - 112,
     size: 14,
@@ -160,7 +166,7 @@ export async function buildWarrantyPdf({ warranty, company, product, serial, con
     color: rgb(0.97, 0.98, 1),
   })
 
-  page.drawText(labels.termsTitle, {
+  page.drawText(toPdfText(labels.termsTitle), {
     x: 56,
     y: 278,
     size: 11,
@@ -170,7 +176,7 @@ export async function buildWarrantyPdf({ warranty, company, product, serial, con
 
   const terms = labels.terms
   terms.forEach((term, index) => {
-    page.drawText(`${index + 1}. ${term}`, {
+    page.drawText(toPdfText(`${index + 1}. ${term}`), {
       x: 56,
       y: 254 - index * 22,
       size: 9,
@@ -179,7 +185,7 @@ export async function buildWarrantyPdf({ warranty, company, product, serial, con
     })
   })
 
-  page.drawText(labels.generatedNote, {
+  page.drawText(toPdfText(labels.generatedNote), {
     x: 42,
     y: 96,
     size: 9,
@@ -187,7 +193,7 @@ export async function buildWarrantyPdf({ warranty, company, product, serial, con
     color: rgb(0.44, 0.5, 0.63),
   })
 
-  page.drawText(`${company.signatureLabel}: __________________________`, {
+  page.drawText(toPdfText(`${company.signatureLabel}: __________________________`), {
     x: 42,
     y: 66,
     size: 10,
