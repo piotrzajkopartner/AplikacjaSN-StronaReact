@@ -27,7 +27,7 @@ const TICKER_ITEMS = [...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA, ...MOCK_DATA]
 
 export function SNTicker({ className, direction = 'up', speed = 50 }) {
   return (
-    <div className={cn("flex flex-col overflow-hidden select-none pointer-events-none opacity-80", className)} aria-hidden="true">
+    <div className={cn("flex flex-col overflow-hidden select-none pointer-events-none opacity-50", className)} aria-hidden="true">
       <motion.div
         animate={{
           y: direction === 'up' ? ['0%', '-50%'] : ['-50%', '0%']

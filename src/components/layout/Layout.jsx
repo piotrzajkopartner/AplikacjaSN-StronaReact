@@ -12,11 +12,9 @@ function Layout() {
       <LaserReveal />
       
       {/* Tło z matrycą numerów seryjnych */}
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden flex justify-center">
-        <div className="relative w-full max-w-[1500px] h-full">
-          <SNTicker className="absolute bottom-0 -left-12 sm:left-4 md:left-12 lg:left-24 h-[120vh] w-64 -rotate-12" direction="up" speed={80} />
-          <SNTicker className="absolute top-0 -right-12 sm:right-4 md:right-12 lg:right-24 h-[120vh] w-64 -rotate-12" direction="down" speed={100} />
-        </div>
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <SNTicker className="absolute bottom-[-10vh] left-[-2rem] sm:left-0 md:left-[1vw] lg:left-[2vw] xl:left-[3vw] h-[120vh] w-64 -rotate-12" direction="up" speed={80} />
+        <SNTicker className="absolute top-[-10vh] right-[-2rem] sm:right-0 md:right-[1vw] lg:right-[2vw] xl:right-[3vw] h-[120vh] w-64 -rotate-12" direction="down" speed={100} />
       </div>
 
       <div className="relative z-10 flex min-h-screen w-full flex-col">
