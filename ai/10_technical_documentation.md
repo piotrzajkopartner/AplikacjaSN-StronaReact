@@ -406,9 +406,9 @@ Aplikacja przeszła redesign w kierunku Ultra-Premium B2B SaaS, wprowadzając za
 
 Wprowadzone nowości:
 - **Katalog `src/components/magicui/`**: 
-  - `InteractiveGridPattern` (zastąpił DotPattern; autorski skaner siatki reagujący globalnie na kursor myszy na całej stronie).
+  - `InteractiveGridPattern` (zastąpił DotPattern; autorski skaner siatki reagujący globalnie na kursor myszy na całej stronie. Posiada wbudowany **Head-Up Display (HUD)**, który emuluje proces skanowania, a po zatrzymaniu kursora emituje globalne zdarzenie `sn-scanned`).
   - `LaserReveal` (autorska animacja startowa; opadająca pozioma wiązka lasera odsłaniająca stronę przy pierwszym ładowaniu).
-  - `SNTicker` (animowane w nieskończonej pętli zanonimizowane dane magazynowe i logi przesuwające się w tle na krawędziach strony).
+  - `SNTicker` (animowane w nieskończonej pętli zanonimizowane dane magazynowe przesuwające się w tle na krawędziach strony. Nasłuchuje na globalny event `sn-scanned` i synchronicznie podświetla na zielono numer namierzony w tej samej chwili przez HUD w InteractiveGridPattern).
   - `WordPullUp` (efektowny wjazd głównego nagłówka).
   - `ShimmerButton` (zintegrowany jako wariant `premium` w głównym `Button.jsx`).
   - `MagicCard` i `BentoGrid` (karty śledzące ruch kursora w sekcjach Korzyści i Funkcje w systemie kolumn 2+3).
