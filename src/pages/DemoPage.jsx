@@ -1,9 +1,9 @@
 import Button from '../components/ui/Button.jsx'
-import PlaceholderImage from '../components/ui/PlaceholderImage.jsx'
+import DemoAppShell from '../components/demo/DemoAppShell.jsx'
 import { siteContent } from '../content/siteContent.js'
 
 function DemoPage() {
-  const { demoPage } = siteContent
+  const { demoPage, demoApp } = siteContent
 
   return (
     <div className="space-y-10 md:space-y-12">
@@ -11,7 +11,7 @@ function DemoPage() {
         <div className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
         <div className="relative max-w-3xl">
           <p className="mb-3 inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-blue-100">
-            Placeholder demo
+            {demoPage.badge}
           </p>
           <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl">{demoPage.headline}</h1>
           <p className="mt-4 text-sm leading-relaxed text-slate-200 md:text-base">{demoPage.description}</p>
@@ -31,23 +31,11 @@ function DemoPage() {
 
       <section className="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
         <header>
-          <h2 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">Podgląd przyszłych ekranów</h2>
-          <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
-            Poniższe widoki są estetycznymi placeholderami. Nie przedstawiają jeszcze finalnej, interaktywnej aplikacji demo.
-          </p>
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">{demoApp.title}</h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">{demoApp.description}</p>
         </header>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {demoPage.placeholders.map((screen) => (
-            <PlaceholderImage
-              key={screen.title}
-              title={screen.title}
-              description={screen.description}
-              alt={screen.alt}
-              ratio="4/3"
-            />
-          ))}
-        </div>
+        <DemoAppShell content={demoApp} />
       </section>
     </div>
   )
