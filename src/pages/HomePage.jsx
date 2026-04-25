@@ -1,20 +1,33 @@
-import { Link } from 'react-router-dom'
+import BenefitsGridSection from '../components/sections/BenefitsGridSection.jsx'
+import DemoPreviewSection from '../components/sections/DemoPreviewSection.jsx'
+import DeploymentSection from '../components/sections/DeploymentSection.jsx'
+import FAQSection from '../components/sections/FAQSection.jsx'
+import FeaturesSection from '../components/sections/FeaturesSection.jsx'
+import FinalCTASection from '../components/sections/FinalCTASection.jsx'
+import HeroSection from '../components/sections/HeroSection.jsx'
+import PartnerNetTrustSection from '../components/sections/PartnerNetTrustSection.jsx'
+import PricingSection from '../components/sections/PricingSection.jsx'
+import ProblemSection from '../components/sections/ProblemSection.jsx'
+import SecuritySection from '../components/sections/SecuritySection.jsx'
+import SolutionSection from '../components/sections/SolutionSection.jsx'
+import { siteContent } from '../content/siteContent.js'
 
 function HomePage() {
   return (
-    <section className="space-y-4">
-      <h1 className="text-3xl font-bold tracking-tight text-slate-900">Partner Numery Seryjne</h1>
-      <p className="max-w-2xl text-slate-700">
-        Placeholder strony glownej landing page. W kolejnych etapach pojawia sie pelna struktura sekcji
-        i finalny content.
-      </p>
-      <Link
-        to="/demo"
-        className="inline-flex rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
-      >
-        Przejdz do strony /demo
-      </Link>
-    </section>
+    <div className="space-y-12 md:space-y-16">
+      <HeroSection content={siteContent.hero} />
+      <ProblemSection content={siteContent.problems} />
+      <SolutionSection content={siteContent.solution} />
+      <DemoPreviewSection content={siteContent.demoPreview} />
+      <BenefitsGridSection content={siteContent.benefits} />
+      <FeaturesSection content={siteContent.features} />
+      <PricingSection content={siteContent.pricing} />
+      <DeploymentSection content={siteContent.deployment} />
+      <SecuritySection content={siteContent.security} />
+      <PartnerNetTrustSection content={siteContent.trust} />
+      <FAQSection content={siteContent.faq} />
+      <FinalCTASection content={siteContent.contact} />
+    </div>
   )
 }
 
