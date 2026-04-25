@@ -3,7 +3,7 @@ import { siteContent } from '../../content/siteContent.js'
 function Footer() {
   return (
     <footer className="mt-12 border-t border-slate-200 bg-white">
-      <div className="mx-auto grid max-w-6xl gap-5 px-4 py-8 text-sm text-slate-600 md:grid-cols-2 md:items-end">
+      <div className="site-container grid gap-5 py-8 text-sm text-slate-600 md:grid-cols-2 md:items-end">
         <div>
           <p className="font-semibold text-slate-900">{siteContent.footer.companyName}</p>
           <p className="mt-2 max-w-xl leading-relaxed">{siteContent.footer.description}</p>

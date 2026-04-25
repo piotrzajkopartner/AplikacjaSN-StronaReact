@@ -12,7 +12,7 @@ function Navbar() {
 
   return (
     <header className="sticky top-0 z-20 border-b border-slate-200/90 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+      <div className="site-container flex items-center justify-between gap-3 py-3">
         <Link
           to="/"
           className="max-w-[14rem] truncate text-xs font-semibold uppercase tracking-[0.08em] text-slate-900 md:max-w-none md:text-sm"
@@ -47,8 +47,8 @@ function Navbar() {
         </div>
       </div>
 
-      <nav className="border-t border-slate-200/70 px-4 py-2 md:hidden" aria-label="Nawigacja sekcji mobilna">
-        <div className="flex gap-2 overflow-x-auto pb-1">
+      <nav className="border-t border-slate-200/70 py-2 md:hidden" aria-label="Nawigacja sekcji mobilna">
+        <div className="site-container flex gap-2 overflow-x-auto pb-1">
           {siteContent.navigation.links.map((item) => (
             <a
               key={`mobile-${item.href}`}
