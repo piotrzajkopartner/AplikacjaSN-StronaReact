@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Button from './Button.jsx'
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -16,21 +16,56 @@ function normalizeTaxId(value) {
   return value.replace(/\D/g, '')
 }
 
+function validateField(name, value, fieldsConfig, messages) {
+  const trimmedValue = value.trim()
+  const isRequired = fieldsConfig?.[name]?.required ?? false
+
+  if (isRequired && !trimmedValue) {
+    return messages.required || 'This field is required.'
+  }
+
+  if (!trimmedValue) {
+    return ''
+  }
+
+  if (name === 'email' && !emailRegex.test(trimmedValue)) {
+    return messages.email || 'Enter a valid email address.'
+  }
+
+  if (name === 'taxId' && !nipRegex.test(trimmedValue)) {
+    return messages.taxId || 'Enter a valid tax ID.'
+  }
+
+  return ''
+}
+
 function ContactForm({ content }) {
   const fields = content?.fields ?? {}
   const validationMessages = content?.validationMessages ?? {}
-  const states = content?.states ?? { idle: 'idle', submitting: 'submitting', success: 'success' }
+
+  const states = useMemo(
+    () => ({
+      idle: content?.states?.idle || 'idle',
+      submitting: content?.states?.submitting || 'submitting',
+      success: content?.states?.success || 'success',
+    }),
+    [content?.states?.idle, content?.states?.submitting, content?.states?.success],
+  )
 
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState(states.idle)
 
+  const isSubmitting = status === states.submitting
+
   const handleChange = (event) => {
     const { name, value } = event.target
 
+    const nextValue = name === 'taxId' ? normalizeTaxId(value) : value
+
     setValues((currentValues) => ({
       ...currentValues,
-      [name]: name === 'taxId' ? normalizeTaxId(value) : value,
+      [name]: nextValue,
     }))
 
     setErrors((currentErrors) => ({
@@ -39,31 +74,35 @@ function ContactForm({ content }) {
     }))
   }
 
+  const handleBlur = (event) => {
+    const { name, value } = event.target
+
+    const fieldError = validateField(name, value, fields, validationMessages)
+
+    setErrors((currentErrors) => ({
+      ...currentErrors,
+      [name]: fieldError,
+    }))
+  }
+
   const validate = () => {
     const nextErrors = {}
 
-    if (!values.fullName.trim()) {
-      nextErrors.fullName = validationMessages.required || 'This field is required.'
-    }
+    Object.keys(initialValues).forEach((name) => {
+      const fieldError = validateField(name, values[name], fields, validationMessages)
 
-    if (!values.email.trim()) {
-      nextErrors.email = validationMessages.required || 'This field is required.'
-    } else if (!emailRegex.test(values.email.trim())) {
-      nextErrors.email = validationMessages.email || 'Enter a valid email address.'
-    }
-
-    if (!values.phone.trim()) {
-      nextErrors.phone = validationMessages.required || 'This field is required.'
-    }
-
-    if (!values.taxId.trim()) {
-      nextErrors.taxId = validationMessages.required || 'This field is required.'
-    } else if (!nipRegex.test(values.taxId.trim())) {
-      nextErrors.taxId = validationMessages.taxId || 'Enter a valid tax ID.'
-    }
+      if (fieldError) {
+        nextErrors[name] = fieldError
+      }
+    })
 
     return nextErrors
   }
+
+  const mockSubmit = () =>
+    new Promise((resolve) => {
+      setTimeout(resolve, 900)
+    })
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -77,17 +116,24 @@ function ContactForm({ content }) {
 
     setStatus(states.submitting)
 
-    await new Promise((resolve) => {
-      setTimeout(resolve, 800)
-    })
+    await mockSubmit()
 
     setStatus(states.success)
   }
 
+  const handleReset = () => {
+    setValues(initialValues)
+    setErrors({})
+    setStatus(states.idle)
+  }
+
   if (status === states.success) {
     return (
-      <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-5 text-sm text-emerald-800">
-        {content?.successMessage || 'Message sent successfully.'}
+      <div className="space-y-4 rounded-xl border border-emerald-200 bg-emerald-50 p-5 text-sm text-emerald-800">
+        <p>{content?.successMessage || 'Message sent successfully.'}</p>
+        <Button type="button" variant="secondary" onClick={handleReset}>
+          Wyslij kolejna wiadomosc
+        </Button>
       </div>
     )
   }
@@ -100,9 +146,11 @@ function ContactForm({ content }) {
           label={fields.fullName?.label || 'Full name'}
           value={values.fullName}
           onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.fullName}
           required={fields.fullName?.required ?? true}
           placeholder={fields.fullName?.placeholder || ''}
+          disabled={isSubmitting}
         />
         <FormField
           name="email"
@@ -110,29 +158,35 @@ function ContactForm({ content }) {
           label={fields.email?.label || 'Email'}
           value={values.email}
           onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.email}
           required={fields.email?.required ?? true}
           placeholder={fields.email?.placeholder || ''}
+          disabled={isSubmitting}
         />
         <FormField
           name="phone"
           label={fields.phone?.label || 'Phone'}
           value={values.phone}
           onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.phone}
           required={fields.phone?.required ?? true}
           placeholder={fields.phone?.placeholder || ''}
+          disabled={isSubmitting}
         />
         <FormField
           name="taxId"
           label={fields.taxId?.label || 'Tax ID'}
           value={values.taxId}
           onChange={handleChange}
+          onBlur={handleBlur}
           error={errors.taxId}
           required={fields.taxId?.required ?? true}
           placeholder={fields.taxId?.placeholder || ''}
           inputMode="numeric"
           maxLength={10}
+          disabled={isSubmitting}
         />
       </div>
 
@@ -141,14 +195,16 @@ function ContactForm({ content }) {
         label={fields.message?.label || 'Message'}
         value={values.message}
         onChange={handleChange}
+        onBlur={handleBlur}
         error={errors.message}
         required={fields.message?.required ?? false}
         placeholder={fields.message?.placeholder || ''}
         as="textarea"
+        disabled={isSubmitting}
       />
 
-      <Button type="submit" disabled={status === states.submitting}>
-        {status === states.submitting ? 'Sending...' : content?.buttonLabel || 'Submit'}
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? 'Wysylanie...' : content?.buttonLabel || 'Submit'}
       </Button>
     </form>
   )
@@ -161,40 +217,62 @@ function FormField({
   name,
   value,
   onChange,
+  onBlur,
   error,
   required,
   placeholder,
+  disabled = false,
   ...props
 }) {
+  const fieldId = `contact-${name}`
+  const errorId = `${fieldId}-error`
+
   const commonClassName =
-    'mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200'
+    'mt-1 w-full rounded-md border px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:ring-2 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 ' +
+    (error
+      ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-100'
+      : 'border-slate-300 focus:border-slate-500 focus:ring-slate-200')
 
   return (
-    <label className="block text-sm font-medium text-slate-800">
+    <label htmlFor={fieldId} className="block text-sm font-medium text-slate-800">
       {label}
       {required ? <span className="ml-1 text-rose-600">*</span> : null}
       {as === 'textarea' ? (
         <textarea
+          id={fieldId}
           name={name}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
           className={commonClassName}
           placeholder={placeholder}
           rows={4}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? errorId : undefined}
+          disabled={disabled}
           {...props}
         />
       ) : (
         <input
+          id={fieldId}
           type={type}
           name={name}
           value={value}
           onChange={onChange}
+          onBlur={onBlur}
           className={commonClassName}
           placeholder={placeholder}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? errorId : undefined}
+          disabled={disabled}
           {...props}
         />
       )}
-      {error ? <span className="mt-1 block text-xs text-rose-600">{error}</span> : null}
+      {error ? (
+        <span id={errorId} className="mt-1 block text-xs text-rose-600">
+          {error}
+        </span>
+      ) : null}
     </label>
   )
 }

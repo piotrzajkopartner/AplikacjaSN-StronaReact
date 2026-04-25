@@ -1,23 +1,55 @@
-import { Link } from 'react-router-dom'
+import Button from '../components/ui/Button.jsx'
+import PlaceholderImage from '../components/ui/PlaceholderImage.jsx'
+import { siteContent } from '../content/siteContent.js'
 
 function DemoPage() {
+  const { demoPage } = siteContent
+
   return (
-    <section className="space-y-4">
-      <h1 className="text-3xl font-bold tracking-tight text-slate-900">/demo - placeholder</h1>
-      <p className="max-w-2xl text-slate-700">
-        Ta podstrona jest tymczasowym placeholderem estetycznym. Finalne, interaktywne demo produktu
-        zostanie przygotowane jako osobna aplikacja.
-      </p>
-      <div className="rounded-lg border border-dashed border-slate-300 bg-white p-6 text-slate-600">
-        Placeholder przyszlych ekranow demo.
-      </div>
-      <Link
-        to="/"
-        className="inline-flex rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-900 hover:bg-slate-50"
-      >
-        Wroc na strone glowna
-      </Link>
-    </section>
+    <div className="space-y-10 md:space-y-12">
+      <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900 p-6 text-white md:p-10">
+        <div className="pointer-events-none absolute -right-16 -top-20 h-72 w-72 rounded-full bg-emerald-400/20 blur-3xl" />
+        <div className="relative max-w-3xl">
+          <p className="mb-3 inline-flex rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-blue-100">
+            Placeholder demo
+          </p>
+          <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl">{demoPage.headline}</h1>
+          <p className="mt-4 text-sm leading-relaxed text-slate-200 md:text-base">{demoPage.description}</p>
+          <p className="mt-4 rounded-xl border border-white/20 bg-white/10 p-4 text-sm leading-relaxed text-blue-100">
+            {demoPage.scopeDescription}
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button to={demoPage.ctas.backHome.href} variant="secondary" className="border-white/35 bg-white/10 text-white hover:bg-white/20">
+              {demoPage.ctas.backHome.label}
+            </Button>
+            <Button to={demoPage.ctas.contact.href} className="bg-emerald-500 text-emerald-950 hover:bg-emerald-400">
+              {demoPage.ctas.contact.label}
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="space-y-6 rounded-2xl border border-slate-200 bg-white p-6 md:p-8">
+        <header>
+          <h2 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">Podgląd przyszłych ekranów</h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-700 md:text-base">
+            Poniższe widoki są estetycznymi placeholderami. Nie przedstawiają jeszcze finalnej, interaktywnej aplikacji demo.
+          </p>
+        </header>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {demoPage.placeholders.map((screen) => (
+            <PlaceholderImage
+              key={screen.title}
+              title={screen.title}
+              description={screen.description}
+              alt={screen.alt}
+              ratio="4/3"
+            />
+          ))}
+        </div>
+      </section>
+    </div>
   )
 }
 
