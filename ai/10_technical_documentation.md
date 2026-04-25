@@ -44,7 +44,9 @@ npm run preview
 - Vite 8
 - React Router DOM 7
 - Tailwind CSS 3 + PostCSS + Autoprefixer
-- lucide-react (zainstalowane; obecnie brak aktywnego uzycia)
+- framer-motion (animacje i mikro-interakcje)
+- clsx + tailwind-merge (obsługa klas przez `src/lib/utils.js`)
+- lucide-react (ikony UI, np. w systemie CookieConsent i BentoGrid)
 
 Pliki konfiguracyjne:
 - `package.json`
@@ -376,6 +378,21 @@ Zrealizowane zmiany techniczne:
 ## 20. Plan rozszerzen SEO
 Szczegolowy plan zostal przeniesiony do osobnego dokumentu:
 - `ai/11_seo_expansion_plan.md`
+
+## 21. Aktualizacja Premium UI (Magic UI, Framer Motion, Cookies)
+Aplikacja przeszła redesign w kierunku Ultra-Premium B2B SaaS, wprowadzając zaawansowane mikro-interakcje bez utraty wydajności.
+
+Wprowadzone nowości:
+- **Katalog `src/components/magicui/`**: 
+  - `DotPattern` (techniczna siatka w tle sekcji Hero).
+  - `WordPullUp` (efektowny wjazd głównego nagłówka).
+  - `ShimmerButton` (zintegrowany jako wariant `premium` w głównym `Button.jsx`).
+  - `MagicCard` i `BentoGrid` (karty śledzące ruch kursora w sekcjach Korzyści i Funkcje).
+  - `BorderBeam` (animowana, pulsująca krawędź na karcie Cennika).
+  - `ShinyText` (połyskujące elementy `eyebrow` w nagłówkach sekcji).
+- **Zaawansowany system Cookie Consent (GDPR)**:
+  - `src/components/ui/CookieConsent.jsx` wpięty bezpośrednio do `Layout.jsx`.
+  - Posiada płynne wejście, tryb minimalny (baner floating) oraz rozbudowany modal ustawień (z osobnymi włącznikami dla ciastek analitycznych i marketingowych). Zgoda zapisywana w `localStorage` pod kluczem `sn_cookie_consent`.
 
 ---
 Dokument odzwierciedla aktualny stan implementacji i jest przeznaczony jako szybka mapa orientacyjna dla kolejnych iteracji rozwoju projektu.

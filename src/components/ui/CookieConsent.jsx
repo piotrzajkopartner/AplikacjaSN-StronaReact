@@ -14,6 +14,15 @@ export default function CookieConsent() {
   })
 
   useEffect(() => {
+    const handleOpenSettings = () => {
+      setIsOpen(true)
+      setShowSettings(true)
+    }
+    window.addEventListener('openCookieSettings', handleOpenSettings)
+    return () => window.removeEventListener('openCookieSettings', handleOpenSettings)
+  }, [])
+
+  useEffect(() => {
     const consent = localStorage.getItem('sn_cookie_consent')
     if (!consent) {
       // Delay opening slightly for effect
