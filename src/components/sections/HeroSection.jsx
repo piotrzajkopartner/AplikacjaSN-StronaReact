@@ -20,8 +20,8 @@ function HeroSection({ content }) {
       <div className="pointer-events-none absolute -right-16 -top-24 h-96 w-96 rounded-full bg-blue-400/20 blur-[100px] animate-pulse-slow" />
       <div className="pointer-events-none absolute -bottom-20 left-12 h-80 w-80 rounded-full bg-sky-300/20 blur-[100px] animate-pulse-slow" style={{ animationDelay: '1.5s' }} />
 
-      <div className="relative grid gap-8 md:grid-cols-2 md:items-center">
-        <div className="animate-fade-in-up">
+      <div className="relative grid gap-8 md:grid-cols-2 md:items-center pointer-events-none">
+        <div className="animate-fade-in-up pointer-events-auto">
           <p className="mb-4 inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-brand-blue ring-1 ring-inset ring-blue-500/10">
             {content.badge}
           </p>
@@ -44,7 +44,7 @@ function HeroSection({ content }) {
           <p className="mt-5 text-sm text-brand-muted">{content.supportingNote}</p>
         </div>
 
-        <div className="animate-fade-in-up transition-transform duration-700 hover:-translate-y-2 lg:ml-8" style={{ animationDelay: '0.2s' }}>
+        <div className="animate-fade-in-up transition-transform duration-700 hover:-translate-y-2 lg:ml-8 pointer-events-auto" style={{ animationDelay: '0.2s' }}>
           <PlaceholderImage
             title={content.imagePlaceholder.title}
             alt={content.imagePlaceholder.alt}

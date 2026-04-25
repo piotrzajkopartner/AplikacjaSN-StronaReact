@@ -278,6 +278,28 @@ Plik:
   - zielony akcent dla "success/value"
   - jasne tla i czytelna hierarchia sekcji
 
+### 12.1 Profesjonalne skalowanie na rozne monitory
+Wdrozone skalowanie nie polega na rozciaganiu calego layoutu, tylko na kontrolowanym, plynnym dopasowaniu.
+
+Najwazniejsze elementy:
+- `src/index.css`:
+  - `:root`:
+    - `--site-max-width: 86rem` (kontrolowana szerokosc robocza na duzych ekranach)
+    - `--site-gutter: clamp(1rem, 1.8vw, 2.5rem)` (plynne marginesy boczne)
+  - `html { font-size: clamp(15px, 0.15vw + 14.5px, 18px) }` (subtelne skalowanie typografii)
+  - `.site-container`:
+    - `width: min(var(--site-max-width), calc(100% - (var(--site-gutter) * 2)))`
+    - `margin-inline: auto`
+- `src/components/layout/Layout.jsx`:
+  - glowny `Outlet` jest osadzony w `.site-container`, dzieki czemu sekcje trzymaja stale proporcje na Full HD, 2K i ultrawide.
+- `src/components/layout/Navbar.jsx` i `src/components/layout/Footer.jsx`:
+  - oba komponenty korzystaja z `.site-container`, co zapewnia idealne wyrownanie pionowe i poziome wzgledem tresci strony.
+
+Efekt praktyczny:
+- mobile: brak scisku tresci,
+- laptop/desktop: stabilna, profesjonalna szerokosc robocza,
+- duze monitory: brak "pustej autostrady" i brak nienaturalnego rozciagniecia sekcji.
+
 ## 13. Co zmienic i gdzie (mapa szybkich zmian)
 
 ### Zmiana tresci marketingowych
@@ -393,6 +415,21 @@ Wprowadzone nowości:
 - **Zaawansowany system Cookie Consent (GDPR)**:
   - `src/components/ui/CookieConsent.jsx` wpięty bezpośrednio do `Layout.jsx`.
   - Posiada płynne wejście, tryb minimalny (baner floating) oraz rozbudowany modal ustawień (z osobnymi włącznikami dla ciastek analitycznych i marketingowych). Zgoda zapisywana w `localStorage` pod kluczem `sn_cookie_consent`.
+
+## 22. Aktualizacja skalowania layoutu (multi-monitor)
+Wykonano dodatkowy etap dopracowania skalowania calej strony pod rozne klasy ekranow.
+
+Zakres zmian:
+- dodanie uniwersalnej klasy kontenera `site-container` i podpiecie jej do `Layout`, `Navbar`, `Footer`,
+- ustawienie nowego, wiekszego limitu roboczego (`86rem`) przy zachowaniu estetyki i czytelnosci,
+- plynne marginesy boczne (`clamp`) oraz plynna skala bazowej typografii,
+- utrzymanie scroll offsetu sekcji pod sticky navbar (`scroll-margin-top`).
+
+Pliki kluczowe dla tej zmiany:
+- `src/index.css`
+- `src/components/layout/Layout.jsx`
+- `src/components/layout/Navbar.jsx`
+- `src/components/layout/Footer.jsx`
 
 ---
 Dokument odzwierciedla aktualny stan implementacji i jest przeznaczony jako szybka mapa orientacyjna dla kolejnych iteracji rozwoju projektu.
