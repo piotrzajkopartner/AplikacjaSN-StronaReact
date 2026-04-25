@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import Navbar from './Navbar.jsx'
 import Footer from './Footer.jsx'
+import CookieConsent from '../ui/CookieConsent.jsx'
 
 function Layout() {
   return (
@@ -12,6 +13,7 @@ function Layout() {
         </main>
         <Footer />
       </div>
+      <CookieConsent />
     </div>
   )
 }
