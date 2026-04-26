@@ -15,9 +15,13 @@ function Navbar() {
       <div className="site-container flex items-center justify-between gap-3 py-3">
         <Link
           to="/"
-          className="max-w-[14rem] truncate text-xs font-semibold uppercase tracking-[0.08em] text-slate-900 md:max-w-none md:text-sm"
+          className="flex shrink-0 items-center"
         >
-          {siteContent.navigation.brand}
+          <img 
+            src="/logo.svg" 
+            alt={siteContent.navigation.brand} 
+            className="h-7 w-auto md:h-9" 
+          />
         </Link>
 
         <nav className="hidden items-center gap-1 md:flex" aria-label="Nawigacja glowna">
