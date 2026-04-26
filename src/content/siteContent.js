@@ -212,9 +212,9 @@ export const siteContent = {
       'Gotowy scenariusz prezentacyjny dla zespolu i decydentow',
     ],
     stats: [
-      { value: '4', label: 'Typy dokumentow' },
-      { value: '100%', label: 'Tryb demonstracyjny' },
-      { value: '< 10 min', label: 'Do pierwszego efektu' },
+      { value: '0 błędów', label: 'Kompletacji i wydań' },
+      { value: 'Pełna', label: 'Kontrola historii SN' },
+      { value: 'Plug & Play', label: 'Bez modyfikacji ERP' },
     ],
   },
   footer: {

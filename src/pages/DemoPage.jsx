@@ -1,7 +1,6 @@
 import Button from '../components/ui/Button.jsx'
 import { siteContent } from '../content/siteContent.js'
 import DemoAppShell from '../features/demo/DemoAppShell.jsx'
-import { InteractiveGridPattern } from '../components/magicui/interactive-grid-pattern.jsx'
 import { MagicCard } from '../components/magicui/magic-card.jsx'
 import { CheckCircle2, ArrowRight } from 'lucide-react'
 
@@ -11,13 +10,6 @@ function DemoPage() {
   return (
     <div className="space-y-8 md:space-y-10">
       <section className="relative overflow-hidden rounded-3xl border border-slate-200 bg-white/80 p-6 shadow-xl shadow-slate-200/50 backdrop-blur-xl md:p-10">
-        <InteractiveGridPattern
-          className="absolute inset-0 [mask-image:radial-gradient(800px_circle_at_center,white,transparent)]"
-          width={40}
-          height={40}
-          squares={[40, 40]}
-        />
-
         {/* Blurred background orbs for mesh gradient effect */}
         <div className="pointer-events-none absolute -right-16 -top-24 h-96 w-96 animate-pulse-slow rounded-full bg-blue-400/10 blur-[100px]" />
         <div
@@ -48,7 +40,7 @@ function DemoPage() {
 
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <Button to="/#kontakt" variant="premium" className="group">
-                Umów prezentację 1:1
+                Umów prezentację
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button to="/" variant="secondary">
@@ -75,33 +67,6 @@ function DemoPage() {
                 </p>
               </MagicCard>
             ))}
-          </div>
-        </div>
-
-        <div className="relative mt-12 border-t border-slate-200/60 pt-6">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-xs">
-            <div className="text-slate-500 font-medium flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              Demo pokazuje przebieg operacyjny bez ingerencji w dane produkcyjne klienta.
-            </div>
-
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="font-bold text-slate-400 uppercase tracking-[0.1em] text-[10px] mr-1">
-                Dlaczego ta prezentacja domyka sprzedaż:
-              </span>
-              <span className="rounded-md border border-slate-200/80 bg-white px-2.5 py-1 text-slate-600 font-semibold shadow-sm">
-                konkretne scenariusze operacyjne
-              </span>
-              <span className="rounded-md border border-slate-200/80 bg-white px-2.5 py-1 text-slate-600 font-semibold shadow-sm">
-                mierzalna wartość biznesowa
-              </span>
-              <span className="rounded-md border border-slate-200/80 bg-white px-2.5 py-1 text-slate-600 font-semibold shadow-sm">
-                jasny plan wdrożenia
-              </span>
-            </div>
           </div>
         </div>
       </section>
