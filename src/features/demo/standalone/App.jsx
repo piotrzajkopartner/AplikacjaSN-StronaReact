@@ -13,7 +13,7 @@ function App() {
   const [notification, setNotification] = useState(null); // { message, type }
   const [showQr, setShowQr] = useState(false);
   const serialEntryRef = useRef(null);
-  const qrValue = 'tel:+48531977177';
+  const qrValue = '0048531977177';
   const qrImageSrc = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(qrValue)}`;
   const portalTarget = typeof document !== 'undefined' ? document.body : null;
 
