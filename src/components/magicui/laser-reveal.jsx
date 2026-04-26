@@ -174,9 +174,6 @@ export function LaserReveal({ onComplete }) {
                   ))}
                 </svg>
               </div>
-              <p className="mt-3 text-[clamp(0.95rem,1.8vw,1.2rem)] font-semibold tracking-[0.28em] text-slate-700">
-                {barcodeValue}
-              </p>
             </div>
           </motion.div>
 
