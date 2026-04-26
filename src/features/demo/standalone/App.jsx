@@ -13,7 +13,7 @@ function App() {
   const [notification, setNotification] = useState(null); // { message, type }
   const [showQr, setShowQr] = useState(false);
   const serialEntryRef = useRef(null);
-  const qrValue = 'tel:+48531977177';
+  const qrValue = '531977177';
   const qrImageSrc = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(qrValue)}`;
   const portalTarget = typeof document !== 'undefined' ? document.body : null;
 
@@ -82,7 +82,7 @@ function App() {
             <button
               onClick={() => setShowQr(true)}
               className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
-              title="Pokaż kod QR do szybkiego telefonu"
+              title="Pokaz kod QR do kontaktu"
             >
               <QrCode size={24} />
             </button>
@@ -94,14 +94,14 @@ function App() {
       {showQr && portalTarget && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm" onClick={() => setShowQr(false)}>
           <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
-            <h3 className="text-lg font-bold text-gray-900">Skanuj, aby od razu zadzwonic</h3>
+            <h3 className="text-lg font-bold text-gray-900">Zeskanuj, aby szybko zadzwonic</h3>
             <div className="mt-4 flex justify-center rounded-xl border-2 border-gray-100 bg-white p-4">
               <img src={qrImageSrc} alt="Kod QR do wersji demo" width="200" height="200" className="h-[200px] w-[200px] rounded" />
             </div>
-            <p className="mt-4 text-sm text-gray-500">
-              Po zeskanowaniu telefon otworzy dialer z gotowym numerem kontaktowym.
-            </p>
-            <p className="mt-2 text-xs font-semibold text-indigo-600">Masz pytania po demo? Zadzwoń od razu: 531-977-177.</p>
+            <p className="mt-4 text-sm text-gray-500">Numer telefonu: 531 977 177</p>
+            <a href="tel:+48531977177" className="mt-2 block text-xs font-semibold text-indigo-600 hover:text-indigo-700">
+              Zadzwoń teraz: +48 531 977 177
+            </a>
             <button
               onClick={() => setShowQr(false)}
               className="mt-4 w-full rounded-lg bg-gray-100 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-200"
