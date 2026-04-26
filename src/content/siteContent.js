@@ -227,4 +227,76 @@ export const siteContent = {
     ],
     legalNote: 'Wszelkie prawa zastrzeżone.',
   },
+  privacy: {
+    title: 'Polityka prywatności',
+    lastUpdated: '2026-04-26',
+    intro: 'Niniejsza Polityka prywatności określa zasady przetwarzania danych osobowych pozyskanych za pośrednictwem strony internetowej Partner Numery Seryjne.',
+    administrator: {
+      heading: '1. Administrator danych osobowych',
+      body: 'Administratorem danych osobowych jest Partner-Net, firma świadcząca usługi wdrożeniowe i doradcze w obszarze systemów ERP dla sektora B2B. W sprawach związanych z ochroną danych osobowych prosimy o kontakt na adres e-mail podany w sekcji kontaktowej.',
+    },
+    collectedData: {
+      heading: '2. Jakie dane zbieramy',
+      items: [
+        'Imię i nazwisko – podawane w formularzu kontaktowym.',
+        'Adres e-mail – podawany w formularzu kontaktowym, wykorzystywany do komunikacji.',
+        'Numer telefonu – podawany w formularzu kontaktowym, wykorzystywany do kontaktu zwrotnego.',
+        'NIP firmy – podawany w formularzu kontaktowym, wykorzystywany do weryfikacji podmiotu.',
+        'Dane zawarte w wiadomości – treść opcjonalnej wiadomości w formularzu.',
+        'Dane z plików cookies – anonimowe dane analityczne i preferencje użytkownika (szczegóły w sekcji 5).',
+      ],
+    },
+    purpose: {
+      heading: '3. Cel i podstawa przetwarzania danych',
+      items: [
+        'Obsługa zapytań ofertowych i kontaktu zwrotnego (art. 6 ust. 1 lit. f RODO – prawnie uzasadniony interes).',
+        'Przygotowanie i przesłanie oferty handlowej (art. 6 ust. 1 lit. b RODO – działania przed zawarciem umowy).',
+        'Analityka ruchu na stronie w celu jej ulepszania (art. 6 ust. 1 lit. a RODO – zgoda na cookies analityczne).',
+      ],
+    },
+    legalBasis: {
+      heading: '4. Podstawa prawna przetwarzania',
+      body: 'Dane osobowe przetwarzane są zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 (RODO). Podstawą prawną jest zgoda użytkownika (art. 6 ust. 1 lit. a), działania przed zawarciem umowy (art. 6 ust. 1 lit. b) oraz prawnie uzasadniony interes administratora (art. 6 ust. 1 lit. f).',
+    },
+    cookies: {
+      heading: '5. Pliki cookies',
+      body: 'Strona wykorzystuje pliki cookies w celu zapewnienia prawidłowego działania serwisu, analizy ruchu oraz personalizacji treści. Cookies to niewielkie pliki tekstowe zapisywane na urządzeniu użytkownika.',
+      settingsCta: 'W każdej chwili możesz zmienić swoje preferencje dotyczące plików cookies.',
+      cookieTypes: [
+        { name: 'Niezbędne', description: 'Wymagane do prawidłowego działania strony (np. zapamiętanie preferencji cookies, nawigacja). Nie można ich wyłączyć – nie zbierają danych osobowych.' },
+        { name: 'Analityczne', description: 'Zanonimizowane dane o ruchu na stronie (np. Google Analytics z anonimizacją IP, SWR cache). Pomagają nam mierzyć ruch i optymalizować wydajność serwisu.' },
+        { name: 'Marketingowe', description: 'Umożliwiają dopasowanie treści promocyjnych do zainteresowań użytkownika (np. Meta Pixel, LinkedIn Insight Tag).' },
+      ],
+    },
+    userRights: {
+      heading: '6. Prawa użytkownika',
+      intro: 'Przysługują Ci następujące prawa związane z przetwarzaniem danych osobowych:',
+      items: [
+        'Prawo dostępu do danych – możesz uzyskać informację, jakie dane przetwarzamy.',
+        'Prawo do sprostowania danych – możesz żądać poprawienia nieprawidłowych danych.',
+        'Prawo do usunięcia danych („prawo do bycia zapomnianym”) – możesz żądać usunięcia danych, jeśli nie ma podstaw do ich dalszego przetwarzania.',
+        'Prawo do ograniczenia przetwarzania – możesz żądać czasowego wstrzymania przetwarzania danych.',
+        'Prawo do przenoszenia danych – możesz otrzymać swoje dane w ustrukturyzowanym formacie.',
+        'Prawo do sprzeciwu – możesz wnieść sprzeciw wobec przetwarzania danych na podstawie prawnie uzasadnionego interesu.',
+        'Prawo do cofnięcia zgody – w każdej chwili możesz cofnąć zgodę na przetwarzanie danych (nie wpływa to na zgodność z prawem przetwarzania przed jej cofnięciem).',
+        'Prawo do wniesienia skargi – możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych (UODO).',
+      ],
+    },
+    retention: {
+      heading: '7. Okres przechowywania danych',
+      body: 'Dane z formularza kontaktowego przechowujemy przez okres do 12 miesięcy od ostatniego kontaktu lub do czasu wycofania zgody. Dane z plików cookies analitycznych przechowujemy przez okres wskazany w ustawieniach danego narzędzia (standardowo 14–26 miesięcy). Po upływie okresu przechowywania dane są usuwane lub anonimizowane.',
+    },
+    contact: {
+      heading: '8. Kontakt w sprawie danych osobowych',
+      lines: [
+        'W sprawach związanych z ochroną danych osobowych prosimy o kontakt:',
+        'E-mail: iod@partner-net.pl',
+        'Telefon: +48 531 977 177',
+      ],
+    },
+    updates: {
+      heading: '9. Aktualizacja polityki prywatności',
+      body: 'Niniejsza polityka prywatności podlega okresowym aktualizacjom. Ostatnia aktualizacja miała miejsce 26 kwietnia 2026 r. Wszelkie zmiany będą publikowane na tej stronie.',
+    },
+  },
 }

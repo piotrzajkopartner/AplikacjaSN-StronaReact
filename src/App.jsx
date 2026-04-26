@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
 import SeoManager from './components/seo/SeoManager.jsx'
 import HomePage from './pages/HomePage.jsx'
+import PrivacyPage from './pages/PrivacyPage.jsx'
+import DemoPageSkeleton from './components/ui/DemoPageSkeleton.jsx'
 
 const DemoPage = lazy(() => import('./pages/DemoPage.jsx'))
 
@@ -13,10 +15,11 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/polityka-prywatnosci" element={<PrivacyPage />} />
           <Route
             path="/demo"
             element={
-              <Suspense fallback={<div className="py-16 text-center text-sm text-slate-600">Ladowanie demo...</div>}>
+              <Suspense fallback={<DemoPageSkeleton />}>
                 <DemoPage />
               </Suspense>
             }

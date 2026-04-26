@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { siteContent } from '../../content/siteContent.js'
 
 function Footer() {
@@ -15,6 +16,9 @@ function Footer() {
                 {item.label}
               </a>
             ))}
+            <Link to="/polityka-prywatnosci" className="text-slate-700 hover:text-slate-900 transition-colors">
+              Polityka prywatności
+            </Link>
             <span className="hidden text-slate-300 md:inline" aria-hidden="true">|</span>
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent('openCookieSettings'))}
