@@ -7,29 +7,6 @@ import LicenseStatus from './components/LicenseStatus';
 import logo from './assets/logo300x300.png';
 
 import { QrCode } from 'lucide-react';
-import QRCode from 'react-qr-code';
-
-class QrErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error) {
-    console.error('QR modal render error:', error);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return this.props.fallback;
-    }
-    return this.props.children;
-  }
-}
 
 function App() {
   const [selectedDocument, setSelectedDocument] = useState(null);
@@ -37,6 +14,7 @@ function App() {
   const [showQr, setShowQr] = useState(false);
   const serialEntryRef = useRef(null);
   const qrValue = typeof window !== 'undefined' ? `${window.location.origin}/demo` : 'http://localhost:5173/demo';
+  const qrImageSrc = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(qrValue)}`;
   const portalTarget = typeof document !== 'undefined' ? document.body : null;
 
   // Lifted state for DocumentList persistence
@@ -118,14 +96,12 @@ function App() {
           <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-lg font-bold text-gray-900">Skanuj aby otworzyc na telefonie</h3>
             <div className="mt-4 flex justify-center rounded-xl border-2 border-gray-100 bg-white p-4">
-              <QrErrorBoundary fallback={<p className="text-xs text-gray-500">Nie udalo sie wyrenderowac kodu QR.</p>}>
-                <QRCode value={qrValue} size={200} />
-              </QrErrorBoundary>
+              <img src={qrImageSrc} alt="Kod QR do wersji demo" width="200" height="200" className="h-[200px] w-[200px] rounded" />
             </div>
             <p className="mt-4 text-sm text-gray-500">
               Upewnij sie, ze telefon jest w tej samej sieci Wi-Fi co komputer.
             </p>
-            <p className="mt-2 break-all text-xs text-slate-500">{qrValue}</p>
+            <p className="mt-2 text-xs font-semibold text-indigo-600">Easter egg: zeskanuj i sprawdz tryb DEMO-SN.</p>
             <button
               onClick={() => setShowQr(false)}
               className="mt-4 w-full rounded-lg bg-gray-100 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-200"
