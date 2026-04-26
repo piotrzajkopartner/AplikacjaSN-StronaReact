@@ -1,12 +1,8 @@
 # Dokumentacja techniczna aplikacji landing page
 
 ## 1. Cel dokumentu
-Ten dokument jest praktycznym przewodnikiem utrzymaniowym projektu landing page "Partner Numery Seryjne".
-Ma pozwolić szybko odtworzyc w pamieci:
-- jak aplikacja jest zbudowana,
-- gdzie znajduja sie poszczegolne elementy,
-- jak dziala routing, formularz i warstwa contentu,
-- co i gdzie zmieniac przy kolejnych iteracjach.
+Ten dokument jest aktualnym przewodnikiem utrzymaniowym projektu landing page "Partner Numery Seryjne".
+Opisuje realny stan kodu po integracji interaktywnego demo w ramach tej samej aplikacji SPA.
 
 ## 2. Szybki start
 
@@ -15,27 +11,10 @@ Ma pozwolić szybko odtworzyc w pamieci:
 - npm
 
 ### Komendy
-- instalacja zaleznosci:
-
 ```bash
 npm install
-```
-
-- tryb developerski:
-
-```bash
 npm run dev
-```
-
-- build produkcyjny:
-
-```bash
 npm run build
-```
-
-- podglad buildu:
-
-```bash
 npm run preview
 ```
 
@@ -44,39 +23,39 @@ npm run preview
 - Vite 8
 - React Router DOM 7
 - Tailwind CSS 3 + PostCSS + Autoprefixer
-- framer-motion (animacje i mikro-interakcje)
-- clsx + tailwind-merge (obsługa klas przez `src/lib/utils.js`)
-- lucide-react (ikony UI, np. w systemie CookieConsent i BentoGrid)
+- framer-motion
+- clsx + tailwind-merge
+- lucide-react
+- swr
+- html5-qrcode
+- react-qr-code (pozostaje w zaleznosciach; modal QR korzysta obecnie z obrazu generatora HTTP)
+- @formkit/auto-animate
 
 Pliki konfiguracyjne:
 - `package.json`
 - `vite.config.js`
 - `tailwind.config.js`
 - `postcss.config.js`
-- `src/index.css`
+- `vercel.json`
 
 ## 4. Architektura wysokiego poziomu
-Aplikacja jest jedną aplikacją frontendową SPA opartą o routing po stronie klienta.
+Aplikacja jest SPA oparta o routing po stronie klienta.
 
-Wejscie aplikacji:
-- `src/main.jsx`:
-  - podpiecie `BrowserRouter`
-  - render `App`
+Wejscie:
+- `src/main.jsx` -> `BrowserRouter` -> `App`
 
 Routing:
 - `src/App.jsx`
   - `/` -> `HomePage`
-  - `/demo` -> `DemoPage`
-  - oba widoki osadzone w `Layout`
+  - `/demo` -> `DemoPage` (lazy load przez `React.lazy` + `Suspense`)
 
-Szkielet strony:
+Layout:
 - `src/components/layout/Layout.jsx`
   - `Navbar`
-  - `Outlet` (wstrzykiwany widok strony)
+  - `Outlet`
   - `Footer`
 
-## 5. Struktura katalogów (aktualna)
-
+## 5. Struktura katalogow (aktualna)
 ```text
 src/
 ├── App.jsx
@@ -87,57 +66,45 @@ src/
 ├── pages/
 │   ├── HomePage.jsx
 │   └── DemoPage.jsx
+├── features/
+│   └── demo/
+│       ├── DemoAppShell.jsx
+│       ├── demo.css
+│       └── standalone/
+│           ├── App.jsx
+│           ├── api.js
+│           ├── demoData.js
+│           ├── assets/
+│           │   └── logo300x300.png
+│           └── components/
+│               ├── DocumentList.jsx
+│               ├── SerialEntry.jsx
+│               ├── MobileScanner.jsx
+│               ├── Toast.jsx
+│               ├── LicenseStatus.jsx
+│               └── UnsavedChangesDialog.jsx
 ├── components/
 │   ├── layout/
-│   │   ├── Layout.jsx
-│   │   ├── Navbar.jsx
-│   │   └── Footer.jsx
 │   ├── seo/
-│   │   └── SeoManager.jsx
 │   ├── sections/
-│   │   ├── HeroSection.jsx
-│   │   ├── ProblemSection.jsx
-│   │   ├── SolutionSection.jsx
-│   │   ├── DemoPreviewSection.jsx
-│   │   ├── BenefitsGridSection.jsx
-│   │   ├── FeaturesSection.jsx
-│   │   ├── PricingSection.jsx
-│   │   ├── DeploymentSection.jsx
-│   │   ├── SecuritySection.jsx
-│   │   ├── PartnerNetTrustSection.jsx
-│   │   ├── FAQSection.jsx
-│   │   └── FinalCTASection.jsx
 │   └── ui/
-│       ├── Button.jsx
-│       ├── Card.jsx
-│       ├── SectionHeading.jsx
-│       ├── Accordion.jsx
-│       ├── PlaceholderImage.jsx
-│       └── ContactForm.jsx
+public/
+└── demo-pdfs/
+    ├── warranty-default.svg
+    ├── warranty-pa.svg
+    └── warranty-wz.svg
 ```
 
-## 6. Warstwa danych (najwazniejszy punkt utrzymaniowy)
-
-### Jedno zrodlo prawdy
-Wszystkie tresci strony sa trzymane w:
+## 6. Warstwa danych (single source of truth)
+Glowne tresci marketingowe i dane stron trzymane sa w:
 - `src/content/siteContent.js`
 
-To obejmuje:
-- copy sekcji strony glownej,
-- tresci strony `/demo`,
-- konfiguracje nawigacji i stopki,
-- dane formularza kontaktowego,
-- komunikaty walidacyjne i success,
-- dane SEO i Open Graph.
-
-### Aktualny ksztalt obiektu
-Główne klucze:
+Najwazniejsze klucze obiektu `siteContent`:
 - `seo`
 - `navigation`
 - `hero`
 - `problems`
 - `solution`
-- `demoPreview`
 - `benefits`
 - `features`
 - `pricing`
@@ -149,289 +116,139 @@ Główne klucze:
 - `demoPage`
 - `footer`
 
-### Zasada
-Zmiany tresci marketingowych wykonuj najpierw w `siteContent.js`, a dopiero potem ewentualnie w strukturze komponentow.
+Uwaga: dawne `demoPreview` zostalo usuniete z homepage.
 
 ## 7. Strona glowna (`/`) - skladanie sekcji
-`src/pages/HomePage.jsx` składa sekcje dokładnie w tej kolejnosci:
+`src/pages/HomePage.jsx` sklada sekcje w kolejnosci:
 1. `HeroSection`
 2. `ProblemSection`
 3. `SolutionSection`
-4. `DemoPreviewSection`
-5. `BenefitsGridSection`
-6. `FeaturesSection`
-7. `PricingSection`
-8. `DeploymentSection`
-9. `SecuritySection`
-10. `PartnerNetTrustSection`
-11. `FAQSection`
-12. `FinalCTASection`
+4. `BenefitsGridSection`
+5. `FeaturesSection`
+6. `PricingSection`
+7. `DeploymentSection`
+8. `SecuritySection`
+9. `PartnerNetTrustSection`
+10. `FAQSection`
+11. `FinalCTASection`
 
-Kazda sekcja dostaje dane przez prop `content` z `siteContent`.
+## 8. Nawigacja i anchory
+Anchory sekcji:
+- `#problem`
+- `#rozwiazanie`
+- `#korzysci`
+- `#funkcje`
+- `#cena`
+- `#kontakt`
 
-## 8. Anchory i nawigacja
+`Navbar` obsluguje dwa konteksty:
+- na `/` linkuje do `#anchor`
+- poza `/` (np. `/demo`) linkuje do `/#anchor`
 
-### Anchory sekcji (id)
-- Problem: `#problem`
-- Rozwiazanie: `#rozwiazanie`
-- Korzysci: `#korzysci`
-- Funkcje: `#funkcje`
-- Cena: `#cena`
-- Kontakt: `#kontakt`
+Dodatkowo navbar i footer maja link do `/demo`.
 
-### Gdzie to jest ustawione
-- konfiguracja linkow: `siteContent.navigation.links`
-- render i obsluga linkow: `src/components/layout/Navbar.jsx`
+## 9. Strona `/demo` (stan aktualny)
+`src/pages/DemoPage.jsx` nie jest juz placeholderem.
+To pelna strona osadzajaca interaktywna mini-aplikacje demo:
+- hero sprzedazowy + CTA,
+- statystyki/argumenty biznesowe,
+- osadzony shell: `src/features/demo/DemoAppShell.jsx`,
+- runtime demo z `src/features/demo/standalone/App.jsx`.
 
-Navbar ma logikę dla dwóch kontekstów:
-- gdy jestes na `/`: linkuje bezposrednio do `#anchor`
-- gdy jestes na innej stronie (np. `/demo`): linkuje do `/#anchor`
+## 10. Demo standalone - logika
+### Gdzie jest logika
+- `src/features/demo/standalone/api.js` -> mock API in-memory
+- `src/features/demo/standalone/demoData.js` -> generator danych demo
+- `src/features/demo/standalone/components/*` -> UI listy, dokumentu, skanera, toastow
 
-## 9. Strona `/demo`
-`src/pages/DemoPage.jsx` jest placeholderem (nie realnym demo).
+### Kluczowe zachowania
+- Tryb read-only (zapis SN blokowany, lock symulowany).
+- Wyszukiwanie dokumentow/SN oraz przejscie do dokumentu.
+- Podglad gwarancji przez SVG (`public/demo-pdfs/*`).
+- Modal QR do szybkiego otwarcia `/demo` na telefonie.
 
-Co zawiera:
-- hero placeholder z opisem,
-- wyjasnienie zakresu przyszlego demo,
-- CTA: powrot na glowna + przejscie do kontaktu,
-- siatke placeholderow ekranow opartych o `siteContent.demoPage.placeholders`.
+### Wazna aktualizacja
+- Symulacja blokady licencji zostala usunieta.
+- `LicenseOverlay` zostal usuniety z kodu.
+- Pozostaje tylko informacyjny `LicenseStatus`.
 
-Dane tej strony sa pobierane z:
-- `siteContent.demoPage`
+## 11. Dane demo - symbole produktow
+W `src/features/demo/standalone/demoData.js` symbole produktow sa obecnie 4-cyfrowe:
+- `1001`, `1002`, `1003`, `1004`, `1005`, `1006`
 
-## 10. Komponenty UI - odpowiedzialnosci
+Wyszukiwanie po symbolu dziala nadal, bo komponenty filtruja po `item.Symbol`.
 
-### `Button.jsx`
-- wspiera trzy tryby:
-  - `to` -> React Router `<Link>`
-  - `href` -> `<a>`
-  - brak powyzszych -> `<button>`
-- warianty: `primary`, `secondary`, `ghost`
-- obsluguje `disabled`
+## 12. Wyszukiwarka demo - zakresy
+W `DocumentList` dostepne sa zakresy:
+- `Wszystko`
+- `Numer SN`
+- `Dokument PZ`
+- `Dokument ZK`
+- `Dokument WZ`
+- `Dokument PA`
 
-### `Card.jsx`
-- uniwersalny kontener kart
-- parametr `as` pozwala zmienic znacznik wrappera (`article`, `div`, itp.)
+Dodatkowo zapytanie jest kodowane (`encodeURIComponent`) przed wyslaniem do mock API.
 
-### `SectionHeading.jsx`
-- standaryzuje naglowki sekcji
-- propsy: `eyebrow`, `title`, `description`, `align`, `className`
+## 13. Stylowanie
+- Globalne style strony: `src/index.css`
+- Stylowanie osadzonego demo (scoped): `src/features/demo/demo.css`
 
-### `Accordion.jsx`
-- wykorzystywany w FAQ
-- jeden aktywny element naraz
-- opcjonalne zapadanie aktywnego elementu (`allowCollapse`)
+Scoping przez wrapper `.sn-demo` ogranicza wyciek klas demo do reszty landingu.
 
-### `PlaceholderImage.jsx`
-- estetyczny placeholder assetow
-- ARIA: `role="img"`, `aria-label`
-- mozliwa kontrola proporcji przez `ratio`
+## 14. SEO
+`src/components/seo/SeoManager.jsx`:
+- ustawia runtime SEO dla `/` i `/demo`,
+- aktualizuje `title`, `description`, `og:*`.
 
-### `ContactForm.jsx`
-- mockowany formularz kontaktowy
-- walidacje i stany formularza
-- gotowosc pod podmiane mocka na API
+## 15. Vercel i odswiezanie tras SPA
+Aby `/demo` nie zwracalo 404 po odswiezeniu, dodano:
+- `vercel.json` z fallbackiem tras do `/index.html` (po `handle: filesystem`).
 
-## 11. Formularz kontaktowy - logika i stany
-Plik:
-- `src/components/ui/ContactForm.jsx`
+To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 
-### Pola
-- `fullName`
-- `email`
-- `phone`
-- `taxId`
-- `message`
-
-### Walidacja
-- wymagane pola wg `content.fields[*].required`
-- email: regex `emailRegex`
-- NIP: regex `^\d{10}$`
-- NIP jest normalizowany do samych cyfr (`normalizeTaxId`)
-
-### Kiedy walidacja jest uruchamiana
-- na `blur` pojedynczego pola
-- na submit calego formularza
-
-### Stany formularza
-- `idle`
-- `submitting`
-- `success`
-
-Źrodlo nazw stanów:
-- `content.states` (z fallbackiem na literalne wartosci)
-
-### Mock submit
-- lokalna funkcja `mockSubmit()` (timeout 900 ms)
-- miejsce do podmiany na realny request API
-
-### Co dzieje sie po sukcesie
-- renderowany jest blok success + przycisk resetu
-- reset przywraca formularz do stanu `idle`
-
-## 12. Stylowanie i design system (lekki)
-- Tailwind utility classes bez rozbudowanego design-systemu tokenowego
-- globalne style bazowe: `src/index.css`
-- kierunek wizualny:
-  - profesjonalny B2B
-  - granat / niebieski jako baza
-  - zielony akcent dla "success/value"
-  - jasne tla i czytelna hierarchia sekcji
-
-### 12.1 Profesjonalne skalowanie na rozne monitory
-Wdrozone skalowanie nie polega na rozciaganiu calego layoutu, tylko na kontrolowanym, plynnym dopasowaniu.
-
-Najwazniejsze elementy:
-- `src/index.css`:
-  - `:root`:
-    - `--site-max-width: 86rem` (kontrolowana szerokosc robocza na duzych ekranach)
-    - `--site-gutter: clamp(1rem, 1.8vw, 2.5rem)` (plynne marginesy boczne)
-  - `html { font-size: clamp(15px, 0.15vw + 14.5px, 18px) }` (subtelne skalowanie typografii)
-  - `.site-container`:
-    - `width: min(var(--site-max-width), calc(100% - (var(--site-gutter) * 2)))`
-    - `margin-inline: auto`
-- `src/components/layout/Layout.jsx`:
-  - glowny `Outlet` jest osadzony w `.site-container`, dzieki czemu sekcje trzymaja stale proporcje na Full HD, 2K i ultrawide.
-- `src/components/layout/Navbar.jsx` i `src/components/layout/Footer.jsx`:
-  - oba komponenty korzystaja z `.site-container`, co zapewnia idealne wyrownanie pionowe i poziome wzgledem tresci strony.
-
-Efekt praktyczny:
-- mobile: brak scisku tresci,
-- laptop/desktop: stabilna, profesjonalna szerokosc robocza,
-- duze monitory: brak "pustej autostrady" i brak nienaturalnego rozciagniecia sekcji.
-
-## 13. Co zmienic i gdzie (mapa szybkich zmian)
-
-### Zmiana tresci marketingowych
+## 16. Co zmieniac i gdzie (mapa szybka)
+### Teksty marketingowe
 - `src/content/siteContent.js`
 
-### Zmiana kolejnosci sekcji na homepage
-- `src/pages/HomePage.jsx`
-
-### Dodanie nowej sekcji
-1. dodaj komponent w `src/components/sections/`
-2. dodaj dane do `siteContent.js`
-3. podlacz sekcje w `HomePage.jsx`
-4. opcjonalnie dodaj anchor do navbara (`siteContent.navigation.links` + `id` sekcji)
-
-### Zmiana stylu przyciskow globalnie
-- `src/components/ui/Button.jsx`
-
-### Zmiana wygladu kart globalnie
-- `src/components/ui/Card.jsx`
-
-### Zmiana placeholderow grafik
-- `src/components/ui/PlaceholderImage.jsx`
-- tresci placeholderow: `siteContent.js`
-
-### Zmiana logiki formularza
-- `src/components/ui/ContactForm.jsx`
-
-### Zmiana tras
+### Routing
 - `src/App.jsx`
 
-## 14. Jak podpiac prawdziwe API formularza (plan techniczny)
-W `ContactForm.jsx`:
-1. zastap `mockSubmit()` wywolaniem `fetch/axios`.
-2. przenies mapowanie payloadu do osobnej funkcji (np. `buildContactPayload(values)`).
-3. obsluz bledy API (stan `error` jako rozszerzenie obecnego modelu).
-4. dodaj retry + timeout + komunikat techniczny.
-5. opcjonalnie wydziel logike do hooka `useContactForm`.
+### Hero strony `/demo`
+- `src/pages/DemoPage.jsx`
 
-Minimalny punkt podmiany jest juz przygotowany:
-- funkcja `mockSubmit` w `handleSubmit`.
+### Logika aplikacji demo
+- `src/features/demo/standalone/App.jsx`
+- `src/features/demo/standalone/components/*`
+- `src/features/demo/standalone/api.js`
+- `src/features/demo/standalone/demoData.js`
 
-## 15. SEO - aktualny stan
-Dane SEO sa przechowywane w `siteContent.seo` (`title`, `description`, `og`) i aktywnie podpinane do dokumentu.
+### Stylowanie demo
+- `src/features/demo/demo.css`
 
-Aktualna implementacja:
-- `index.html`:
-  - `lang="pl"`
-  - domyslny `title`
-  - domyslny `meta description`
-  - podstawowe Open Graph (`og:type`, `og:title`, `og:description`)
-- `src/components/seo/SeoManager.jsx`:
-  - ustawia runtime `document.title` i meta tagi dla `/` oraz `/demo`
-  - podmienia `description`, `og:title`, `og:description`, `og:image`
-- `src/App.jsx`:
-  - podpiecie `SeoManager` globalnie nad routingiem
-
-Wymaganie "jeden `h1` na stronie glównej" jest zachowane (naglowek `h1` w `HeroSection`).
-
-## 16. Znane ograniczenia i uwagi
-- aplikacja jest SPA; anchory dzialaja przez klasyczne `href`.
-- brak backendu formularza (celowo; tryb mock).
-- `lucide-react` jest zainstalowane, ale na teraz nieuzywane.
-- brak rozszerzen SEO: canonical, `robots.txt`, `sitemap.xml`.
+### Podglady gwarancji
+- `public/demo-pdfs/*`
 
 ## 17. Checklist utrzymaniowy przed release
 - `npm run build` przechodzi bez bledow
-- cena `300 zł netto / miesiąc` jest wyraznie widoczna
-- `/demo` pozostaje placeholderem (bez fake interaktywnosci produktu)
-- formularz dziala w trybie mock i waliduje wejscie
-- tresci pochodza z `siteContent.js`
-- brak tresci zabronionych (zmyslone logotypy klientów, fałszywe testimoniale, itp.)
+- `/` i `/demo` dzialaja po bezposrednim odswiezeniu (Vercel rewrite aktywny)
+- modal QR otwiera sie poprawnie (bez "bialego tla")
+- wyszukiwarka demo przyjmuje input i filtruje poprawnie
+- symbole produktow sa 4-cyfrowe i wyszukiwalne
+- brak kodu symulacji blokady licencji
 
-## 18. Najwazniejsze pliki do zapamietania (TOP 10)
-1. `src/content/siteContent.js` - wszystkie tresci i konfiguracja
-2. `src/pages/HomePage.jsx` - skladanie calego landing page
-3. `src/pages/DemoPage.jsx` - placeholder `/demo`
-4. `src/components/ui/ContactForm.jsx` - logika formularza
-5. `src/components/layout/Navbar.jsx` - nawigacja i anchory
-6. `src/components/sections/PricingSection.jsx` - ekspozycja ceny
-7. `src/components/sections/HeroSection.jsx` - główny przekaz i CTA
-8. `src/App.jsx` - routing
-9. `src/components/seo/SeoManager.jsx` - runtime SEO per trasa
-10. `src/index.css` - globalne style bazowe i scroll pod sticky navbar
-
-## 19. Aktualizacja po Etapie 8 i 9
-Zrealizowane zmiany techniczne:
-- responsywnosc:
-  - mobilny pasek linkow sekcyjnych w navbarze
-  - poprawiona nawigacja anchorow z `/demo` do sekcji na `/`
-  - globalne `scroll-behavior: smooth`
-  - `scroll-margin-top` dla sekcji z `id` (kompensacja sticky navbara)
-- SEO:
-  - rozbudowa `index.html` o podstawowe metadane
-  - dodanie `SeoManager` do dynamicznego SEO po zmianie trasy
-- cleanup:
-  - usuniete pliki scaffoldingu Vite, ktore nie byly uzywane (`src/App.css`, pliki z `src/assets/`)
-
-## 20. Plan rozszerzen SEO
-Szczegolowy plan zostal przeniesiony do osobnego dokumentu:
-- `ai/11_seo_expansion_plan.md`
-
-## 21. Aktualizacja Premium UI (Magic UI, Framer Motion, Cookies)
-Aplikacja przeszła redesign w kierunku Ultra-Premium B2B SaaS, wprowadzając zaawansowane mikro-interakcje bez utraty wydajności.
-
-Wprowadzone nowości:
-- **Katalog `src/components/magicui/`**: 
-  - `InteractiveGridPattern` (zastąpił DotPattern; autorski skaner siatki reagujący globalnie na kursor myszy na całej stronie. Posiada wbudowany **Head-Up Display (HUD)**, który emuluje proces skanowania, a po zatrzymaniu kursora emituje globalne zdarzenie `sn-scanned`).
-  - `LaserReveal` (autorska animacja startowa; opadająca pozioma wiązka lasera odsłaniająca stronę przy pierwszym ładowaniu).
-  - `SNTicker` (animowane w nieskończonej pętli zanonimizowane dane magazynowe przesuwające się w tle na krawędziach strony. Nasłuchuje na globalny event `sn-scanned` i synchronicznie podświetla na zielono numer namierzony w tej samej chwili przez HUD w InteractiveGridPattern).
-  - `WordPullUp` (efektowny wjazd głównego nagłówka).
-  - `ShimmerButton` (zintegrowany jako wariant `premium` w głównym `Button.jsx`).
-  - `MagicCard` i `BentoGrid` (karty śledzące ruch kursora w sekcjach Korzyści i Funkcje w systemie kolumn 2+3).
-  - `BorderBeam` (animowana, pulsująca krawędź na karcie Cennika).
-  - `ShinyText` (połyskujące elementy `eyebrow` w nagłówkach sekcji).
-- **Zaawansowany system Cookie Consent (GDPR)**:
-  - `src/components/ui/CookieConsent.jsx` wpięty bezpośrednio do `Layout.jsx`.
-  - Posiada płynne wejście, tryb minimalny (baner floating) oraz rozbudowany modal ustawień (z osobnymi włącznikami dla ciastek analitycznych i marketingowych). Zgoda zapisywana w `localStorage` pod kluczem `sn_cookie_consent`.
-
-## 22. Aktualizacja skalowania layoutu (multi-monitor)
-Wykonano dodatkowy etap dopracowania skalowania calej strony pod rozne klasy ekranow.
-
-Zakres zmian:
-- dodanie uniwersalnej klasy kontenera `site-container` i podpiecie jej do `Layout`, `Navbar`, `Footer`,
-- ustawienie nowego, wiekszego limitu roboczego (`86rem`) przy zachowaniu estetyki i czytelnosci,
-- plynne marginesy boczne (`clamp`) oraz plynna skala bazowej typografii,
-- utrzymanie scroll offsetu sekcji pod sticky navbar (`scroll-margin-top`).
-
-Pliki kluczowe dla tej zmiany:
-- `src/index.css`
-- `src/components/layout/Layout.jsx`
-- `src/components/layout/Navbar.jsx`
-- `src/components/layout/Footer.jsx`
+## 18. Najwazniejsze pliki do zapamietania (TOP 12)
+1. `src/content/siteContent.js`
+2. `src/pages/HomePage.jsx`
+3. `src/pages/DemoPage.jsx`
+4. `src/features/demo/DemoAppShell.jsx`
+5. `src/features/demo/demo.css`
+6. `src/features/demo/standalone/App.jsx`
+7. `src/features/demo/standalone/api.js`
+8. `src/features/demo/standalone/demoData.js`
+9. `src/components/layout/Navbar.jsx`
+10. `src/components/seo/SeoManager.jsx`
+11. `src/App.jsx`
+12. `vercel.json`
 
 ---
-Dokument odzwierciedla aktualny stan implementacji i jest przeznaczony jako szybka mapa orientacyjna dla kolejnych iteracji rozwoju projektu.
+Dokument zaktualizowany: 2026-04-26 15:56 (CEST).
