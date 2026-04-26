@@ -20,7 +20,7 @@ function Navbar() {
           <img 
             src="/logo.svg" 
             alt={siteContent.navigation.brand} 
-            className="h-7 w-auto md:h-9" 
+            className="h-10 w-auto md:h-14 lg:h-16" 
           />
         </Link>
 
