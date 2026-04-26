@@ -213,8 +213,8 @@ export const siteContent = {
     ],
     stats: [
       { value: '0 błędów', label: 'Kompletacji i wydań' },
-      { value: 'Pełna', label: 'Kontrola historii SN' },
-      { value: 'Plug & Play', label: 'Bez modyfikacji ERP' },
+      { value: 'Pełna', label: 'Kontrola historii numerów seryjnych' },
+      { value: 'Brak limitów', label: 'Stanowisk i dokumentów' },
     ],
   },
   footer: {
