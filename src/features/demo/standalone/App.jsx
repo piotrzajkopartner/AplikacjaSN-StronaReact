@@ -9,12 +9,35 @@ import logo from './assets/logo300x300.png';
 import { QrCode } from 'lucide-react';
 import QRCode from 'react-qr-code';
 
+class QrErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error) {
+    console.error('QR modal render error:', error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
 function App() {
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [notification, setNotification] = useState(null); // { message, type }
   const [showQr, setShowQr] = useState(false);
   const serialEntryRef = useRef(null);
-  const qrValue = typeof window !== 'undefined' ? window.location.href : '';
+  const qrValue = typeof window !== 'undefined' ? `${window.location.origin}/demo` : 'http://localhost:5173/demo';
+  const portalTarget = typeof document !== 'undefined' ? document.body : null;
 
   // Lifted state for DocumentList persistence
   const [listState, setListState] = useState({
@@ -90,16 +113,19 @@ function App() {
       </header>
 
       {/* QR Code Modal */}
-      {showQr && createPortal(
+      {showQr && portalTarget && createPortal(
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm" onClick={() => setShowQr(false)}>
           <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <h3 className="text-lg font-bold text-gray-900">Skanuj aby otworzyc na telefonie</h3>
             <div className="mt-4 flex justify-center rounded-xl border-2 border-gray-100 bg-white p-4">
-              <QRCode value={qrValue} size={200} />
+              <QrErrorBoundary fallback={<p className="text-xs text-gray-500">Nie udalo sie wyrenderowac kodu QR.</p>}>
+                <QRCode value={qrValue} size={200} />
+              </QrErrorBoundary>
             </div>
             <p className="mt-4 text-sm text-gray-500">
               Upewnij sie, ze telefon jest w tej samej sieci Wi-Fi co komputer.
             </p>
+            <p className="mt-2 break-all text-xs text-slate-500">{qrValue}</p>
             <button
               onClick={() => setShowQr(false)}
               className="mt-4 w-full rounded-lg bg-gray-100 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-200"
@@ -108,7 +134,7 @@ function App() {
             </button>
           </div>
         </div>,
-        document.body
+        portalTarget
       )}
 
       {/* Main Content */}
