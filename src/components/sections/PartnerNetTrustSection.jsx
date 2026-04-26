@@ -1,4 +1,3 @@
-import PlaceholderImage from '../ui/PlaceholderImage.jsx'
 import SectionHeading from '../ui/SectionHeading.jsx'
 
 function PartnerNetTrustSection({ content }) {
@@ -16,13 +15,22 @@ function PartnerNetTrustSection({ content }) {
           </div>
         </div>
 
-        <PlaceholderImage
-          title={content.logoPlaceholder.title}
-          alt={content.logoPlaceholder.alt}
-          description="Miejsce na finalne logo Partner-Net"
-          ratio="3/2"
-          className="border-slate-300 bg-white"
-        />
+        <a
+          href={content.websiteUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="group block rounded-2xl border border-slate-300 bg-white p-4 transition hover:border-sky-400 hover:shadow-sm"
+          aria-label={`Przejdź do strony ${content.websiteLabel}`}
+        >
+          <img
+            src={content.logo.src}
+            alt={content.logo.alt}
+            className="aspect-[3/2] w-full rounded-xl object-contain"
+            loading="lazy"
+          />
+          <p className="mt-3 text-sm font-semibold text-slate-800 group-hover:text-sky-700">{content.websiteLabel}</p>
+          <p className="text-xs text-slate-600">Dostawca rozwiązań IT, sieci i systemów zabezpieczeń dla firm.</p>
+        </a>
       </div>
     </section>
   )

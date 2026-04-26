@@ -136,14 +136,16 @@ export const siteContent = {
   },
   trust: {
     subheadline: 'O dostawcy',
-    headline: 'Za rozwiązaniem stoi Partner-Net.',
+    headline: 'Za rozwiązaniem stoi Partner-net.pl.',
     body1:
-      'Sekcja ma budować zaufanie do dostawcy znającego środowisko B2B, logistykę, pracę z numerami seryjnymi i wdrożenia w firmach korzystających z Subiekt nexo PRO.',
+      'Partner-net.pl dostarcza rozwiązania IT i systemy zabezpieczeń dla firm, łącząc sprzedaż sprzętu z wdrożeniami i wsparciem technicznym.',
     body2:
-      'Nie należy dodawać zmyślonych klientów, opinii ani logotypów. Jeśli nie ma finalnego logo, należy użyć estetycznego placeholdera.',
-    logoPlaceholder: {
-      title: 'Placeholder logo Partner-Net',
-      alt: 'Placeholder logo Partner-Net',
+      'Na stronie znajdziesz ofertę dla sieci i infrastruktury IT, monitoringu oraz sklepu B2B z doradztwem, rabatami i szybką dostawą.',
+    websiteUrl: 'https://partner-net.pl',
+    websiteLabel: 'partner-net.pl',
+    logo: {
+      src: '/partner-assets/400dpiLogo.jpg',
+      alt: 'Logo Partner-net.pl',
     },
   },
   faq: {
