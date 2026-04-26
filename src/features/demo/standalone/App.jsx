@@ -13,7 +13,7 @@ function App() {
   const [notification, setNotification] = useState(null); // { message, type }
   const [showQr, setShowQr] = useState(false);
   const serialEntryRef = useRef(null);
-  const qrValue = '531977177';
+  const qrValue = 'tel:531977177';
   const qrImageSrc = `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=${encodeURIComponent(qrValue)}`;
   const portalTarget = typeof document !== 'undefined' ? document.body : null;
 
@@ -98,9 +98,8 @@ function App() {
             <div className="mt-4 flex justify-center rounded-xl border-2 border-gray-100 bg-white p-4">
               <img src={qrImageSrc} alt="Kod QR do wersji demo" width="200" height="200" className="h-[200px] w-[200px] rounded" />
             </div>
-            <p className="mt-4 text-sm text-gray-500">Numer telefonu: 531 977 177</p>
-            <a href="tel:+48531977177" className="mt-2 block text-xs font-semibold text-indigo-600 hover:text-indigo-700">
-              Zadzwoń teraz: +48 531 977 177
+            <a href="tel:+48531977177" className="mt-4 block text-sm font-semibold text-indigo-600 hover:text-indigo-700">
+              Zadzwoń teraz: 531 977 177
             </a>
             <button
               onClick={() => setShowQr(false)}
