@@ -88,17 +88,35 @@ function isGuardBar(index) {
   return index < 3 || (index >= 45 && index <= 49) || index >= 92
 }
 
+function buildBarcodeBars(bits) {
+  const quietZone = 11
+  return bits.split('').reduce((acc, bit, index) => {
+    if (bit === '1') {
+      acc.push({
+        x: quietZone + index,
+        height: isGuardBar(index) ? 72 : 64,
+      })
+    }
+    return acc
+  }, [])
+}
+
 export function LaserReveal({ onComplete }) {
   const [isVisible, setIsVisible] = useState(true)
   const barcodeValue = useMemo(() => generateRealisticEan13(), [])
   const barcodeBits = useMemo(() => encodeEan13ToBits(barcodeValue), [barcodeValue])
+  const barcodeBars = useMemo(() => buildBarcodeBars(barcodeBits), [barcodeBits])
+
+  const firstDigit = barcodeValue[0]
+  const leftDigits = barcodeValue.slice(1, 7)
+  const rightDigits = barcodeValue.slice(7)
 
   useEffect(() => {
-    // Laser kończy skanowanie po 1.6 sekundy, barcode zanika chwilę po nim
+    // Overlay znika zaraz po zejściu lasera
     const timer = setTimeout(() => {
       setIsVisible(false)
       if (onComplete) onComplete()
-    }, 1740)
+    }, 1630)
     return () => clearTimeout(timer)
   }, [onComplete])
 
@@ -108,30 +126,55 @@ export function LaserReveal({ onComplete }) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.15 }}
+          transition={{ duration: 0.08 }}
           className="fixed inset-0 z-[200] pointer-events-none overflow-hidden flex items-end"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.99 }}
-            animate={{ opacity: [0, 1, 1, 0], scale: [0.99, 1, 1, 1], y: [10, 0, 0, -6] }}
-            transition={{ duration: 1.74, ease: 'easeInOut', times: [0, 0.14, 0.92, 1] }}
+            initial={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 0.96 }}
+            animate={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.96 }}
+            transition={{ duration: 1.6, ease: 'easeInOut' }}
             className="absolute inset-0 z-[200] flex items-center justify-center px-4"
           >
             <div className="w-full max-w-6xl text-center">
-              <div className="mx-auto flex h-[34vh] min-h-[180px] w-full items-end justify-center gap-0.5 rounded-md border border-slate-300/70 bg-white/45 px-[6vw] pb-[11%] pt-[8%] shadow-[0_0_60px_rgba(15,23,42,0.08)]">
-                {barcodeBits.split('').map((bit, index) => (
-                  <span
-                    key={`${bit}-${index}`}
-                    className={bit === '1' ? 'bg-slate-900' : 'bg-transparent'}
-                    style={{
-                      width: 'min(0.42vw, 5px)',
-                      height: isGuardBar(index) ? '100%' : '85%',
-                      display: 'inline-block',
-                    }}
-                  />
-                ))}
+              <div className="mx-auto w-full max-w-[1100px] rounded-xl border border-slate-300/80 bg-white/90 px-4 py-6 shadow-[0_18px_50px_rgba(15,23,42,0.12)] md:px-8 md:py-8">
+                <svg viewBox="0 0 117 94" className="h-[26vh] min-h-[160px] w-full" preserveAspectRatio="none" aria-hidden="true">
+                  <rect x="0" y="0" width="117" height="94" fill="#ffffff" />
+                  {barcodeBars.map((bar, idx) => (
+                    <rect key={`${bar.x}-${idx}`} x={bar.x} y={8} width="1" height={bar.height} fill="#020617" />
+                  ))}
+
+                  <text x="4" y="90" fontSize="7" fill="#0f172a" fontFamily="monospace" letterSpacing="0.25">
+                    {firstDigit}
+                  </text>
+                  {leftDigits.split('').map((digit, idx) => (
+                    <text
+                      key={`l-${idx}`}
+                      x={18 + idx * 7}
+                      y={90}
+                      fontSize="7"
+                      fill="#0f172a"
+                      fontFamily="monospace"
+                      textAnchor="middle"
+                    >
+                      {digit}
+                    </text>
+                  ))}
+                  {rightDigits.split('').map((digit, idx) => (
+                    <text
+                      key={`r-${idx}`}
+                      x={64 + idx * 7}
+                      y={90}
+                      fontSize="7"
+                      fill="#0f172a"
+                      fontFamily="monospace"
+                      textAnchor="middle"
+                    >
+                      {digit}
+                    </text>
+                  ))}
+                </svg>
               </div>
-              <p className="mt-4 text-[clamp(1rem,2.2vw,1.5rem)] font-semibold tracking-[0.35em] text-slate-700">
+              <p className="mt-3 text-[clamp(0.95rem,1.8vw,1.2rem)] font-semibold tracking-[0.28em] text-slate-700">
                 {barcodeValue}
               </p>
             </div>
