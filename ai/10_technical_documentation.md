@@ -260,6 +260,11 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 - `src/pages/PrivacyPage.jsx`
 - `src/content/siteContent.js` -> klucz `privacy`
 
+### Sekcja "O dostawcy" (Partner-net.pl)
+- `src/components/sections/PartnerNetTrustSection.jsx`
+- `src/content/siteContent.js` -> klucz `trust`
+- `public/partner-assets/400dpiLogo.jpg`
+
 ### Stylowanie demo
 - `src/features/demo/demo.css`
 
@@ -302,4 +307,4 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 15. `vercel.json`
 
 ---
-Dokument zaktualizowany: 2026-04-26 18:28 (CEST).
+Dokument zaktualizowany: 2026-04-26 20:10 (CEST).

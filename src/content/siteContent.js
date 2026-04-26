@@ -136,7 +136,7 @@ export const siteContent = {
   },
   trust: {
     subheadline: 'O dostawcy',
-    headline: 'Za rozwiązaniem stoi Partner-net.pl.',
+    headline: 'Za rozwiązaniem stoi Partner-net.pl',
     body1:
       'Partner-net.pl dostarcza rozwiązania IT i systemy zabezpieczeń dla firm, łącząc sprzedaż sprzętu z wdrożeniami i wsparciem technicznym.',
     body2:
