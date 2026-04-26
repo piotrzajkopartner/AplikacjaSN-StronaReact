@@ -47,7 +47,8 @@ Wejscie:
 Routing:
 - `src/App.jsx`
   - `/` -> `HomePage`
-  - `/demo` -> `DemoPage` (lazy load przez `React.lazy` + `Suspense`)
+  - `/demo` -> `DemoPage` (lazy load przez `React.lazy` + `Suspense` z `DemoPageSkeleton`)
+  - `/polityka-prywatnosci` -> `PrivacyPage`
 
 Layout:
 - `src/components/layout/Layout.jsx`
@@ -65,7 +66,8 @@ src/
 │   └── siteContent.js
 ├── pages/
 │   ├── HomePage.jsx
-│   └── DemoPage.jsx
+│   ├── DemoPage.jsx
+│   └── PrivacyPage.jsx
 ├── features/
 │   └── demo/
 │       ├── DemoAppShell.jsx
@@ -88,7 +90,16 @@ src/
 │   ├── seo/
 │   ├── sections/
 │   └── ui/
+│       ├── Accordion.jsx
+│       ├── Button.jsx
+│       ├── Card.jsx
+│       ├── ContactForm.jsx
+│       ├── CookieConsent.jsx
+│       ├── DemoPageSkeleton.jsx
+│       ├── PlaceholderImage.jsx
+│       └── SectionHeading.jsx
 public/
+├── manifest.json
 └── demo-pdfs/
     ├── warranty-default.svg
     ├── warranty-pa.svg
@@ -115,6 +126,7 @@ Najwazniejsze klucze obiektu `siteContent`:
 - `contact`
 - `demoPage`
 - `footer`
+- `privacy`
 
 Uwaga: dawne `demoPreview` zostalo usuniete z homepage.
 
@@ -197,16 +209,38 @@ Scoping przez wrapper `.sn-demo` ogranicza wyciek klas demo do reszty landingu.
 
 ## 14. SEO
 `src/components/seo/SeoManager.jsx`:
-- ustawia runtime SEO dla `/` i `/demo`,
+- ustawia runtime SEO dla `/`, `/demo` i `/polityka-prywatnosci`,
 - aktualizuje `title`, `description`, `og:*`.
 
-## 15. Vercel i odswiezanie tras SPA
-Aby `/demo` nie zwracalo 404 po odswiezeniu, dodano:
+## 15. Strona polityki prywatnosci (`/polityka-prywatnosci`)
+- `src/pages/PrivacyPage.jsx`: strona RODO z 9 sekcjami, kazda z ikona z lucide-react.
+- `src/content/siteContent.js` -> klucz `privacy`: pelna tresc polityki (administrator, dane, cel, podstawa prawna, cookies, prawa, retencja, kontakt, aktualizacje).
+- W stopce dodano link `Polityka prywatnosci` przez `<Link to="/polityka-prywatnosci">`.
+- CookieConsent zawiera link do polityki oraz dodatkowy przycisk "Tylko niezbędne".
+- Switche cookies zmienione na natywne `<input type="checkbox" role="switch">`.
+
+## 16. Loading skeleton demo
+- `src/components/ui/DemoPageSkeleton.jsx`: placeholder renderowany podczas lazy-load `DemoPage` w `Suspense`.
+- Wizualnie imituje strukture: hero z placeholderami + demoshell z 5 kartami dokumentow.
+
+## 17. PWA i favicon
+- `public/manifest.json`: konfiguracja PWA z `theme_color: #00aeff`.
+- `index.html`: dodane `apple-touch-icon`, `manifest`, `theme-color`, `apple-mobile-web-app-*`, `robots`, font preload.
+
+## 18. CookieConsent - aktualizacja
+- `src/components/ui/CookieConsent.jsx`:
+  - Dodany przycisk "Tylko niezbędne" (obok "Akceptuj wszystkie" i "Ustawienia").
+  - Link do `/polityka-prywatnosci` w obu widokach (główny i ustawienia).
+  - Rozszerzone opisy kategorii cookies (konkretne narzędzia: GA, Meta Pixel, LinkedIn).
+  - Switche zmienione z customowego `<button>` na natywny `<input type="checkbox" role="switch">`.
+
+## 19. Vercel i odswiezanie tras SPA
+Aby `/demo` i `/polityka-prywatnosci` nie zwracaly 404 po odswiezeniu, dodano:
 - `vercel.json` z fallbackiem tras do `/index.html` (po `handle: filesystem`).
 
 To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 
-## 16. Co zmieniac i gdzie (mapa szybka)
+## 20. Co zmieniac i gdzie (mapa szybka)
 ### Teksty marketingowe
 - `src/content/siteContent.js`
 
@@ -222,33 +256,50 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 - `src/features/demo/standalone/api.js`
 - `src/features/demo/standalone/demoData.js`
 
+### Strona polityki prywatnosci
+- `src/pages/PrivacyPage.jsx`
+- `src/content/siteContent.js` -> klucz `privacy`
+
 ### Stylowanie demo
 - `src/features/demo/demo.css`
 
 ### Podglady gwarancji
 - `public/demo-pdfs/*`
 
-## 17. Checklist utrzymaniowy przed release
+### CookieConsent
+- `src/components/ui/CookieConsent.jsx`
+
+### Loading skeleton demo
+- `src/components/ui/DemoPageSkeleton.jsx`
+
+## 21. Checklist utrzymaniowy przed release
 - `npm run build` przechodzi bez bledow
-- `/` i `/demo` dzialaja po bezposrednim odswiezeniu (Vercel rewrite aktywny)
+- `/`, `/demo` i `/polityka-prywatnosci` dzialaja po bezposrednim odswiezeniu (Vercel rewrite aktywny)
 - modal QR otwiera sie poprawnie (bez "bialego tla")
 - wyszukiwarka demo przyjmuje input i filtruje poprawnie
 - symbole produktow sa 4-cyfrowe i wyszukiwalne
 - brak kodu symulacji blokady licencji
+- strona polityki prywatnosci dostepna i linkowana z footera/cookies
+- CookieConsent obsluguje wszystkie 3 opcje i linkuje do polityki
+- manifest.json obecny, PWA meta poprawne
+- DemoPage loading skeleton wyswietla sie podczas lazy-load
 
-## 18. Najwazniejsze pliki do zapamietania (TOP 12)
+## 22. Najwazniejsze pliki do zapamietania (TOP 15)
 1. `src/content/siteContent.js`
 2. `src/pages/HomePage.jsx`
 3. `src/pages/DemoPage.jsx`
-4. `src/features/demo/DemoAppShell.jsx`
-5. `src/features/demo/demo.css`
-6. `src/features/demo/standalone/App.jsx`
-7. `src/features/demo/standalone/api.js`
-8. `src/features/demo/standalone/demoData.js`
-9. `src/components/layout/Navbar.jsx`
-10. `src/components/seo/SeoManager.jsx`
-11. `src/App.jsx`
-12. `vercel.json`
+4. `src/pages/PrivacyPage.jsx`
+5. `src/features/demo/DemoAppShell.jsx`
+6. `src/features/demo/demo.css`
+7. `src/features/demo/standalone/App.jsx`
+8. `src/features/demo/standalone/api.js`
+9. `src/features/demo/standalone/demoData.js`
+10. `src/components/layout/Navbar.jsx`
+11. `src/components/layout/Footer.jsx`
+12. `src/components/ui/CookieConsent.jsx`
+13. `src/components/seo/SeoManager.jsx`
+14. `src/App.jsx`
+15. `vercel.json`
 
 ---
-Dokument zaktualizowany: 2026-04-26 15:56 (CEST).
+Dokument zaktualizowany: 2026-04-26 18:28 (CEST).
