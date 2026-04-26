@@ -136,7 +136,6 @@
 
 .sn-demo .ui-input,
 .sn-demo .ui-select {
-  width: 100%;
   border: 1px solid var(--border-soft);
   border-radius: 12px;
   background: #fff;
@@ -145,6 +144,7 @@
 }
 
 .sn-demo .ui-input {
+  width: 100%;
   padding: 0.58rem 0.85rem;
 }
 

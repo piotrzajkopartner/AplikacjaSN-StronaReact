@@ -110,7 +110,8 @@ const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
 
         try {
             const scopeParam = listState.searchScope || 'all';
-            const response = await api.get(`/serials/search?q=${searchQuery}&scope=${scopeParam}&page=${pageNum}`);
+            const encodedQuery = encodeURIComponent(searchQuery);
+            const response = await api.get(`/serials/search?q=${encodedQuery}&scope=${scopeParam}&page=${pageNum}`);
 
             updateState({ searchResults: response.data.data });
             setSearchMeta(response.data.meta);
@@ -242,6 +243,7 @@ const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
                                 <option value="PZ">Dokument PZ</option>
                                 <option value="ZK">Dokument ZK</option>
                                 <option value="WZ">Dokument WZ</option>
+                                <option value="PA">Dokument PA</option>
                             </select>
 
                             <div className="relative flex-1 w-full sm:w-auto">
@@ -250,8 +252,8 @@ const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
                                     type="text"
                                     placeholder={
                                         (listState.searchScope === 'sn') ? "Szukaj numeru seryjnego..." :
-                                            (listState.searchScope === 'document') ? "Szukaj dokumentu..." :
-                                                "Szukaj dokumentu lub SN..."
+                                            (listState.searchScope === 'all') ? "Szukaj dokumentu lub SN..." :
+                                                "Szukaj dokumentu..."
                                     }
                                     className="ui-input w-full pl-10 pr-10"
                                     value={searchQuery || ''}

@@ -156,18 +156,6 @@ const checkDuplicate = (url) => {
   };
 };
 
-const isLicenseErrorMode = () => localStorage.getItem('demo_license_error') === '1';
-
-const dispatchLicenseError = () => {
-  const detail = {
-    error: 'LICENSE_EXPIRED',
-    message: 'Tryb demo: zasymulowano zablokowaną licencję.',
-    hwid: DEMO_LICENSE.hwid
-  };
-  const event = new CustomEvent('license-error', { detail });
-  window.dispatchEvent(event);
-};
-
 const getPdfPreviewPath = (doc) => {
   if (!doc) return '/demo-pdfs/warranty-default.svg';
   if (doc.Symbol === 'PA') return '/demo-pdfs/warranty-pa.svg';
@@ -187,11 +175,6 @@ const api = {
 
   async get(url) {
     await delay(120);
-
-    if (isLicenseErrorMode() && !url.startsWith('/license')) {
-      dispatchLicenseError();
-      throw httpError(403, { error: 'LICENSE_EXPIRED', message: 'Licencja wygasła.' });
-    }
 
     if (url.startsWith('/documents?')) return { data: getDocuments(url) };
 
@@ -242,11 +225,6 @@ const api = {
         error: 'DEMO_READ_ONLY',
         message: 'Tryb demo: zapis numerów seryjnych jest wyłączony.'
       });
-    }
-
-    if (url === '/license/refresh') {
-      localStorage.removeItem('demo_license_error');
-      return { data: { success: true } };
     }
 
     throw httpError(404, { error: 'NOT_FOUND', message: `Brak mocka dla endpointu POST ${url}` });

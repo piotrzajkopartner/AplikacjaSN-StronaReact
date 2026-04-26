@@ -8,12 +8,12 @@ const CUSTOMERS = [
 ];
 
 const ITEM_CATALOG = [
-  { name: 'Kamera IP 4MP', symbol: 'KAM-IP4', warrantyI0: 100001 },
-  { name: 'Rejestrator 8CH', symbol: 'NVR-8CH', warrantyI0: 100002 },
-  { name: 'Dysk 4TB', symbol: 'HDD-4TB', warrantyI0: 100000 },
-  { name: 'Switch PoE 8P', symbol: 'SWT-POE8', warrantyI0: 100003 },
-  { name: 'Zasilacz 12V', symbol: 'PSU-12V', warrantyI0: 100007 },
-  { name: 'Akcesoria montazowe', symbol: 'AKC-MNT', warrantyI0: null }
+  { name: 'Kamera IP 4MP', symbol: '1001', warrantyI0: 100001 },
+  { name: 'Rejestrator 8CH', symbol: '1002', warrantyI0: 100002 },
+  { name: 'Dysk 4TB', symbol: '1003', warrantyI0: 100000 },
+  { name: 'Switch PoE 8P', symbol: '1004', warrantyI0: 100003 },
+  { name: 'Zasilacz 12V', symbol: '1005', warrantyI0: 100007 },
+  { name: 'Akcesoria montazowe', symbol: '1006', warrantyI0: null }
 ];
 
 const addDays = (date, days) => {

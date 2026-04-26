@@ -2,7 +2,6 @@ import React, { useState, useRef, useCallback } from 'react';
 import DocumentList from './components/DocumentList';
 import SerialEntry from './components/SerialEntry';
 import Toast from './components/Toast';
-import LicenseOverlay from './components/LicenseOverlay';
 import LicenseStatus from './components/LicenseStatus';
 import logo from './assets/logo300x300.png';
 
@@ -36,15 +35,8 @@ function App() {
     setNotification({ message, type });
   }, []);
 
-  const simulateLicenseBlock = () => {
-    localStorage.setItem('demo_license_error', '1');
-    window.location.reload();
-  };
-
   return (
     <div className="min-h-screen bg-transparent font-sans text-gray-900 relative">
-      <LicenseOverlay />
-
       {/* Toast Notification */}
       {notification && (
         <Toast
@@ -81,16 +73,6 @@ function App() {
             <span className="px-2 py-1 text-xs font-bold tracking-wide bg-amber-100 text-amber-800 border border-amber-300 rounded">
               TRYB DEMO (READ-ONLY)
             </span>
-          </div>
-
-          <div className="ml-2 hidden lg:flex items-center">
-            <button
-              onClick={simulateLicenseBlock}
-              className="px-2 py-1 text-xs font-semibold bg-red-50 text-red-700 border border-red-200 rounded hover:bg-red-100 transition-colors"
-              title="Symuluj zablokowaną licencję"
-            >
-              Symuluj blokadę licencji
-            </button>
           </div>
 
           <div className="ml-auto">
