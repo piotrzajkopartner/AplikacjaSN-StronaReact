@@ -247,7 +247,7 @@ const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
                             </select>
 
                             <div className="relative flex-1 w-full sm:w-auto">
-                                <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
+                                <Search className="pointer-events-none absolute left-3 top-2.5 text-gray-400" size={20} />
                                 <input
                                     type="text"
                                     placeholder={
@@ -255,7 +255,7 @@ const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
                                             (listState.searchScope === 'all') ? "Szukaj dokumentu lub SN..." :
                                                 "Szukaj dokumentu..."
                                     }
-                                    className="ui-input w-full pl-10 pr-10"
+                                    className="ui-input ui-search-input w-full"
                                     value={searchQuery || ''}
                                     onChange={(e) => handleSearchChange(e.target.value)}
                                 />

@@ -148,6 +148,11 @@
   padding: 0.58rem 0.85rem;
 }
 
+.sn-demo .ui-search-input {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
 .sn-demo .ui-select {
   padding: 0.58rem 2rem 0.58rem 0.85rem;
 }
