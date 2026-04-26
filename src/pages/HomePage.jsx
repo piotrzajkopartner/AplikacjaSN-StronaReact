@@ -1,5 +1,4 @@
 import BenefitsGridSection from '../components/sections/BenefitsGridSection.jsx'
-import DemoPreviewSection from '../components/sections/DemoPreviewSection.jsx'
 import DeploymentSection from '../components/sections/DeploymentSection.jsx'
 import FAQSection from '../components/sections/FAQSection.jsx'
 import FeaturesSection from '../components/sections/FeaturesSection.jsx'
@@ -18,7 +17,6 @@ function HomePage() {
       <HeroSection content={siteContent.hero} />
       <ProblemSection content={siteContent.problems} />
       <SolutionSection content={siteContent.solution} />
-      <DemoPreviewSection content={siteContent.demoPreview} />
       <BenefitsGridSection content={siteContent.benefits} />
       <FeaturesSection content={siteContent.features} />
       <PricingSection content={siteContent.pricing} />

@@ -36,8 +36,8 @@ export const siteContent = {
       href: '#kontakt',
     },
     secondaryCta: {
-      label: 'Zobacz demo',
-      href: '/demo',
+      label: 'Zobacz funkcje',
+      href: '#funkcje',
     },
     supportingNote: 'Instalacja on-premise. Wdrożenie po stronie Partner-Net. 14 dni testów.',
     imagePlaceholder: {
@@ -71,27 +71,6 @@ export const siteContent = {
     subheadline: 'Cyfrowy asystent logistyki',
     headline: 'Skanujesz i wiesz. Reszta robi się sama.',
     body: 'System działa przez przeglądarkę i wspiera pracę na komputerze, tablecie lub telefonie. Pomaga ograniczać błędy przy kompletacji, porządkuje historię numerów seryjnych i wspiera pracę zespołów magazynowych, handlowych oraz serwisowych.',
-  },
-  demoPreview: {
-    subheadline: 'Podgląd działania',
-    headline: 'Zobacz, jak wygląda praca z systemem w praktyce.',
-    body: 'W tej wersji strony sekcja demo ma pokazywać kierunek rozwiązania i zapowiadać przyszłą, osobną aplikację demo. Na tym etapie stosujemy placeholdery dla widoków i materiałów.',
-    cta: {
-      label: 'Przejdź do podglądu demo',
-      href: '/demo',
-    },
-    placeholders: [
-      {
-        title: 'Widok kompletacji',
-        description: 'Placeholder pod przyszły ekran procesu kompletacji zamówienia.',
-        alt: 'Placeholder ekranu kompletacji',
-      },
-      {
-        title: 'Widok historii urządzenia',
-        description: 'Placeholder pod przyszły ekran historii numeru seryjnego.',
-        alt: 'Placeholder ekranu historii urządzenia',
-      },
-    ],
   },
   benefits: {
     subheadline: 'Zwrot z inwestycji',
@@ -189,9 +168,8 @@ export const siteContent = {
         answer: 'Nie. Interfejs jest dostępny przez przeglądarkę.',
       },
       {
-        question: 'Czy mogę zobaczyć demo?',
-        answer:
-          'Tak. Podstrona /demo zawiera interaktywny podgląd procesu pracy z dokumentami, numerami seryjnymi i gwarancjami.',
+        question: 'Jak wygląda prezentacja systemu?',
+        answer: 'Prezentacja odbywa się na żywo podczas spotkania, z omówieniem procesu pod Twoje środowisko pracy.',
       },
       {
         question: 'Czy mogę przetestować system?',
@@ -223,213 +201,11 @@ export const siteContent = {
     },
     successMessage: 'Dziękujemy za wiadomość. Skontaktujemy się w sprawie prezentacji.',
   },
-  demoPage: {
-    badge: 'Interaktywne demo osadzone w stronie',
-    headline: 'Poznaj mini-aplikację pokazującą obieg dokumentów, seriali i gwarancji.',
-    description:
-      'To demo działa bez iframe i prezentuje fikcyjne, spójne dane dokumentów, produktów oraz numerów seryjnych.',
-    scopeDescription:
-      'Każda karta gwarancyjna może zostać wygenerowana i pobrana jako PDF po stronie klienta z brandingiem Partner-Net.',
-    placeholders: [
-      {
-        title: 'Ekran 1: Dashboard operacyjny',
-        description: 'Podgląd statusów procesów i kluczowych wskaźników.',
-        alt: 'Placeholder ekranu dashboardu operacyjnego',
-      },
-      {
-        title: 'Ekran 2: Kompletacja zamówienia',
-        description: 'Przykładowy przebieg skanowania i kontroli numerów seryjnych.',
-        alt: 'Placeholder ekranu kompletacji zamówienia',
-      },
-      {
-        title: 'Ekran 3: Historia urządzenia',
-        description: 'Widok historii numeru seryjnego i powiązanych operacji.',
-        alt: 'Placeholder ekranu historii urządzenia',
-      },
-      {
-        title: 'Ekran 4: Dokumenty gwarancyjne',
-        description: 'Podgląd generowania dokumentów i kart gwarancyjnych.',
-        alt: 'Placeholder ekranu dokumentów gwarancyjnych',
-      },
-      {
-        title: 'Ekran 5: Panel reklamacji',
-        description: 'Przykładowy proces weryfikacji zgłoszenia serwisowego.',
-        alt: 'Placeholder ekranu panelu reklamacji',
-      },
-    ],
-    ctas: {
-      backHome: {
-        label: 'Wróć na stronę główną',
-        href: '/',
-      },
-      contact: {
-        label: 'Przejdź do kontaktu',
-        href: '/#kontakt',
-      },
-    },
-  },
-  demoApp: {
-    seed: 17771465,
-    referenceDate: '2026-04-30',
-    title: 'Interaktywna mini-aplikacja demo',
-    description:
-      'Zakładki poniżej pokazują pełny przepływ danych: dokumenty handlowe i magazynowe, katalog produktów, historię seriali oraz generowanie gwarancji PDF.',
-    shell: {
-      moduleLabel: 'Aplikacja Partner',
-      moduleName: 'Moduł Numerów Seryjnych - środowisko demonstracyjne',
-      modeLabel: 'Tryb DEMO',
-      lastSyncLabel: 'Synchronizacja danych: 30.04.2026 09:15',
-      logoPath: '/partner-assets/logo_new.jpg',
-      logoAlt: 'Logo Partner-Net',
-    },
-    tabs: [
-      {
-        id: 'documents',
-        label: 'Dokumenty',
-        description: 'Lista dokumentów PZ/ZK/WZ z filtrami, statusami i podglądem przypisanych numerów seryjnych.',
-      },
-      {
-        id: 'dashboard',
-        label: 'Dashboard',
-        description: 'Szybki podgląd KPI i najnowszych operacji wykonanych na numerach seryjnych.',
-      },
-      {
-        id: 'products',
-        label: 'Produkty',
-        description: 'Katalog produktów z informacją o liczbie przypisanych seriali i statusach reklamacyjnych.',
-      },
-      {
-        id: 'serials',
-        label: 'Numery seryjne',
-        description: 'Wyszukiwarka numerów seryjnych z historią operacji i bieżącym statusem procesu.',
-      },
-      {
-        id: 'warranties',
-        label: 'Gwarancje',
-        description: 'Lista kart gwarancyjnych gotowych do pobrania jako plik PDF.',
-      },
-    ],
-    dashboard: {
-      kpis: [
-        { key: 'documentsCount', label: 'Dokumenty' },
-        { key: 'positionsCount', label: 'Pozycje dokumentów' },
-        { key: 'serialsCount', label: 'Numery seryjne' },
-        { key: 'complaintsCount', label: 'Reklamacje' },
-      ],
-      operationsTitle: 'Ostatnie operacje',
-      operationsHint: 'Wynik na podstawie danych demo',
-    },
-    documents: {
-      listTitle: 'Dokumenty handlowo-magazynowe',
-      detailsTitle: 'Szczegóły pozycji dokumentu',
-      updatedLabel: 'Ostatnia aktualizacja',
-      updatedAt: '30.04.2026 09:15',
-      columns: {
-        number: 'Numer dokumentu',
-        contractor: 'Kontrahent',
-        date: 'Data',
-        total: 'Wartość brutto',
-      },
-      filters: {
-        defaultDocType: 'WZ',
-        defaultStatus: 'pending',
-        docTypes: [
-          { value: 'all', label: 'Wszystkie' },
-          { value: 'PZ', label: 'PZ' },
-          { value: 'ZK', label: 'ZK' },
-          { value: 'WZ', label: 'WZ' },
-        ],
-        statuses: [
-          { value: 'pending', label: 'Do uzupełnienia' },
-          { value: 'completed', label: 'Uzupełnione' },
-          { value: 'all', label: 'Wszystkie statusy' },
-        ],
-        searchPlaceholder: 'Szukaj po numerze dokumentu lub kontrahencie',
-        emptyState: 'Brak dokumentów dla wybranych filtrów.',
-      },
-      requiredLabel: 'Wymagane SN',
-      savedLabel: 'Zapisane SN',
-      totalLabel: 'Wartość dokumentu',
-      quantityLabel: 'Ilość',
-      vatLabel: 'VAT',
-      lineValueLabel: 'Wartość pozycji',
-      serialsLabel: 'Numery seryjne',
-    },
-    products: {
-      netPrice: 'Cena netto',
-      vatRate: 'Stawka VAT',
-      serialCount: 'Liczba seriali',
-      complaintsCount: 'Reklamacje',
-    },
-    serials: {
-      searchLabel: 'Wyszukiwarka seriali',
-      searchPlaceholder: 'Szukaj po numerze seryjnym, dokumencie, produkcie lub kontrahencie',
-      emptyState: 'Brak wyników. Zmień kryteria wyszukiwania i spróbuj ponownie.',
-      columns: {
-        serial: 'Numer seryjny',
-        product: 'Produkt',
-        contractor: 'Kontrahent',
-        status: 'Status',
-        lastOperation: 'Ostatnia operacja',
-      },
-    },
-    warranties: {
-      labels: {
-        saleDate: 'Data sprzedaży',
-        validUntil: 'Ważna do',
-      },
-    },
-    pdf: {
-      assets: {
-        logoPrimary: '/partner-assets/logo_new.jpg',
-        logoFallback: '/partner-assets/logo.jpg',
-        watermark: '/partner-assets/logo_watermark.jpg',
-      },
-      company: {
-        name: 'Partner-Net',
-        legalName: 'Partner-Net Sp. z o.o.',
-        address: 'ul. Integracyjna 12, 40-101 Katowice',
-        taxId: '6342991183',
-        tagline: 'Rozwiązania B2B dla Subiekt nexo PRO',
-        signatureLabel: 'Podpis przedstawiciela Partner-Net',
-      },
-      labels: {
-        idle: 'Pobierz PDF',
-        downloading: 'Generowanie...',
-        done: 'Pobrano',
-        error: 'Spróbuj ponownie',
-        documentTitle: 'Karta gwarancyjna',
-        warrantyNumber: 'Numer gwarancji',
-        documentNumber: 'Numer dokumentu',
-        companyName: 'Gwarant',
-        companyAddress: 'Adres gwaranta',
-        companyTaxId: 'NIP gwaranta',
-        clientName: 'Nabywca',
-        clientTaxId: 'NIP nabywcy',
-        clientCity: 'Miasto',
-        productName: 'Produkt',
-        productSku: 'SKU',
-        serialNumber: 'Numer seryjny',
-        saleDate: 'Data sprzedaży',
-        validUntil: 'Gwarancja ważna do',
-        warrantyPeriod: 'Okres gwarancji',
-        termsTitle: 'Podstawowe warunki gwarancji',
-        terms: [
-          'Gwarancja obejmuje wady fabryczne ujawnione w okresie jej trwania.',
-          'Podstawą obsługi jest dokument zakupu i numer seryjny zgodny z kartą.',
-          'Uszkodzenia mechaniczne i eksploatacyjne nie podlegają gwarancji.',
-          'Naprawa lub wymiana urządzenia nastąpi po pozytywnej weryfikacji serwisowej.',
-        ],
-        generatedNote: 'Dokument wygenerowany automatycznie w module demo - wersja poglądowa.',
-      },
-    },
-  },
   footer: {
     companyName: 'Partner-Net',
     description: 'Rozwiązania B2B dla firm pracujących na Subiekt nexo PRO i numerach seryjnych.',
     links: [
       { label: 'Strona główna', href: '/' },
-      { label: 'Demo', href: '/demo' },
       { label: 'Kontakt', href: '/#kontakt' },
     ],
     legalNote: 'Wszelkie prawa zastrzeżone.',

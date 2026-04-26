@@ -19,15 +19,9 @@ function SeoManager() {
   const location = useLocation()
 
   useEffect(() => {
-    const { seo, demoPage } = siteContent
-
-    const isDemoPage = location.pathname === '/demo'
-
-    const title = isDemoPage
-      ? `Demo | ${siteContent.navigation.brand}`
-      : seo.title
-
-    const description = isDemoPage ? demoPage.description : seo.description
+    const { seo } = siteContent
+    const title = seo.title
+    const description = seo.description
 
     document.title = title
     setMeta('description', description)

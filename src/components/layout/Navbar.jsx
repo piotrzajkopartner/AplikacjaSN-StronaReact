@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { siteContent } from '../../content/siteContent.js'
 
 const baseLinkClassName =
@@ -26,9 +26,6 @@ function Navbar() {
               {item.label}
             </a>
           ))}
-          <NavLink to="/demo" className={baseLinkClassName}>
-            Demo
-          </NavLink>
           <a
             href={getAnchorHref(siteContent.navigation.cta.href)}
             className="ml-2 inline-flex rounded-lg border border-blue-950 bg-blue-950 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-900"
@@ -38,9 +35,6 @@ function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
-          <NavLink to="/demo" className="rounded-md border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700">
-            Demo
-          </NavLink>
           <a href={getAnchorHref('#kontakt')} className="rounded-md bg-blue-950 px-3 py-1.5 text-xs font-semibold text-white">
             Kontakt
           </a>
