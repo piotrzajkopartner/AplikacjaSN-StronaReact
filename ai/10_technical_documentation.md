@@ -52,6 +52,8 @@ Routing:
 
 Layout:
 - `src/components/layout/Layout.jsx`
+  - `LaserReveal` (startowa animacja skanera fullscreen)
+  - `SNTicker` (dekoracyjne tlo z numerami seryjnymi)
   - `Navbar`
   - `Outlet`
   - `Footer`
@@ -87,6 +89,7 @@ src/
 │               └── UnsavedChangesDialog.jsx
 ├── components/
 │   ├── layout/
+│   ├── magicui/
 │   ├── seo/
 │   ├── sections/
 │   └── ui/
@@ -99,7 +102,16 @@ src/
 │       ├── PlaceholderImage.jsx
 │       └── SectionHeading.jsx
 public/
+├── android-chrome-192x192.png
+├── android-chrome-512x512.png
+├── apple-touch-icon.png
+├── favicon-16x16.png
+├── favicon-32x32.png
+├── favicon.ico
 ├── manifest.json
+├── site.webmanifest
+├── partner-assets/
+│   └── 400dpiLogo.jpg
 └── demo-pdfs/
     ├── warranty-default.svg
     ├── warranty-pa.svg
@@ -201,6 +213,10 @@ W `DocumentList` dostepne sa zakresy:
 
 Dodatkowo zapytanie jest kodowane (`encodeURIComponent`) przed wyslaniem do mock API.
 
+Aktualizacja UI:
+- Pole wyszukiwania ma dedykowana klase `ui-search-input` i zwiekszony lewy/prawy padding,
+  aby placeholder nie nachodzil na ikone lupy i przycisk po prawej stronie.
+
 ## 13. Stylowanie
 - Globalne style strony: `src/index.css`
 - Stylowanie osadzonego demo (scoped): `src/features/demo/demo.css`
@@ -224,8 +240,12 @@ Scoping przez wrapper `.sn-demo` ogranicza wyciek klas demo do reszty landingu.
 - Wizualnie imituje strukture: hero z placeholderami + demoshell z 5 kartami dokumentow.
 
 ## 17. PWA i favicon
-- `public/manifest.json`: konfiguracja PWA z `theme_color: #00aeff`.
-- `index.html`: dodane `apple-touch-icon`, `manifest`, `theme-color`, `apple-mobile-web-app-*`, `robots`, font preload.
+- `public/manifest.json`: konfiguracja PWA z `theme_color: #00aeff` oraz ikonami PNG:
+  - `/android-chrome-192x192.png`
+  - `/android-chrome-512x512.png`
+- `index.html`: favicony ustawione na zestaw produkcyjny (`favicon.ico`, `favicon-32x32.png`, `favicon-16x16.png`, `apple-touch-icon.png`),
+  plus `manifest`, `theme-color`, `apple-mobile-web-app-*`, `robots`, font preload.
+- Dodatkowo w `public/` znajduje sie `site.webmanifest` dostarczony z paczki favicon.
 
 ## 18. CookieConsent - aktualizacja
 - `src/components/ui/CookieConsent.jsx`:
@@ -265,6 +285,10 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 - `src/content/siteContent.js` -> klucz `trust`
 - `public/partner-assets/400dpiLogo.jpg`
 
+### Animacja startowa skanera
+- `src/components/magicui/laser-reveal.jsx`
+- `src/components/layout/Layout.jsx`
+
 ### Stylowanie demo
 - `src/features/demo/demo.css`
 
@@ -282,12 +306,15 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 - `/`, `/demo` i `/polityka-prywatnosci` dzialaja po bezposrednim odswiezeniu (Vercel rewrite aktywny)
 - modal QR otwiera sie poprawnie (bez "bialego tla")
 - wyszukiwarka demo przyjmuje input i filtruje poprawnie
+- placeholder w wyszukiwarce demo nie nachodzi na ikone lupy
 - symbole produktow sa 4-cyfrowe i wyszukiwalne
 - brak kodu symulacji blokady licencji
 - strona polityki prywatnosci dostepna i linkowana z footera/cookies
 - CookieConsent obsluguje wszystkie 3 opcje i linkuje do polityki
 - manifest.json obecny, PWA meta poprawne
+- favicony (`.ico`, 16/32 png, apple touch, android 192/512) sa podlinkowane i widoczne
 - DemoPage loading skeleton wyswietla sie podczas lazy-load
+- animacja startowa skanera (LaserReveal) pokazuje kod EAN i znika wraz z przejsciem lasera
 
 ## 22. Najwazniejsze pliki do zapamietania (TOP 15)
 1. `src/content/siteContent.js`
@@ -306,5 +333,11 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 14. `src/App.jsx`
 15. `vercel.json`
 
+## 23. Ostatnie zmiany UI (2026-04-26)
+- Sekcja problemow (`ProblemSection`) przeszla redesign: usunieto numerki `01/02/03`,
+  dodano etykiety obszarow, akcenty kolorystyczne i linie "Wplyw" pod trescia kart.
+- Sekcja "O dostawcy" uzywa realnego logo Partner-net.pl (klikany blok z linkiem do strony).
+- `LaserReveal` renderuje kod kreskowy EAN-13 i wygasza go zgodnie z ruchem lasera.
+
 ---
-Dokument zaktualizowany: 2026-04-26 20:10 (CEST).
+Dokument zaktualizowany: 2026-04-26 21:05 (CEST).
