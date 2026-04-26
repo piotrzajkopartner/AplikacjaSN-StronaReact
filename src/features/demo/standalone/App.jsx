@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import DocumentList from './components/DocumentList';
 import SerialEntry from './components/SerialEntry';
 import Toast from './components/Toast';
@@ -13,6 +14,7 @@ function App() {
   const [notification, setNotification] = useState(null); // { message, type }
   const [showQr, setShowQr] = useState(false);
   const serialEntryRef = useRef(null);
+  const qrValue = typeof window !== 'undefined' ? window.location.href : '';
 
   // Lifted state for DocumentList persistence
   const [listState, setListState] = useState({
@@ -88,24 +90,25 @@ function App() {
       </header>
 
       {/* QR Code Modal */}
-      {showQr && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setShowQr(false)}>
-          <div className="bg-white p-6 rounded-2xl shadow-xl flex flex-col items-center gap-4 max-w-sm mx-4" onClick={e => e.stopPropagation()}>
-            <h3 className="text-lg font-bold text-gray-900">Skanuj aby otworzyć na telefonie</h3>
-            <div className="p-4 bg-white border-2 border-gray-100 rounded-xl">
-              <QRCode value={window.location.href} size={200} />
+      {showQr && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm" onClick={() => setShowQr(false)}>
+          <div className="w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <h3 className="text-lg font-bold text-gray-900">Skanuj aby otworzyc na telefonie</h3>
+            <div className="mt-4 flex justify-center rounded-xl border-2 border-gray-100 bg-white p-4">
+              <QRCode value={qrValue} size={200} />
             </div>
-            <p className="text-sm text-gray-500 text-center">
-              Upewnij się, że telefon jest w tej samej sieci Wi-Fi co komputer.
+            <p className="mt-4 text-sm text-gray-500">
+              Upewnij sie, ze telefon jest w tej samej sieci Wi-Fi co komputer.
             </p>
             <button
               onClick={() => setShowQr(false)}
-              className="w-full py-2 bg-gray-100 font-medium text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+              className="mt-4 w-full rounded-lg bg-gray-100 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-200"
             >
               Zamknij
             </button>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Main Content */}

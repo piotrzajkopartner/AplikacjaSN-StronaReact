@@ -203,9 +203,19 @@ export const siteContent = {
   },
   demoPage: {
     badge: 'Interaktywne demo aplikacji',
-    headline: 'Zobacz pelny przeplyw pracy na dokumentach i numerach seryjnych.',
+    headline: 'Zobacz, jak Twoj zespol moze pracowac szybciej i bez bledow na numerach seryjnych.',
     description:
-      'To osadzone demo prezentuje kluczowe scenariusze operacyjne: liste dokumentow, walidacje numerow seryjnych, blokady i podglad gwarancji.',
+      'W kilka minut przejdziesz przez realny przebieg pracy: od listy dokumentow i wyszukiwania SN po kontrole duplikatow i podglad gwarancji.',
+    highlights: [
+      'Mniej pomylek kompletacyjnych i reklamacji',
+      'Szybsza obsluga dokumentow PZ, ZK, WZ i PA',
+      'Gotowy scenariusz prezentacyjny dla zespolu i decydentow',
+    ],
+    stats: [
+      { value: '4', label: 'Typy dokumentow' },
+      { value: '100%', label: 'Tryb demonstracyjny' },
+      { value: '< 10 min', label: 'Do pierwszego efektu' },
+    ],
   },
   footer: {
     companyName: 'Partner-Net',
