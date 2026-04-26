@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <rect width="1240" height="1754" fill="#f3f4f6"/>
+  <rect x="80" y="80" width="1080" height="1594" rx="12" fill="#ffffff" stroke="#d1d5db"/>
+  <text x="120" y="170" font-family="Arial, sans-serif" font-size="40" font-weight="700" fill="#111827">PODGLAD DOKUMENTU DEMO</text>
+  <text x="120" y="230" font-family="Arial, sans-serif" font-size="24" fill="#374151">Fallback dla innych typow dokumentow.</text>
+  <text x="120" y="270" font-family="Arial, sans-serif" font-size="20" fill="#6b7280">To miejsce sluzy do podmiany finalnymi materialami sprzedazowymi.</text>
+</svg>

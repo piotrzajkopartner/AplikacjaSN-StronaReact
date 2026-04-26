@@ -36,8 +36,8 @@ export const siteContent = {
       href: '#kontakt',
     },
     secondaryCta: {
-      label: 'Zobacz funkcje',
-      href: '#funkcje',
+      label: 'Zobacz demo',
+      href: '/demo',
     },
     supportingNote: 'Instalacja on-premise. Wdrożenie po stronie Partner-Net. 14 dni testów.',
     imagePlaceholder: {
@@ -201,11 +201,18 @@ export const siteContent = {
     },
     successMessage: 'Dziękujemy za wiadomość. Skontaktujemy się w sprawie prezentacji.',
   },
+  demoPage: {
+    badge: 'Interaktywne demo aplikacji',
+    headline: 'Zobacz pelny przeplyw pracy na dokumentach i numerach seryjnych.',
+    description:
+      'To osadzone demo prezentuje kluczowe scenariusze operacyjne: liste dokumentow, walidacje numerow seryjnych, blokady i podglad gwarancji.',
+  },
   footer: {
     companyName: 'Partner-Net',
     description: 'Rozwiązania B2B dla firm pracujących na Subiekt nexo PRO i numerach seryjnych.',
     links: [
       { label: 'Strona główna', href: '/' },
+      { label: 'Demo', href: '/demo' },
       { label: 'Kontakt', href: '/#kontakt' },
     ],
     legalNote: 'Wszelkie prawa zastrzeżone.',
