@@ -36,13 +36,13 @@ export function MagicCard({
   return (
     <motion.div
       className={cn(
-        "group relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md",
+        "group relative isolate overflow-hidden rounded-2xl border border-slate-200/80 bg-white/82 shadow-[0_18px_50px_rgba(15,23,42,0.06)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-sky-200 hover:shadow-[0_24px_70px_rgba(14,165,233,0.12)]",
         className
       )}
       onPointerMove={handlePointerMove}
       onPointerLeave={reset}
     >
-      <div className="bg-white absolute inset-px z-20 rounded-[inherit]" />
+      <div className="absolute inset-px z-20 rounded-[inherit] bg-gradient-to-br from-white via-white to-slate-50/90" />
 
       <motion.div
         suppressHydrationWarning

@@ -2,7 +2,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { siteContent } from '../../content/siteContent.js'
 
 const baseLinkClassName =
-  'rounded-md px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 hover:text-slate-950'
+  'rounded-full px-3.5 py-2 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-white hover:text-slate-950 hover:shadow-sm'
 
 function Navbar() {
   const location = useLocation()
@@ -11,8 +11,8 @@ function Navbar() {
   const getAnchorHref = (href) => (isHomePage ? href : `/${href}`)
 
   return (
-    <header className="sticky top-0 z-20 border-b border-slate-200/90 bg-white/90 backdrop-blur">
-      <div className="site-container flex items-center justify-between gap-3 py-3">
+    <header className="sticky top-0 z-20 border-b border-white/70 bg-white/76 shadow-sm shadow-slate-200/50 backdrop-blur-xl">
+      <div className="site-container flex items-center justify-between gap-3 py-2.5">
         <Link
           to="/"
           className="flex shrink-0 items-center"
@@ -20,11 +20,11 @@ function Navbar() {
           <img 
             src="/logo.svg" 
             alt={siteContent.navigation.brand} 
-            className="h-14 w-auto md:h-[72px] lg:h-[84px]" 
+            className="h-12 w-auto drop-shadow-sm md:h-16 lg:h-[72px]" 
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Nawigacja glowna">
+        <nav className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-slate-50/70 p-1 shadow-inner shadow-white md:flex" aria-label="Nawigacja glowna">
           {siteContent.navigation.links.map((item) => (
             <a key={item.href} href={getAnchorHref(item.href)} className={baseLinkClassName}>
               {item.label}
@@ -35,17 +35,17 @@ function Navbar() {
           </NavLink>
           <a
             href={getAnchorHref(siteContent.navigation.cta.href)}
-            className="ml-2 inline-flex rounded-lg border border-blue-950 bg-blue-950 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-900"
+            className="ml-1 inline-flex rounded-full border border-brand-blue bg-brand-blue px-4 py-2 text-sm font-semibold text-white shadow-md shadow-brand-blue/25 transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-blue-hover hover:shadow-lg hover:shadow-brand-blue/30"
           >
             {siteContent.navigation.cta.label}
           </a>
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
-          <NavLink to="/demo" className="rounded-md border border-slate-300 px-3 py-1.5 text-xs font-semibold text-slate-700">
+          <NavLink to="/demo" className="rounded-full border border-slate-300 bg-white/80 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm">
             Demo
           </NavLink>
-          <a href={getAnchorHref('#kontakt')} className="rounded-md bg-blue-950 px-3 py-1.5 text-xs font-semibold text-white">
+          <a href={getAnchorHref('#kontakt')} className="rounded-full bg-brand-blue px-3 py-1.5 text-xs font-semibold text-white shadow-sm shadow-brand-blue/30">
             Kontakt
           </a>
         </div>
@@ -57,7 +57,7 @@ function Navbar() {
             <a
               key={`mobile-${item.href}`}
               href={getAnchorHref(item.href)}
-              className="whitespace-nowrap rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700"
+              className="whitespace-nowrap rounded-full border border-slate-300 bg-white/80 px-3 py-1.5 text-xs font-semibold text-slate-700 shadow-sm"
             >
               {item.label}
             </a>

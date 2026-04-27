@@ -8,7 +8,7 @@ function PricingSection({ content }) {
       <SectionHeading eyebrow={content.subheadline} title={content.headline} description={content.body} />
 
       <div className="grid gap-6 lg:grid-cols-[1.1fr_1.6fr]">
-        <Card as="div" className="relative overflow-hidden border-t-4 border-t-brand-blue bg-white shadow-xl shadow-brand-blue/10">
+        <Card as="div" className="relative overflow-hidden border-t-4 border-t-brand-blue bg-white shadow-[0_24px_70px_rgba(0,174,255,0.12)]">
           <BorderBeam duration={8} size={250} />
           <div className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-brand-blue/10 blur-2xl" />
           <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-blue">Abonament</p>
@@ -20,7 +20,7 @@ function PricingSection({ content }) {
           </div>
         </Card>
 
-        <Card as="div" className="bg-slate-50 border-slate-200">
+        <Card as="div" className="bg-slate-50/80 border-slate-200">
           <ul className="space-y-4 text-sm text-brand-text">
             {content.bullets.map((item) => (
               <li key={item} className="flex gap-4 rounded-xl border border-slate-200 bg-white px-4 py-4 shadow-sm">
