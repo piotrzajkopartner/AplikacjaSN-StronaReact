@@ -28,7 +28,7 @@ export const siteContent = {
   },
   hero: {
     badge: 'Aplikacja B2B dla Subiekt nexo PRO',
-    headline: 'Numery seryjne przechodzą za dokumentem. Bez ręcznego przepisywania i zgadywania.',
+    headline: 'Mniej pomyłek przy numerach seryjnych w Subiekt nexo PRO. Więcej kontroli nad dokumentami.',
     body: 'Partner Numery Seryjne porządkuje obsługę SN w dokumentach PZ, ZK, WZ, PA i FS. Aplikacja potrafi przenieść numery z zamówienia na powiązane wydanie, sprawdzić duplikaty, pokazać historię urządzenia i przygotować kartę gwarancyjną.',
     pricingNote: 'Stały abonament 300 zł netto miesięcznie. Bez limitu stanowisk, użytkowników i dokumentów po stronie licencji.',
     primaryCta: {
