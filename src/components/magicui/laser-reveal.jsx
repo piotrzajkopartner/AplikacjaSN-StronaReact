@@ -1,6 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect, useMemo } from 'react'
 
+const SCAN_DURATION = 1.9
+const OVERLAY_DISMISS_MS = 1960
+
 const EAN_LEFT_ODD = {
   0: '0001101',
   1: '0011001',
@@ -112,11 +115,10 @@ export function LaserReveal({ onComplete }) {
   const rightDigits = barcodeValue.slice(7)
 
   useEffect(() => {
-    // Overlay znika zaraz po zejściu lasera
     const timer = setTimeout(() => {
       setIsVisible(false)
       if (onComplete) onComplete()
-    }, 1630)
+    }, OVERLAY_DISMISS_MS)
     return () => clearTimeout(timer)
   }, [onComplete])
 
@@ -126,19 +128,32 @@ export function LaserReveal({ onComplete }) {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.08 }}
-          className="fixed inset-0 z-[200] pointer-events-none overflow-hidden flex items-end"
+          transition={{ duration: 0.16, ease: 'easeOut' }}
+          className="fixed inset-0 z-[200] pointer-events-none overflow-hidden bg-slate-950"
         >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(0,174,255,0.18),transparent_38%),linear-gradient(135deg,rgba(2,6,23,0.96),rgba(15,23,42,0.92)_45%,rgba(2,6,23,0.98))]" />
+          <div className="absolute inset-0 opacity-[0.14] [background-image:linear-gradient(rgba(148,163,184,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.16)_1px,transparent_1px)] [background-size:48px_48px]" />
+          <div className="absolute inset-0 opacity-[0.18] [background-image:repeating-linear-gradient(0deg,transparent_0px,transparent_3px,rgba(255,255,255,0.2)_4px)]" />
+
           <motion.div
-            initial={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 0.96 }}
-            animate={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.96 }}
-            transition={{ duration: 1.6, ease: 'easeInOut' }}
+            initial={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
+            animate={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.98 }}
+            transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
             className="absolute inset-0 z-[200] flex items-center justify-center px-4"
           >
             <div className="w-full max-w-6xl text-center">
-              <div className="mx-auto w-full max-w-[1100px] rounded-xl border border-slate-300/80 bg-white/90 px-4 py-6 shadow-[0_18px_50px_rgba(15,23,42,0.12)] md:px-8 md:py-8">
-                <svg viewBox="0 0 117 94" className="h-[26vh] min-h-[160px] w-full" preserveAspectRatio="none" aria-hidden="true">
-                  <rect x="0" y="0" width="117" height="94" fill="#ffffff" />
+              <div className="relative mx-auto w-full max-w-[1040px] overflow-hidden rounded-[2rem] border border-cyan-200/20 bg-white/[0.06] p-3 shadow-[0_28px_110px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-xl md:p-5">
+                <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.1),transparent)]" />
+                <div className="absolute left-7 right-7 top-7 h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent" />
+                <div className="absolute bottom-7 left-7 right-7 h-px bg-gradient-to-r from-transparent via-cyan-200/30 to-transparent" />
+                <div className="relative rounded-[1.35rem] border border-white/15 bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(226,232,240,0.92))] px-4 py-5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.75),0_18px_50px_rgba(8,47,73,0.22)] md:px-10 md:py-7">
+                  <div className="mb-4 flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.34em] text-slate-500">
+                    <span>Partner SN</span>
+                    <span className="text-cyan-700">Live scan</span>
+                  </div>
+                  <svg viewBox="0 0 117 94" className="h-[25vh] min-h-[150px] w-full drop-shadow-[0_10px_24px_rgba(15,23,42,0.16)]" preserveAspectRatio="none" aria-hidden="true">
+                  <rect x="0" y="0" width="117" height="94" rx="3" fill="#f8fafc" />
+                  <rect x="3" y="5" width="111" height="78" rx="2" fill="none" stroke="#cbd5e1" strokeWidth="0.35" strokeDasharray="1.3 1.6" />
                   {barcodeBars.map((bar, idx) => (
                     <rect key={`${bar.x}-${idx}`} x={bar.x} y={8} width="1" height={bar.height} fill="#020617" />
                   ))}
@@ -173,28 +188,28 @@ export function LaserReveal({ onComplete }) {
                     </text>
                   ))}
                 </svg>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Laser beam idący w dół */}
           <motion.div
-            initial={{ top: '-5%' }}
-            animate={{ top: '105%' }}
-            transition={{ duration: 1.6, ease: "easeInOut" }}
-            className="absolute left-0 w-full h-[2px] bg-red-500 shadow-[0_0_25px_5px_rgba(239,68,68,0.9)] z-[201]"
-          />
-          
-          {/* Maska - nieskanowany jeszcze obszar na dole */}
+            initial={{ y: '-12vh' }}
+            animate={{ y: '112vh' }}
+            transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
+            className="absolute left-0 top-0 z-[202] w-full"
+          >
+            <div className="h-px w-full bg-cyan-100/90 shadow-[0_0_12px_2px_rgba(34,211,238,0.9),0_0_48px_12px_rgba(14,165,233,0.55)]" />
+            <div className="mx-auto h-16 w-[min(84rem,96vw)] -translate-y-8 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.28),rgba(34,211,238,0.11)_35%,transparent_72%)] blur-xl" />
+            <div className="mx-auto -mt-16 h-24 w-[min(74rem,90vw)] bg-[linear-gradient(180deg,rgba(125,211,252,0.18),transparent)] blur-sm" />
+          </motion.div>
+
           <motion.div
             initial={{ height: '100%' }}
             animate={{ height: '0%' }}
-            transition={{ duration: 1.6, ease: "easeInOut" }}
-            className="w-full bg-white/90 backdrop-blur-md backdrop-grayscale relative flex items-center justify-center overflow-hidden"
-          >
-            {/* Opcjonalny efekt "szumu" lub pasków przed zeskanowaniem */}
-            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, #000 2px, #000 4px)' }}></div>
-          </motion.div>
+            transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
+            className="absolute bottom-0 left-0 z-[201] w-full overflow-hidden bg-slate-950/72 backdrop-blur-md"
+          />
         </motion.div>
       )}
     </AnimatePresence>
