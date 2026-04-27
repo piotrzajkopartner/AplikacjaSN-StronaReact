@@ -1,12 +1,12 @@
 export const siteContent = {
   seo: {
-    title: 'Zarządzanie Numerami Seryjnymi | Moduł B2B dla Subiekt nexo PRO',
+    title: 'Partner Numery Seryjne | Kontrola SN dla Subiekt nexo PRO',
     description:
-      'Uporządkuj proces pracy z numerami seryjnymi, usprawnij weryfikację urządzeń i pokaż zespołowi przejrzyste narzędzie dla Subiekt nexo PRO.',
+      'Aplikacja do obsługi numerów seryjnych w dokumentach PZ, ZK, WZ, PA i FS. Automatyczne przenoszenie SN z zamówień na wydania, kontrola duplikatów, historia urządzeń i karty gwarancyjne dla Subiekt nexo PRO.',
     og: {
-      title: 'Zarządzanie Numerami Seryjnymi | Moduł B2B dla Subiekt nexo PRO',
+      title: 'Partner Numery Seryjne | Kontrola SN dla Subiekt nexo PRO',
       description:
-        'Uporządkuj proces pracy z numerami seryjnymi, usprawnij weryfikację urządzeń i pokaż zespołowi przejrzyste narzędzie dla Subiekt nexo PRO.',
+        'Skanuj numery seryjne, automatycznie przenoś je między powiązanymi dokumentami i szybciej sprawdzaj historię urządzeń w Subiekt nexo PRO.',
       type: 'website',
       image: '/images/placeholders/og-image-placeholder.jpg',
     },
@@ -27,10 +27,10 @@ export const siteContent = {
     },
   },
   hero: {
-    badge: 'Moduł B2B dla Subiekt nexo PRO',
-    headline: 'Zlikwiduj błędy w kompletacji i zablokuj straty na numerach seryjnych.',
-    body: 'Uzbrój swój magazyn w mechanizm Poka-Yoke dla Subiekt nexo PRO. Ogranicz pomyłki kompletacyjne, przyspiesz weryfikację historii urządzeń i zautomatyzuj przygotowanie kart gwarancyjnych.',
-    pricingNote: 'Stały abonament 300 zł netto miesięcznie. Brak limitów stanowisk po stronie licencji.',
+    badge: 'Aplikacja B2B dla Subiekt nexo PRO',
+    headline: 'Numery seryjne przechodzą za dokumentem. Bez ręcznego przepisywania i zgadywania.',
+    body: 'Partner Numery Seryjne porządkuje obsługę SN w dokumentach PZ, ZK, WZ, PA i FS. Aplikacja potrafi przenieść numery z zamówienia na powiązane wydanie, sprawdzić duplikaty, pokazać historię urządzenia i przygotować kartę gwarancyjną.',
+    pricingNote: 'Stały abonament 300 zł netto miesięcznie. Bez limitu stanowisk, użytkowników i dokumentów po stronie licencji.',
     primaryCta: {
       label: 'Umów prezentację',
       href: '#kontakt',
@@ -39,139 +39,154 @@ export const siteContent = {
       label: 'Zobacz demo',
       href: '/demo',
     },
-    supportingNote: 'Instalacja on-premise. Wdrożenie po stronie Partner-Net. 14 dni testów.',
+    supportingNote: 'Wdrożenie on-premise w środowisku klienta. Konfiguracja i uruchomienie po stronie Partner-Net. Dostępna 14-dniowa licencja testowa.',
     imagePlaceholder: {
-      title: 'Placeholder grafiki hero',
-      alt: 'Placeholder głównej grafiki hero dla modułu Partner Numery Seryjne',
+      title: 'Podgląd aplikacji Partner Numery Seryjne',
+      alt: 'Widok aplikacji do obsługi numerów seryjnych w Subiekt nexo PRO',
     },
   },
   problems: {
-    subheadline: 'Ukryte koszty błędu',
-    headline: 'Skanujesz towar, czy nadal tracisz czas na ręczne procedury?',
-    intro: 'Błędy przy pracy z numerami seryjnymi przekładają się na realne koszty operacyjne. Landing page ma jasno pokazać, że problem dotyczy logistyki, serwisu i pracy biura jednocześnie.',
+    subheadline: 'Gdzie uciekają koszty',
+    headline: 'Najwięcej czasu znika wtedy, gdy numer seryjny trzeba odtworzyć po fakcie.',
+    intro: 'Jeśli numery SN są przepisywane ręcznie albo żyją obok dokumentów, pojawiają się błędy przy wydaniach, dłuższe reklamacje i problem z ustaleniem, skąd pochodzi dane urządzenie.',
     cards: [
       {
-        title: 'Nieuzasadnione reklamacje',
+        title: 'Trudna weryfikacja reklamacji',
         description:
-          'Zespół traci czas na ręczne sprawdzanie historii urządzenia i ryzykuje obsługę sprzętu spoza własnej dystrybucji.',
+          'Bez szybkiego dostępu do historii numeru seryjnego zespół traci czas na sprawdzanie dokumentów i może obsługiwać sprzęt spoza własnej sprzedaży.',
       },
       {
-        title: 'Błędy kompletacyjne',
+        title: 'Pomyłki przy kompletacji',
         description:
-          'Przy dużym tempie pracy łatwo wydać niewłaściwy egzemplarz, zdublować sprzęt albo wysłać inną rewizję produktu.',
+          'Przy dużej liczbie wydań łatwo zeskanować niewłaściwy egzemplarz, pominąć wymagany numer albo wpisać ten sam SN w kilku miejscach.',
       },
       {
-        title: 'Ręczna obsługa dokumentów',
+        title: 'Zbyt dużo pracy ręcznej',
         description:
-          'Handlowcy i pracownicy biura tracą czas na wyszukiwanie numerów seryjnych i przygotowywanie dokumentów gwarancyjnych.',
+          'Pracownicy magazynu, biura i serwisu muszą ręcznie szukać numerów, przepisywać je między dokumentami i przygotowywać dokumenty gwarancyjne.',
       },
     ],
   },
   solution: {
-    subheadline: 'Cyfrowy asystent logistyki',
-    headline: 'Skanujesz i wiesz. Reszta robi się sama.',
-    body: 'System działa przez przeglądarkę i wspiera pracę na komputerze, tablecie lub telefonie. Pomaga ograniczać błędy przy kompletacji, porządkuje historię numerów seryjnych i wspiera pracę zespołów magazynowych, handlowych oraz serwisowych.',
+    subheadline: 'Rozwiązanie',
+    headline: 'Skanujesz raz. Aplikacja pilnuje powiązań, ilości i historii.',
+    body: 'Aplikacja działa w przeglądarce i wspiera pracę na komputerze, tablecie oraz telefonie. Obsługuje dokumenty PZ, ZK, WZ, PA i FS, automatycznie przenosi numery SN z dokumentów źródłowych na powiązane wydania, pilnuje finalnych ilości po korektach, sprawdza duplikaty i blokuje równoczesną edycję tego samego dokumentu.',
   },
   benefits: {
-    subheadline: 'Zwrot z inwestycji',
-    headline: 'Korzyści, które widać w codziennej pracy operacyjnej.',
+    subheadline: 'Korzyści operacyjne',
+    headline: 'Mniej pomyłek, szybsza obsługa i lepszy porządek w danych.',
     cards: [
       {
-        title: 'Mniej pomyłek przy wydaniu',
-        description: 'System pomaga ograniczać ryzyko błędnych wydań i duplikatów numerów seryjnych.',
+        title: 'Mniej ręcznego przepisywania',
+        description: 'Numery SN mogą zostać automatycznie przeniesione z zamówienia na powiązane WZ lub PA, z uwzględnieniem finalnych ilości.',
       },
       {
-        title: 'Szybsza weryfikacja reklamacji',
-        description: 'Historia urządzenia jest łatwiej dostępna, co usprawnia pracę działu serwisu i reklamacji.',
+        title: 'Szybsza obsługa reklamacji',
+        description: 'Historia numeru seryjnego pozwala szybciej ustalić, kiedy i na jakim dokumencie pojawiło się urządzenie.',
       },
       {
-        title: 'Mniej pracy ręcznej',
+        title: 'Mniej błędów przy wydaniach',
         description:
-          'Zespół nie musi ręcznie przygotowywać całego obiegu informacji wokół numerów seryjnych i dokumentów.',
+          'System pomaga wykrywać braki, nadmiary i duplikaty numerów seryjnych zanim dokument zostanie uznany za kompletny.',
       },
       {
-        title: 'Większa przejrzystość procesu',
-        description: 'Firma szybciej widzi status operacji i łatwiej porządkuje odpowiedzialność za proces.',
+        title: 'Lepsza kontrola dokumentów',
+        description: 'Statusy dokumentów pokazują, które pozycje są uzupełnione, gdzie brakuje numerów i gdzie po korekcie pojawił się nadmiar.',
       },
     ],
   },
   features: {
-    subheadline: 'Najważniejsze możliwości',
-    headline: 'Funkcje, które wspierają kontrolę procesu.',
+    subheadline: 'Najważniejsze funkcje',
+    headline: 'Funkcje dopasowane do codziennej pracy z dokumentami i numerami SN.',
     items: [
-      'Kontrola duplikatów numerów seryjnych',
-      'Mechanizm blokowania równoczesnej edycji dokumentu',
-      'Wyszukiwanie historii urządzenia',
-      'Obsługa kart gwarancyjnych i dokumentów powiązanych z procesem',
-      'Podejście on-premise i odseparowanie od warstwy operacyjnej ERP',
+      'Obsługa dokumentów PZ, ZK, WZ, PA i powiązań z FS z poziomu przeglądarki',
+      'Skanowanie numerów seryjnych telefonem lub czytnikiem kodów',
+      'Automatyczne przenoszenie numerów SN z ZK na powiązane WZ lub PA',
+      'Kontrola duplikatów z rozróżnieniem dokumentów przyjęcia i sprzedaży',
+      'Automatyczne czyszczenie osieroconych numerów po korektach ilości',
+      'Blokada równoczesnej edycji tego samego dokumentu',
+      'Wyszukiwanie dokumentów i historii po numerze seryjnym',
+      'Generowanie kart gwarancyjnych PDF z kodami kreskowymi Code128',
     ],
   },
   pricing: {
     subheadline: 'Prosty model licencyjny',
     headline: '300 zł netto miesięcznie. Bez limitów po stronie licencji.',
-    body: 'Model cenowy ma być pokazany jasno i bez ukrywania podstawowej ceny. Koszt wdrożenia jest ustalany osobno po krótkiej analizie środowiska klienta.',
+    body: 'Cena abonamentu jest stała i przejrzysta. Koszt wdrożenia ustalamy osobno po krótkiej analizie środowiska, zakresu integracji i sposobu pracy zespołu.',
     bullets: [
-      'Brak limitów użytkowników i stanowisk po stronie licencji',
-      'Brak limitów liczby procesowanych dokumentów',
-      'Brak limitów liczby zapisywanych numerów seryjnych',
-      '14-dniowa licencja testowa',
+      'Brak limitu użytkowników i stanowisk po stronie licencji',
+      'Brak limitu liczby obsługiwanych dokumentów',
+      'Brak limitu liczby zapisywanych numerów seryjnych',
+      '14-dniowa licencja testowa przed decyzją o zakupie',
     ],
-    note: 'Koszt i zakres wdrożenia ustalany są osobno po krótkiej analizie środowiska.',
+    note: 'Wdrożenie, konfiguracja i ewentualne dopasowania są wyceniane osobno po analizie środowiska klienta.',
   },
   deployment: {
     subheadline: 'Wdrożenie',
-    headline: 'Bezkolizyjne uruchomienie w środowisku klienta.',
+    headline: 'Uruchomienie w środowisku klienta, bez wynoszenia danych poza firmę.',
     body1:
-      'Aplikacja jest wdrażana po stronie Partner-Net i uruchamiana tak, aby nie mieszać warstwy marketingowej z obecną aplikacją operacyjną klienta.',
+      'Aplikacja jest wdrażana on-premise i działa w środowisku klienta. Dzięki temu dane operacyjne, dokumenty i numery seryjne pozostają pod kontrolą firmy.',
     body2:
-      'Na stronie nie należy obiecywać sztywnego czasu wdrożenia. Komunikat ma podkreślać bezpieczeństwo procesu, dopasowanie do środowiska i krótkie szkolenie użytkowników.',
+      'Zakres wdrożenia zależy od konfiguracji Subiekt nexo PRO, sposobu pracy magazynu i wymagań zespołu. Po uruchomieniu zapewniamy krótkie przeszkolenie użytkowników.',
   },
   security: {
     subheadline: 'Bezpieczeństwo',
-    headline: 'Działa obok Subiekta. Dane pozostają w środowisku klienta.',
+    headline: 'Aplikacja wspiera proces SN, ale nie zastępuje systemu ERP.',
     body1:
-      'Komunikacja bezpieczeństwa ma być zrozumiała dla biznesu. Strona ma wyjaśniać, że rozwiązanie nie ma ingerować w księgowość ani operacje magazynowe klienta.',
+      'Rozwiązanie działa obok Subiekt nexo PRO i koncentruje się na obsłudze numerów seryjnych. Nie jest osobnym systemem księgowym ani magazynowym.',
     body2:
-      'Landing page ma podkreślać on-premise, odseparowanie danych i ostrożne podejście do integracji.',
+      'Dane pozostają w środowisku klienta, a dostęp do aplikacji można dopasować do wewnętrznych zasad bezpieczeństwa i organizacji pracy.',
   },
   trust: {
     subheadline: 'O dostawcy',
-    headline: 'Za rozwiązaniem stoi Partner-net.pl',
+    headline: 'Rozwiązanie przygotowane przez Partner-Net',
     body1:
-      'Partner-net.pl dostarcza rozwiązania IT i systemy zabezpieczeń dla firm, łącząc sprzedaż sprzętu z wdrożeniami i wsparciem technicznym.',
+      'Partner-Net dostarcza rozwiązania IT, systemy zabezpieczeń, monitoring, infrastrukturę sieciową oraz wsparcie techniczne dla firm.',
     body2:
-      'Na stronie znajdziesz ofertę dla sieci i infrastruktury IT, monitoringu oraz sklepu B2B z doradztwem, rabatami i szybką dostawą.',
+      'Doświadczenie w sprzedaży sprzętu, obsłudze B2B i wdrożeniach pozwala tworzyć narzędzia dopasowane do realnej pracy magazynu, biura i serwisu.',
     websiteUrl: 'https://partner-net.pl',
     websiteLabel: 'partner-net.pl',
     logo: {
       src: '/partner-assets/400dpiLogo.jpg',
-      alt: 'Logo Partner-net.pl',
+      alt: 'Logo Partner-Net',
     },
   },
   faq: {
     subheadline: 'Najczęstsze pytania',
-    headline: 'Konkretne odpowiedzi na najważniejsze wątpliwości.',
+    headline: 'Konkretne odpowiedzi przed prezentacją systemu.',
     items: [
       {
-        question: 'Ile kosztuje system?',
+        question: 'Ile kosztuje aplikacja?',
         answer:
-          'Abonament wynosi 300 zł netto miesięcznie. Koszt i zakres wdrożenia ustalany są osobno po krótkiej analizie środowiska.',
+          'Abonament wynosi 300 zł netto miesięcznie. Koszt wdrożenia i ewentualnych dopasowań ustalamy osobno po krótkiej analizie środowiska.',
       },
       {
         question: 'Czy są limity użytkowników lub stanowisk?',
-        answer: 'Nie. Po stronie licencji nie przewidziano limitów użytkowników ani stanowisk.',
+        answer: 'Nie. Po stronie licencji nie ma limitu użytkowników, stanowisk, dokumentów ani zapisywanych numerów seryjnych.',
       },
       {
         question: 'Gdzie instalowana jest aplikacja?',
-        answer: 'Rozwiązanie jest wdrażane on-premise, w środowisku klienta.',
+        answer: 'Aplikacja jest wdrażana on-premise, czyli w środowisku klienta.',
       },
       {
-        question: 'Czy muszę instalować coś na każdym komputerze?',
-        answer: 'Nie. Interfejs jest dostępny przez przeglądarkę.',
+        question: 'Czy trzeba instalować program na każdym komputerze?',
+        answer: 'Nie. Użytkownicy pracują przez przeglądarkę. Z aplikacji można korzystać także na tablecie lub telefonie, jeśli pozwala na to konfiguracja sieci.',
       },
       {
-        question: 'Jak wygląda prezentacja systemu?',
-        answer: 'Prezentacja odbywa się na żywo podczas spotkania, z omówieniem procesu pod Twoje środowisko pracy.',
+        question: 'Czy numery SN mogą przenosić się między dokumentami?',
+        answer: 'Tak. Aplikacja potrafi automatycznie przenieść numery z dokumentu ZK na powiązane WZ lub PA, jeśli dokument docelowy nie ma jeszcze zapisanych numerów.',
+      },
+      {
+        question: 'Czy można sprawdzić historię numeru seryjnego?',
+        answer: 'Tak. Wyszukiwarka pozwala odnaleźć dokument lub numer SN i przejść do powiązanego dokumentu.',
+      },
+      {
+        question: 'Co dzieje się po korektach ilości?',
+        answer: 'Aplikacja pilnuje finalnych ilości. Usuwa numery osierocone, oznacza nadmiary i pomaga utrzymać spójny status dokumentu.',
+      },
+      {
+        question: 'Czy aplikacja obsługuje skanowanie kodów?',
+        answer: 'Tak. Numery seryjne można wpisywać ręcznie, skanować czytnikiem lub użyć aparatu telefonu w widoku mobilnym.',
       },
       {
         question: 'Czy mogę przetestować system?',
@@ -181,14 +196,14 @@ export const siteContent = {
   },
   contact: {
     subheadline: 'Kontakt',
-    headline: 'Umów prezentację i zobacz, jak uporządkować proces pracy z numerami seryjnymi.',
-    body: 'Formularz ma zachęcać do zostawienia danych kontaktowych i rozpoczęcia rozmowy handlowo-wdrożeniowej.',
+    headline: 'Umów prezentację i sprawdź, jak aplikacja pasuje do Twojego procesu.',
+    body: 'Opowiedz krótko, jak dziś obsługujecie numery seryjne i dokumenty powiązane. Podczas prezentacji pokażemy skanowanie, automatyczne przenoszenie SN, kontrolę duplikatów, nadmiary po korektach i generowanie kart gwarancyjnych.',
     fields: {
       fullName: { label: 'Imię i nazwisko', required: true, placeholder: 'Jan Kowalski' },
       email: { label: 'E-mail', required: true, placeholder: 'jan@firma.pl' },
       phone: { label: 'Telefon', required: true, placeholder: '+48 000 000 000' },
       taxId: { label: 'NIP firmy', required: true, placeholder: '1234567890' },
-      message: { label: 'Wiadomość', required: false, placeholder: 'Krótki opis potrzeb (opcjonalnie)' },
+      message: { label: 'Wiadomość', required: false, placeholder: 'Np. typy dokumentów, liczba stanowisk, obecny sposób przenoszenia SN' },
     },
     buttonLabel: 'Umów prezentację systemu',
     validationMessages: {
@@ -201,27 +216,27 @@ export const siteContent = {
       submitting: 'submitting',
       success: 'success',
     },
-    successMessage: 'Dziękujemy za wiadomość. Skontaktujemy się w sprawie prezentacji.',
+    successMessage: 'Dziękujemy za wiadomość. Skontaktujemy się, aby umówić prezentację.',
   },
   demoPage: {
     badge: 'Interaktywne demo aplikacji',
-    headline: 'Zobacz, jak Twoj zespol moze pracowac szybciej i bez bledow na numerach seryjnych.',
+    headline: 'Zobacz, jak wygląda praca z dokumentami i numerami seryjnymi w praktyce.',
     description:
-      'W kilka minut przejdziesz przez realny przebieg pracy: od listy dokumentow i wyszukiwania SN po kontrole duplikatow i podglad gwarancji.',
+      'Przejdź przez przykładowy proces: lista dokumentów, wyszukiwanie numeru SN, kontrola duplikatów, uzupełnianie pozycji i podgląd dokumentu gwarancyjnego.',
     highlights: [
-      'Mniej pomylek kompletacyjnych i reklamacji',
-      'Szybsza obsluga dokumentow PZ, ZK, WZ i PA',
-      'Gotowy scenariusz prezentacyjny dla zespolu i decydentow',
+      'Obsługa dokumentów PZ, ZK, WZ, PA i powiązań sprzedażowych',
+      'Skanowanie, wyszukiwanie i przenoszenie numerów seryjnych',
+      'Scenariusz dla magazynu, biura sprzedaży i serwisu',
     ],
     stats: [
-      { value: '0 błędów', label: 'Kompletacji i wydań' },
-      { value: 'Pełna', label: 'Kontrola historii numerów seryjnych' },
-      { value: 'Brak limitów', label: 'Stanowisk i dokumentów' },
+      { value: 'PZ/ZK/WZ/PA', label: 'Dokumenty w jednym widoku' },
+      { value: 'SN', label: 'Historia i kontrola duplikatów' },
+      { value: 'Bez limitów', label: 'Stanowisk i dokumentów' },
     ],
   },
   footer: {
     companyName: 'Partner-Net',
-    description: 'Rozwiązania B2B dla firm pracujących na Subiekt nexo PRO i numerach seryjnych.',
+    description: 'Aplikacja B2B do obsługi numerów seryjnych dla firm pracujących na Subiekt nexo PRO.',
     links: [
       { label: 'Strona główna', href: '/' },
       { label: 'Demo', href: '/demo' },
