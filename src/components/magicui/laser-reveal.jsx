@@ -129,11 +129,12 @@ export function LaserReveal({ onComplete }) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.16, ease: 'easeOut' }}
-          className="fixed inset-0 z-[200] pointer-events-none overflow-hidden bg-slate-950"
+          className="fixed inset-0 z-[200] pointer-events-none overflow-hidden bg-slate-50"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(0,174,255,0.18),transparent_38%),linear-gradient(135deg,rgba(2,6,23,0.96),rgba(15,23,42,0.92)_45%,rgba(2,6,23,0.98))]" />
-          <div className="absolute inset-0 opacity-[0.14] [background-image:linear-gradient(rgba(148,163,184,0.2)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.16)_1px,transparent_1px)] [background-size:48px_48px]" />
-          <div className="absolute inset-0 opacity-[0.18] [background-image:repeating-linear-gradient(0deg,transparent_0px,transparent_3px,rgba(255,255,255,0.2)_4px)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(0,174,255,0.18),transparent_34%),radial-gradient(circle_at_82%_78%,rgba(14,165,233,0.14),transparent_32%),linear-gradient(180deg,rgba(248,250,252,0.98),rgba(255,255,255,0.94)_42%,rgba(241,245,249,0.98))]" />
+          <div className="absolute inset-0 opacity-[0.32] [background-image:linear-gradient(rgba(14,165,233,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(100,116,139,0.08)_1px,transparent_1px)] [background-size:56px_56px]" />
+          <div className="absolute -left-24 top-1/4 h-72 w-72 rounded-full bg-cyan-200/30 blur-3xl" />
+          <div className="absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-sky-100/70 blur-3xl" />
 
           <motion.div
             initial={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
@@ -142,11 +143,11 @@ export function LaserReveal({ onComplete }) {
             className="absolute inset-0 z-[200] flex items-center justify-center px-4"
           >
             <div className="w-full max-w-6xl text-center">
-              <div className="relative mx-auto w-full max-w-[1040px] overflow-hidden rounded-[2rem] border border-cyan-200/20 bg-white/[0.06] p-3 shadow-[0_28px_110px_rgba(0,0,0,0.42),inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-xl md:p-5">
-                <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(255,255,255,0.1),transparent)]" />
-                <div className="absolute left-7 right-7 top-7 h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent" />
-                <div className="absolute bottom-7 left-7 right-7 h-px bg-gradient-to-r from-transparent via-cyan-200/30 to-transparent" />
-                <div className="relative rounded-[1.35rem] border border-white/15 bg-[linear-gradient(180deg,rgba(248,250,252,0.98),rgba(226,232,240,0.92))] px-4 py-5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.75),0_18px_50px_rgba(8,47,73,0.22)] md:px-10 md:py-7">
+              <div className="relative mx-auto w-full max-w-[1040px] overflow-hidden rounded-[2rem] border border-sky-200/70 bg-white/70 p-3 shadow-[0_28px_90px_rgba(14,165,233,0.16),0_10px_35px_rgba(15,23,42,0.08),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-xl md:p-5">
+                <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent,rgba(14,165,233,0.1),transparent)]" />
+                <div className="absolute left-7 right-7 top-7 h-px bg-gradient-to-r from-transparent via-sky-300/70 to-transparent" />
+                <div className="absolute bottom-7 left-7 right-7 h-px bg-gradient-to-r from-transparent via-sky-200/70 to-transparent" />
+                <div className="relative rounded-[1.35rem] border border-slate-200/90 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,250,252,0.95))] px-4 py-5 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.9),0_18px_46px_rgba(8,47,73,0.12)] md:px-10 md:py-7">
                   <div className="mb-4 flex items-center justify-between gap-4 text-[10px] font-semibold uppercase tracking-[0.34em] text-slate-500">
                     <span>Partner SN</span>
                     <span className="text-cyan-700">Live scan</span>
@@ -199,16 +200,16 @@ export function LaserReveal({ onComplete }) {
             transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
             className="absolute left-0 top-0 z-[202] w-full"
           >
-            <div className="h-px w-full bg-cyan-100/90 shadow-[0_0_12px_2px_rgba(34,211,238,0.9),0_0_48px_12px_rgba(14,165,233,0.55)]" />
-            <div className="mx-auto h-16 w-[min(84rem,96vw)] -translate-y-8 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.28),rgba(34,211,238,0.11)_35%,transparent_72%)] blur-xl" />
-            <div className="mx-auto -mt-16 h-24 w-[min(74rem,90vw)] bg-[linear-gradient(180deg,rgba(125,211,252,0.18),transparent)] blur-sm" />
+            <div className="h-px w-full bg-sky-400/90 shadow-[0_0_10px_1px_rgba(14,165,233,0.8),0_0_44px_10px_rgba(0,174,255,0.34)]" />
+            <div className="mx-auto h-16 w-[min(84rem,96vw)] -translate-y-8 bg-[radial-gradient(ellipse_at_center,rgba(0,174,255,0.22),rgba(14,165,233,0.1)_36%,transparent_72%)] blur-xl" />
+            <div className="mx-auto -mt-16 h-24 w-[min(74rem,90vw)] bg-[linear-gradient(180deg,rgba(14,165,233,0.13),transparent)] blur-sm" />
           </motion.div>
 
           <motion.div
             initial={{ height: '100%' }}
             animate={{ height: '0%' }}
             transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute bottom-0 left-0 z-[201] w-full overflow-hidden bg-slate-950/72 backdrop-blur-md"
+            className="absolute bottom-0 left-0 z-[201] w-full overflow-hidden bg-white/72 backdrop-blur-md"
           />
         </motion.div>
       )}
