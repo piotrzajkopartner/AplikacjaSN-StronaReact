@@ -113,10 +113,10 @@ function HeroSection({ content }) {
                   </div>
                   <div>
                     <p className="text-sm font-black tracking-tight text-slate-900">Partner Numery Seryjne</p>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Widok demo</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400">Kontrola SN w dokumentach</p>
                   </div>
                 </div>
-                <span className="rounded-md border border-amber-300 bg-amber-100 px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-amber-800">Read-only</span>
+                <span className="rounded-md border border-emerald-200 bg-emerald-50 px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-emerald-700">Bez duplikatow</span>
               </div>
 
               <div className="space-y-3 p-4">

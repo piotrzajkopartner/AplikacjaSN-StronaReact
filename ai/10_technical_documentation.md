@@ -2,7 +2,7 @@
 
 ## 1. Cel dokumentu
 Ten dokument jest aktualnym przewodnikiem utrzymaniowym projektu landing page "Partner Numery Seryjne".
-Opisuje realny stan kodu po integracji interaktywnego demo w ramach tej samej aplikacji SPA.
+Opisuje realny stan kodu po integracji interaktywnego demo w ramach tej samej aplikacji SPA oraz po ostatnim odswiezeniu warstwy UI landingu.
 
 ## 2. Szybki start
 
@@ -53,7 +53,7 @@ Routing:
 Layout:
 - `src/components/layout/Layout.jsx`
   - `LaserReveal` (startowa animacja skanera fullscreen)
-  - `SNTicker` (dekoracyjne tlo z numerami seryjnymi)
+  - globalne dekoracyjne tlo: gradienty, subtelna siatka i `SNTicker`
   - `Navbar`
   - `Outlet`
   - `Footer`
@@ -156,6 +156,8 @@ Uwaga: dawne `demoPreview` zostalo usuniete z homepage.
 10. `FAQSection`
 11. `FinalCTASection`
 
+Aktualnie spacing strony glownej jest ustawiony w `HomePage.jsx` jako `space-y-12 md:space-y-16`.
+
 ## 8. Nawigacja i anchory
 Anchory sekcji:
 - `#problem`
@@ -170,6 +172,12 @@ Anchory sekcji:
 - poza `/` (np. `/demo`) linkuje do `/#anchor`
 
 Dodatkowo navbar i footer maja link do `/demo`.
+
+Aktualizacja UI navbaru:
+- desktopowa nawigacja jest w formie zaokraglonego pill-navigation z jasnym tlem i delikatnym cieniem,
+- CTA korzysta z `brand-blue`,
+- logo ma zmniejszona wysokosc wzgledem poprzedniej wersji (`h-12`, `md:h-16`, `lg:h-[72px]`),
+- mobile linki rowniez maja zaokraglone pill style.
 
 ## 9. Strona `/demo` (stan aktualny)
 `src/pages/DemoPage.jsx` nie jest juz placeholderem.
@@ -223,6 +231,22 @@ Aktualizacja UI:
 
 Scoping przez wrapper `.sn-demo` ogranicza wyciek klas demo do reszty landingu.
 
+### Globalny system wizualny landingu
+`src/index.css` zawiera obecnie:
+- globalne tlo strony: radialne poswiaty `brand-blue`/sky + jasny gradient,
+- `text-rendering: optimizeLegibility` i `-webkit-font-smoothing: antialiased`,
+- `.surface-panel`: szklany panel z jasnym gradientem, obramowaniem i cieniem,
+- `.section-shell`: wspolny shell dla duzych sekcji z delikatnym glassmorphism.
+
+`src/components/layout/Layout.jsx` dodaje:
+- subtelna siatke w tle przez fixed overlay,
+- `SNTicker` z obnizona wizualna dominanta (`opacity-70`),
+- brak twardego gradientu Tailwind na wrapperze, bo tlo przejeto w `body`.
+
+### System kart
+- `src/components/ui/Card.jsx` ma teraz lzejzy cien, `bg-white/82`, `backdrop-blur-xl` i hover z akcentem sky.
+- `src/components/magicui/magic-card.jsx` zostal uspokojony wizualnie: gradientowe biale tlo, mniejsza agresja cienia, hover z delikatnym podniesieniem.
+
 ## 14. SEO
 `src/components/seo/SeoManager.jsx`:
 - ustawia runtime SEO dla `/`, `/demo` i `/polityka-prywatnosci`,
@@ -250,8 +274,8 @@ Scoping przez wrapper `.sn-demo` ogranicza wyciek klas demo do reszty landingu.
 ## 18. CookieConsent - aktualizacja
 - `src/components/ui/CookieConsent.jsx`:
   - Dodany przycisk "Tylko niezbędne" (obok "Akceptuj wszystkie" i "Ustawienia").
-  - Link do `/polityka-prywatnosci` w obu widokach (główny i ustawienia).
-  - Rozszerzone opisy kategorii cookies (konkretne narzędzia: GA, Meta Pixel, LinkedIn).
+  - Link do `/polityka-prywatnosci` w obu widokach (glowny i ustawienia).
+  - Rozszerzone opisy kategorii cookies (konkretne narzedzia: GA, Meta Pixel, LinkedIn).
   - Switche zmienione z customowego `<button>` na natywny `<input type="checkbox" role="switch">`.
 
 ## 19. Vercel i odswiezanie tras SPA
@@ -260,12 +284,53 @@ Aby `/demo` i `/polityka-prywatnosci` nie zwracaly 404 po odswiezeniu, dodano:
 
 To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 
-## 20. Co zmieniac i gdzie (mapa szybka)
+## 20. Hero strony glownej - grafika oparta o demo
+`src/components/sections/HeroSection.jsx` nie uzywa juz `PlaceholderImage` w hero.
+
+Aktualny prawy mockup hero jest recznie zbudowana miniatura realnego demo:
+- pasek aplikacji z nazwa `Partner Numery Seryjne`,
+- badge `Read-only`,
+- karta wyszukiwarki podobna do `DocumentList`,
+- przelaczniki dokumentow `PZ`, `ZK`, `WZ`,
+- przelaczniki statusow `Do uzupelnienia` / `Uzupelnione`,
+- lista dokumentow z progressem SN, statusami i klientami,
+- dolny fragment `SerialEntry` z numerami seryjnymi,
+- karta kodu kreskowego z linia skanera.
+
+W tym pliku sa lokalne stale i helper:
+- `heroDocuments` -> statyczne dane do miniatury dokumentow,
+- `MiniProgress` -> maly SVG progress ring stylizowany na progress z `DocumentList`.
+
+Cel: hero ma wizualnie nawiazywac do realnego `/demo`, ale pozostaje lekkim, statycznym mockupem bez importowania calej aplikacji demo do bundle glownej strony.
+
+## 21. Animacja startowa skanera (`LaserReveal`)
+`src/components/magicui/laser-reveal.jsx`:
+- generuje realistyczny kod EAN-13 w runtime,
+- renderuje barcode jako SVG,
+- pokazuje fizyczny modul skanera z ramka i naroznikami kadru,
+- skanuje od gory do dolu,
+- uzywa polprzezroczystej maski z blurrem, ktora stopniowo odslania realna strone pod spodem,
+- laser korzysta z niebieskiego/cyan akcentu zgodnego z brandingiem strony,
+- timing oparty o stale `SCAN_DURATION` i `OVERLAY_DISMISS_MS`.
+
+Wazne: animacja nadal jest montowana w `Layout.jsx` i pojawia sie globalnie po wejsciu w layout.
+
+## 22. Co zmieniac i gdzie (mapa szybka)
 ### Teksty marketingowe
 - `src/content/siteContent.js`
 
 ### Routing
 - `src/App.jsx`
+
+### Hero strony glownej
+- `src/components/sections/HeroSection.jsx`
+
+### Globalne tlo i shell sekcji
+- `src/index.css`
+- `src/components/layout/Layout.jsx`
+
+### Navbar
+- `src/components/layout/Navbar.jsx`
 
 ### Hero strony `/demo`
 - `src/pages/DemoPage.jsx`
@@ -292,6 +357,10 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 ### Stylowanie demo
 - `src/features/demo/demo.css`
 
+### Karty i shell UI
+- `src/components/ui/Card.jsx`
+- `src/components/magicui/magic-card.jsx`
+
 ### Podglady gwarancji
 - `public/demo-pdfs/*`
 
@@ -301,7 +370,7 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 ### Loading skeleton demo
 - `src/components/ui/DemoPageSkeleton.jsx`
 
-## 21. Checklist utrzymaniowy przed release
+## 23. Checklist utrzymaniowy przed release
 - `npm run build` przechodzi bez bledow
 - `/`, `/demo` i `/polityka-prywatnosci` dzialaja po bezposrednim odswiezeniu (Vercel rewrite aktywny)
 - modal QR otwiera sie poprawnie (bez "bialego tla")
@@ -314,30 +383,35 @@ To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
 - manifest.json obecny, PWA meta poprawne
 - favicony (`.ico`, 16/32 png, apple touch, android 192/512) sa podlinkowane i widoczne
 - DemoPage loading skeleton wyswietla sie podczas lazy-load
-- animacja startowa skanera (LaserReveal) pokazuje kod EAN i znika wraz z przejsciem lasera
+- animacja startowa skanera (LaserReveal) pokazuje kod EAN, skanuje od gory do dolu i odslania strone przez polprzezroczysta maske
+- hero strony glownej pokazuje statyczny mockup inspirowany realnym `/demo`
+- navbar, karty i sekcje zachowuja spojny styl glass/surface
 
-## 22. Najwazniejsze pliki do zapamietania (TOP 15)
+## 24. Najwazniejsze pliki do zapamietania (TOP 15)
 1. `src/content/siteContent.js`
 2. `src/pages/HomePage.jsx`
-3. `src/pages/DemoPage.jsx`
-4. `src/pages/PrivacyPage.jsx`
-5. `src/features/demo/DemoAppShell.jsx`
-6. `src/features/demo/demo.css`
-7. `src/features/demo/standalone/App.jsx`
-8. `src/features/demo/standalone/api.js`
-9. `src/features/demo/standalone/demoData.js`
-10. `src/components/layout/Navbar.jsx`
-11. `src/components/layout/Footer.jsx`
-12. `src/components/ui/CookieConsent.jsx`
-13. `src/components/seo/SeoManager.jsx`
-14. `src/App.jsx`
-15. `vercel.json`
+3. `src/components/sections/HeroSection.jsx`
+4. `src/pages/DemoPage.jsx`
+5. `src/pages/PrivacyPage.jsx`
+6. `src/features/demo/DemoAppShell.jsx`
+7. `src/features/demo/demo.css`
+8. `src/features/demo/standalone/App.jsx`
+9. `src/features/demo/standalone/api.js`
+10. `src/features/demo/standalone/demoData.js`
+11. `src/components/layout/Navbar.jsx`
+12. `src/components/layout/Footer.jsx`
+13. `src/components/ui/CookieConsent.jsx`
+14. `src/components/seo/SeoManager.jsx`
+15. `src/components/magicui/laser-reveal.jsx`
 
-## 23. Ostatnie zmiany UI (2026-04-26)
-- Sekcja problemow (`ProblemSection`) przeszla redesign: usunieto numerki `01/02/03`,
-  dodano etykiety obszarow, akcenty kolorystyczne i linie "Wplyw" pod trescia kart.
-- Sekcja "O dostawcy" uzywa realnego logo Partner-net.pl (klikany blok z linkiem do strony).
-- `LaserReveal` renderuje kod kreskowy EAN-13 i wygasza go zgodnie z ruchem lasera.
+## 25. Ostatnie zmiany UI (2026-04-27)
+- Odwiezone globalne tlo landingu: radialne poswiaty, jasny gradient, subtelna siatka i mniej dominujacy `SNTicker`.
+- Dodano klasy `surface-panel` i `section-shell` w `src/index.css`.
+- Navbar zostal przebudowany na pill-navigation z jasnym tlem, mniejszym logo i CTA w kolorze `brand-blue`.
+- Karty `Card` i `MagicCard` maja lzejsze cienie, glassmorphism i spokojniejszy hover.
+- `HeroSection` ma nowy prawy mockup oparty o realny UI demo (`DocumentList`, statusy PZ/ZK/WZ, progress SN, `SerialEntry`, barcode).
+- `SolutionSection`, `PricingSection` i `FinalCTASection` zostaly dopasowane do nowego systemu paneli.
+- `LaserReveal` zostal przebudowany na jasna animacje skanowania od gory do dolu z przenikaniem strony pod spodem.
 
 ---
-Dokument zaktualizowany: 2026-04-26 21:05 (CEST).
+Dokument zaktualizowany: 2026-04-27 20:53 (CEST).
