@@ -129,13 +129,28 @@ export function LaserReveal({ onComplete }) {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.16, ease: 'easeOut' }}
-          className="fixed inset-0 z-[200] pointer-events-none overflow-hidden bg-slate-50"
+          className="fixed inset-0 z-[200] pointer-events-none overflow-hidden"
         >
-          <div className="absolute inset-0 bg-white/38 backdrop-blur-[10px] backdrop-saturate-150" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(0,174,255,0.16),transparent_34%),radial-gradient(circle_at_82%_78%,rgba(14,165,233,0.12),transparent_32%),linear-gradient(180deg,rgba(248,250,252,0.72),rgba(255,255,255,0.58)_44%,rgba(241,245,249,0.72))]" />
-          <div className="absolute inset-0 opacity-[0.26] [background-image:linear-gradient(rgba(14,165,233,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(100,116,139,0.08)_1px,transparent_1px)] [background-size:56px_56px]" />
-          <div className="absolute -left-24 top-1/4 h-72 w-72 rounded-full bg-cyan-200/24 blur-3xl" />
-          <div className="absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-sky-100/60 blur-3xl" />
+          <div className="absolute inset-0 bg-white/22 backdrop-blur-[3px] backdrop-saturate-125" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_16%,rgba(0,174,255,0.11),transparent_34%),radial-gradient(circle_at_82%_78%,rgba(14,165,233,0.09),transparent_32%)]" />
+
+          <motion.div
+            initial={{ height: '50%' }}
+            animate={{ height: '0%' }}
+            transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
+            className="absolute left-0 top-0 z-[198] w-full overflow-hidden border-b border-sky-200/60 bg-white/72 shadow-[0_18px_55px_rgba(14,165,233,0.12)] backdrop-blur-[12px] backdrop-saturate-150"
+          >
+            <div className="absolute inset-0 opacity-[0.26] [background-image:linear-gradient(rgba(14,165,233,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(100,116,139,0.08)_1px,transparent_1px)] [background-size:56px_56px]" />
+          </motion.div>
+
+          <motion.div
+            initial={{ height: '50%' }}
+            animate={{ height: '0%' }}
+            transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
+            className="absolute bottom-0 left-0 z-[198] w-full overflow-hidden border-t border-sky-200/60 bg-white/72 shadow-[0_-18px_55px_rgba(14,165,233,0.12)] backdrop-blur-[12px] backdrop-saturate-150"
+          >
+            <div className="absolute inset-0 opacity-[0.26] [background-image:linear-gradient(rgba(14,165,233,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(100,116,139,0.08)_1px,transparent_1px)] [background-size:56px_56px]" />
+          </motion.div>
 
           <motion.div
             initial={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
@@ -206,29 +221,14 @@ export function LaserReveal({ onComplete }) {
           </motion.div>
 
           <motion.div
-            initial={{ y: '-12vh' }}
-            animate={{ y: '112vh' }}
+            initial={{ y: '50vh', scaleX: 0.72 }}
+            animate={{ y: '50vh', scaleX: 1 }}
             transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute left-0 top-0 z-[202] w-full"
+            className="absolute left-0 top-0 z-[202] w-full origin-center"
           >
-            <div className="h-px w-full bg-sky-400/90 shadow-[0_0_10px_1px_rgba(14,165,233,0.8),0_0_44px_10px_rgba(0,174,255,0.34)]" />
-            <div className="mx-auto h-16 w-[min(84rem,96vw)] -translate-y-8 bg-[radial-gradient(ellipse_at_center,rgba(0,174,255,0.22),rgba(14,165,233,0.1)_36%,transparent_72%)] blur-xl" />
-            <div className="mx-auto -mt-16 h-24 w-[min(74rem,90vw)] bg-[linear-gradient(180deg,rgba(14,165,233,0.13),transparent)] blur-sm" />
+            <div className="mx-auto h-px w-[min(78rem,92vw)] bg-sky-400/95 shadow-[0_0_10px_1px_rgba(14,165,233,0.9),0_0_44px_10px_rgba(0,174,255,0.42)]" />
+            <div className="mx-auto h-24 w-[min(78rem,92vw)] -translate-y-12 bg-[radial-gradient(ellipse_at_center,rgba(0,174,255,0.26),rgba(14,165,233,0.1)_38%,transparent_72%)] blur-xl" />
           </motion.div>
-
-          <motion.div
-            initial={{ height: '100%' }}
-            animate={{ height: '0%' }}
-            transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute bottom-0 left-0 z-[201] w-full overflow-hidden bg-white/68 backdrop-blur-[9px] backdrop-saturate-150"
-          />
-
-          <motion.div
-            initial={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0 }}
-            animate={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
-            transition={{ duration: SCAN_DURATION, ease: [0.76, 0, 0.24, 1] }}
-            className="absolute inset-0 z-[199] bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0.18))] backdrop-blur-0"
-          />
         </motion.div>
       )}
     </AnimatePresence>
