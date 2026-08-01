@@ -72,7 +72,7 @@ function MobileAppSection() {
                   <Icon aria-hidden="true" className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="text-sm font-black text-slate-950">{title}</h3>
+                  <h3 className="text-sm font-bold text-slate-950">{title}</h3>
                   <p className="mt-1 text-sm leading-6 text-slate-600">{description}</p>
                 </div>
               </article>

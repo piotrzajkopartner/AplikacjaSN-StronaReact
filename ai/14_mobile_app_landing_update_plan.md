@@ -208,6 +208,8 @@ Status: zrealizowana 2026-08-01
 - dodano pełnoekranową symulację rzeczywistego skanera wewnątrz telefonu,
 - usunięto abstrakcyjną sekcję `Wybierz odpowiedź skanera`,
 - mockupy korzystają z typografii produktu opartej na Segoe UI i poprawnych polskich znakach,
+- usunięto deklarację niezaładowanego fontu `Inter` i ujednolicono stos fontów strony,
+- nagłówki kart aplikacji mobilnej używają `Segoe UI Bold` zamiast ciężkiego `Segoe UI Black`, którego ogonki `ą` i `ę` wyglądały niespójnie,
 - dane każdego otwieranego dokumentu są synchronizowane z widokiem SN i kompletacji,
 - wszystkie NIP-y są zamaskowane, a numery dokumentów i SN zawierają oznaczenie `DEMO`.
 
