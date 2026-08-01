@@ -315,11 +315,27 @@ Kazdy dokument uruchamia ten sam React Router, ale ma wlasne statyczne metadane.
 `src/components/sections/HeroSection.jsx` nie uzywa juz `PlaceholderImage` w hero.
 
 Aktualny prawy mockup laczy:
-- `DesktopAppMockup` z lista dokumentow PZ/ZK/WZ,
-- `MobileAppMockup` z czesciowa kompletacja na Androidzie,
+- `DesktopAppMockup` jako samodzielny, szeroki widok panelu webowego,
+- aktualny header produktu, wyszukiwarke, filtry PZ/ZK/WZ i statusow,
+- jedna kolumne gestych kart dokumentow z metadanymi i relacjami,
 - wylacznie syntetyczne dane z `mobileDemoData.js`.
 
-Makieta telefonu w Hero jest statyczna (`inert`, `aria-hidden`), aby nie udostepniac martwych kontrolek. Interaktywne wersje znajduja sie w sekcji Androida i na `/demo`.
+Telefon nie jest juz nakladany na panel w Hero. Interaktywna aplikacja mobilna znajduje sie w dedykowanej sekcji oraz na `/demo`.
+
+## 20.1. Interaktywna aplikacja mobilna
+
+`src/components/product/MobileAppMockup.jsx` odwzorowuje aktualny mobilny frontend produktu:
+
+- bialy brand header,
+- lokalne wyszukiwanie i skanowanie z listy,
+- filtry PZ/ZK/WZ oraz `Do uzupelnienia/Uzupełnione`,
+- klikalne karty dokumentow,
+- wspolny header dokumentu i postep SN,
+- tryb `Numery SN`,
+- tryb `Kompletacja`,
+- wewnetrzny, pelnoekranowy overlay skanera.
+
+Demo mobilne w `src/features/demo/mobile/MobilePickingDemo.jsx` startuje od listy dokumentow. Nie korzysta juz z zewnetrznego panelu scenariuszy ani osobnego `ScannerSimulation`. Wszystkie akcje dzialaja lokalnie i korzystaja z danych `DEMO` z zamaskowanymi NIP-ami.
 
 ## 21. Animacja startowa skanera (`LaserReveal`)
 `src/components/magicui/laser-reveal.jsx`:
@@ -404,8 +420,9 @@ Wazne: animacja nadal jest montowana w `Layout.jsx` i pojawia sie globalnie po w
 - favicony (`.ico`, 16/32 png, apple touch, android 192/512) sa podlinkowane i widoczne
 - DemoPage loading skeleton wyswietla sie podczas lazy-load
 - animacja startowa skanera (LaserReveal) pokazuje kod EAN, skanuje od gory do dolu i odslania strone przez polprzezroczysta maske
-- hero strony glownej pokazuje statyczne makiety web + Android z danymi DEMO
+- hero strony glownej pokazuje samodzielny panel webowy bez nakladajacego sie telefonu
 - interaktywna kompletacja mobilna zachowuje stan po zmianie zakladki demo
+- mobilne demo pozwala wejsc z listy do dowolnego dokumentu i przejsc przez SN, kompletacje oraz skaner
 - w publicznych assetach nie ma plikow z `Android_Foto`
 - navbar, karty i sekcje zachowuja spojny styl glass/surface
 

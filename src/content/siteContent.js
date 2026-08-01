@@ -341,18 +341,18 @@ export const siteContent = {
   },
   demoPage: {
     badge: 'Interaktywne demo web + Android',
-    headline: 'Zobacz panel webowy i mobilną kompletację w jednym procesie.',
+    headline: 'Zobacz panel webowy i aplikację mobilną w jednym procesie.',
     description:
-      'Przejdź przez przykładową obsługę dokumentów w panelu webowym, a następnie sprawdź lokalną symulację skanowania i kompletacji w aplikacji na Androida.',
+      'Przejdź przez przykładową obsługę dokumentów w panelu webowym, a następnie sprawdź pełny przepływ numerów SN, skanowania i kompletacji w aplikacji na Androida.',
     highlights: [
       'Panel webowy do pracy z dokumentami i numerami seryjnymi',
-      'Aplikacja Android wspierająca kompletację przy stanowisku magazynowym',
-      'Lokalne scenariusze poprawnego skanu, duplikatu i nieznanego kodu',
+      'Aplikacja Android z listą PZ, ZK i WZ oraz filtrami statusów',
+      'Interaktywne skanowanie numerów SN i kompletacja towarów',
     ],
     stats: [
       { value: 'Web', label: 'Panel dokumentów i numerów SN' },
-      { value: 'Android', label: 'Mobilny widok kompletacji' },
-      { value: '0/2 → 2/2', label: 'Czytelny postęp zbierania' },
+      { value: 'Android', label: 'Pełny przepływ aplikacji mobilnej' },
+      { value: 'PZ / ZK / WZ', label: 'Dokumenty na syntetycznych danych' },
     ],
   },
   footer: {

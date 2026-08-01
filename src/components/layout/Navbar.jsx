@@ -24,7 +24,7 @@ function Navbar() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-slate-50/70 p-1 shadow-inner shadow-white md:flex" aria-label="Nawigacja glowna">
+        <nav className="hidden items-center gap-1 rounded-full border border-slate-200/80 bg-slate-50/70 p-1 shadow-inner shadow-white md:flex" aria-label="Nawigacja główna">
           {siteContent.navigation.links.map((item) => (
             <a key={item.href} href={getAnchorHref(item.href)} className={baseLinkClassName}>
               {item.label}

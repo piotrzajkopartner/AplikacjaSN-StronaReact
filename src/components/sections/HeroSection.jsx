@@ -1,5 +1,4 @@
 import DesktopAppMockup from '../product/DesktopAppMockup.jsx'
-import MobileAppMockup from '../product/MobileAppMockup.jsx'
 import Button from '../ui/Button.jsx'
 
 function HeroSection({ content }) {
@@ -15,7 +14,7 @@ function HeroSection({ content }) {
       <div className="pointer-events-none absolute -left-24 -top-32 h-96 w-96 rounded-full bg-cyan-200/35 blur-[100px]" />
       <div className="pointer-events-none absolute -bottom-28 right-8 h-96 w-96 rounded-full bg-indigo-200/35 blur-[110px]" />
 
-      <div className="relative grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(30rem,1.1fr)] lg:items-center">
+      <div className="relative grid gap-10 lg:grid-cols-[minmax(0,0.82fr)_minmax(34rem,1.18fr)] lg:items-center">
         <div>
           <p className="mb-5 inline-flex rounded-full border border-cyan-200 bg-cyan-50/90 px-3.5 py-1.5 text-xs font-extrabold uppercase tracking-[0.14em] text-cyan-800 shadow-sm">
             {content.badge}
@@ -45,25 +44,14 @@ function HeroSection({ content }) {
           </p>
         </div>
 
-        <div className="relative min-h-[41rem] pb-8 sm:min-h-[40rem] lg:min-h-[42rem]">
-          <div className="absolute left-0 top-5 w-full sm:w-[88%] lg:top-10">
+        <div className="relative lg:pl-2">
+          <div className="pointer-events-none absolute -inset-8 rounded-[3rem] bg-indigo-200/30 blur-3xl" />
+          <div inert aria-hidden="true" className="relative">
             <DesktopAppMockup />
           </div>
-          <div className="absolute bottom-0 right-0 w-[13.5rem] sm:w-[14.5rem]">
-            <div className="pointer-events-none absolute -inset-5 rounded-[3rem] bg-indigo-300/30 blur-2xl" />
-            <MobileAppMockup
-              className="relative"
-              screen="picking"
-              pickingStep={1}
-              interactive={false}
-            />
-          </div>
-          <div className="absolute bottom-6 left-2 hidden rounded-2xl border border-cyan-200 bg-white/95 px-4 py-3 shadow-lg sm:block lg:left-8">
-            <p className="text-[0.625rem] font-black uppercase tracking-[0.15em] text-cyan-700">
-              Wspólny proces
-            </p>
-            <p className="mt-1 text-sm font-extrabold text-slate-900">Panel webowy + Android</p>
-          </div>
+          <p className="relative mt-3 text-center text-xs font-semibold text-slate-500">
+            Aktualny widok panelu webowego na bezpiecznych danych demonstracyjnych
+          </p>
         </div>
       </div>
     </section>

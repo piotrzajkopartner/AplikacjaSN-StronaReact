@@ -190,6 +190,35 @@ Wynik końcowej weryfikacji:
 - treść polityki prywatności powinna przejść formalną weryfikację prawną przed publikacją,
 - rzeczywisty skaner Android powinien zostać przetestowany na docelowych modelach telefonów niezależnie od strony marketingowej.
 
+### Korekta wizualna po porównaniu z aktualną aplikacją
+
+Status: zrealizowana 2026-08-01
+
+- ponownie porównano landing z `AplikacjaSN/client/src` i czterema zrzutami `AplikacjaSN/Android_Foto`,
+- Hero pokazuje wyłącznie samodzielny panel webowy; usunięto nakładającą się makietę telefonu,
+- webowy mockup odtwarza aktualny header, wyszukiwarkę, PZ/ZK/WZ, statusy oraz gęste karty dokumentów,
+- usunięto nieistniejący sidebar i fikcyjną nawigację modułową,
+- nazwa zakładki demo została zmieniona z `Kompletacja mobilna` na `Aplikacja mobilna`,
+- mobilne demo zaczyna się od listy dokumentów, a nie od kompletacji,
+- wszystkie syntetyczne karty PZ/ZK/WZ można otworzyć,
+- filtry typu, statusu i lokalne wyszukiwanie działają w makiecie,
+- ekran dokumentu odwzorowuje biały header, powrót, numer dokumentu, klienta, NIP, datę i postęp,
+- tryb SN zawiera wyszukiwarkę produktu, filtr, pola SN, aparaty, skan seryjny oraz dolny zapis,
+- kompletacja zawiera podsumowanie, filtry, metryki, ilość, kompletne/brak/reset/notatkę i skanery,
+- dodano pełnoekranową symulację rzeczywistego skanera wewnątrz telefonu,
+- usunięto abstrakcyjną sekcję `Wybierz odpowiedź skanera`,
+- mockupy korzystają z typografii produktu opartej na Segoe UI i poprawnych polskich znakach,
+- dane każdego otwieranego dokumentu są synchronizowane z widokiem SN i kompletacji,
+- wszystkie NIP-y są zamaskowane, a numery dokumentów i SN zawierają oznaczenie `DEMO`.
+
+Weryfikacja przeglądarkowa:
+
+- Hero sprawdzony na 1440 px i 390 px bez nakładania i bez poziomego przepełnienia,
+- aplikacja mobilna sprawdzona w przepływie lista -> dokument -> skan seryjny -> kompletacja,
+- skaner przyjął demonstracyjny odczyt i zaktualizował licznik SN,
+- przełącznik `Numery SN / Kompletacja` zachował postęp,
+- konsola przeglądarki bez błędów React.
+
 ## 1. Cel
 
 Zaktualizowac strone promujaca Partner Numery Seryjne tak, aby przedstawiala aktualny zakres produktu:

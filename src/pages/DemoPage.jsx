@@ -8,7 +8,7 @@ import { CheckCircle2, ArrowRight, Monitor, Smartphone } from 'lucide-react'
 
 const demoTabs = [
   { id: 'web', label: 'Panel webowy', icon: Monitor },
-  { id: 'mobile', label: 'Kompletacja mobilna', icon: Smartphone },
+  { id: 'mobile', label: 'Aplikacja mobilna', icon: Smartphone },
 ]
 
 function DemoPage() {
@@ -105,7 +105,7 @@ function DemoPage() {
               Wybierz środowisko demonstracyjne
             </p>
             <p className="mt-1 text-xs leading-5 text-slate-500">
-              Panel w przeglądarce lub lokalna symulacja kompletacji mobilnej.
+              Panel w przeglądarce lub interaktywny przepływ aplikacji na Androida.
             </p>
           </div>
           <div
