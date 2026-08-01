@@ -1,7 +1,7 @@
 {
-  "name": "Partner Numery Seryjne",
-  "short_name": "Partner SN",
-  "description": "Moduł B2B do zarządzania numerami seryjnymi dla Subiekt nexo PRO",
+  "name": "Partner Numery Seryjne — Strona produktu",
+  "short_name": "Strona Partner SN",
+  "description": "Strona produktu Partner Numery Seryjne dla firm korzystających z Subiekt nexo PRO",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#f8fafc",

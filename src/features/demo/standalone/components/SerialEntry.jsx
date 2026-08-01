@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, forwardRef, useImperativeHandle } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo, forwardRef, useImperativeHandle } from 'react';
 import { ArrowLeft, Save, Box, AlertCircle, CheckCircle, RefreshCw, X, FileText, Camera, ScanLine, Lock } from 'lucide-react';
 import api, { endpoints, openWarrantyPreview } from '../api';
 import MobileScanner from './MobileScanner';
@@ -7,6 +7,24 @@ import useSWR from 'swr';
 
 // Helper SWR fetcher
 const fetcher = url => api.get(url).then(res => res.data);
+
+const debounce = (func, wait) => {
+    let timeout;
+    return (...args) => {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func(...args), wait);
+    };
+};
+
+const normalizeSerialClient = (value) => {
+    if (value == null) return '';
+    return String(value).replace(/\s+/g, '');
+};
+
+const isPlaceholderClient = (value) => {
+    const normalized = normalizeSerialClient(value);
+    return normalized.toLowerCase() === 'brak';
+};
 
 const SerialEntry = forwardRef(({ document: initialDocument, onBack, showNotification, onNavigateToDocument }, ref) => {
     const documentId = initialDocument.Id;
@@ -55,7 +73,7 @@ const SerialEntry = forwardRef(({ document: initialDocument, onBack, showNotific
 
     // SWR to poll lock status if we DON'T own it (to know when it's free)
     // Polling every 5 seconds if not locked by me
-    const { data: lockStatus, mutate: mutateLock } = useSWR(
+    const { data: lockStatus } = useSWR(
         !isLockedByMe ? `/documents/${documentId}/lock?clientId=${localStorage.getItem('sn_client_id')}` : null,
         fetcher,
         { refreshInterval: 5000 }
@@ -209,28 +227,8 @@ const SerialEntry = forwardRef(({ document: initialDocument, onBack, showNotific
         }
     }, [documentId, loadData, initialDocument]);
 
-    // Debounce utility function
-    const debounce = (func, wait) => {
-        let timeout;
-        return (...args) => {
-            clearTimeout(timeout);
-            timeout = setTimeout(() => func(...args), wait);
-        };
-    };
-
-    // Client-side helpers mirroring backend normalization logic
-    const normalizeSerialClient = (value) => {
-        if (value == null) return '';
-        return String(value).replace(/\s+/g, '');
-    };
-
-    const isPlaceholderClient = (value) => {
-        const normalized = normalizeSerialClient(value);
-        return normalized.toLowerCase() === 'brak';
-    };
-
     // Check for duplicates (local and database)
-    const checkDuplicate = async (itemId, index, value) => {
+    const checkDuplicate = useCallback(async (itemId, index, value) => {
         const key = `${itemId}-${index}`;
 
         if (!value || value.trim() === '') {
@@ -300,12 +298,12 @@ const SerialEntry = forwardRef(({ document: initialDocument, onBack, showNotific
                 return updated;
             });
         }
-    };
+    }, [document.Id, document.Symbol, serialsMap]);
 
     // Debounced version of checkDuplicate
-    const debouncedCheckDuplicate = React.useMemo(
+    const debouncedCheckDuplicate = useMemo(
         () => debounce(checkDuplicate, 500),
-        [serialsMap, document.Id]
+        [checkDuplicate]
     );
 
     const handleSerialChange = (itemId, index, value) => {

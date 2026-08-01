@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect } from "react"
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion"
 import { cn } from "../../lib/utils"
 

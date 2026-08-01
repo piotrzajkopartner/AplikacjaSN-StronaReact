@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { cn } from "../../lib/utils"
 
 const TICKER_ITEMS = [
@@ -48,6 +48,7 @@ export function InteractiveGridPattern({
         setIsScanning(false)
         const found = TICKER_ITEMS[Math.floor(Math.random() * TICKER_ITEMS.length)]
         setScannedValue(found)
+        setDisplayValue('')
         window.dispatchEvent(new CustomEvent('sn-scanned', { detail: found }))
       }, 150)
     }
@@ -62,16 +63,14 @@ export function InteractiveGridPattern({
 
   // Efekt migania "garbarge data" podczas ruchu
   useEffect(() => {
-    let interval;
-    if (isScanning) {
-      interval = setInterval(() => {
-        setDisplayValue(generateRandomGarbage())
-      }, 50)
-    } else {
-      setDisplayValue(scannedValue)
-    }
+    if (!isScanning) return undefined
+
+    const interval = setInterval(() => {
+      setDisplayValue(generateRandomGarbage())
+    }, 50)
+
     return () => clearInterval(interval)
-  }, [isScanning, scannedValue])
+  }, [isScanning])
 
   return (
     <div ref={containerRef} className={cn("absolute inset-0 h-full w-full overflow-hidden pointer-events-none", className)} {...props}>
@@ -144,7 +143,7 @@ export function InteractiveGridPattern({
               "text-base font-bold tracking-widest",
               isScanning ? "text-slate-300" : "text-white"
             )}>
-              {displayValue}
+              {isScanning ? (displayValue || scannedValue) : scannedValue}
             </div>
           </div>
         </div>

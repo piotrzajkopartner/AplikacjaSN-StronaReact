@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { X, Check, Camera, RefreshCw } from 'lucide-react';
 
@@ -7,6 +7,7 @@ const MobileScanner = ({ onScan, onClose, title = "Skanuj kod", multiMode = fals
     const [isScanning, setIsScanning] = useState(true);
     const [cameraError, setCameraError] = useState(null);
     const scannerRef = useRef(null);
+    const scannedCodeRef = useRef(null);
     const regionId = "html5qr-code-full-region";
 
     // Play beep sound
@@ -52,14 +53,15 @@ const MobileScanner = ({ onScan, onClose, title = "Skanuj kod", multiMode = fals
                     config,
                     (decodedText) => {
                         // Success callback
-                        if (!scannedCode) {
+                        if (!scannedCodeRef.current) {
+                            scannedCodeRef.current = decodedText;
                             playBeep();
                             setScannedCode(decodedText);
                             setIsScanning(false);
                             scanner.pause(true); // Pause scanning to freeze frame/stop processing
                         }
                     },
-                    (errorMessage) => {
+                    () => {
                         // parse error, ignore it.
                     }
                 );
@@ -81,16 +83,17 @@ const MobileScanner = ({ onScan, onClose, title = "Skanuj kod", multiMode = fals
     }, []); // Run once on mount
 
     // Rescan handler
-    const handleRescan = () => {
+    const handleRescan = useCallback(() => {
+        scannedCodeRef.current = null;
         setScannedCode(null);
         setIsScanning(true);
         if (scannerRef.current) {
             scannerRef.current.resume();
         }
-    };
+    }, []);
 
     // Confirm handler
-    const handleConfirm = () => {
+    const handleConfirm = useCallback(() => {
         if (scannedCode) {
             onScan(scannedCode);
             if (multiMode) {
@@ -101,7 +104,7 @@ const MobileScanner = ({ onScan, onClose, title = "Skanuj kod", multiMode = fals
                 onClose();
             }
         }
-    };
+    }, [scannedCode, onScan, multiMode, handleRescan, onClose]);
 
     // Volume Button Listener (Experimental)
     useEffect(() => {
@@ -114,7 +117,7 @@ const MobileScanner = ({ onScan, onClose, title = "Skanuj kod", multiMode = fals
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [scannedCode, multiMode, onScan, onClose]); // Dependencies for closure
+    }, [scannedCode, handleConfirm]); // Dependencies for closure
 
     return (
         <div className="fixed inset-0 z-50 bg-black text-white flex flex-col">

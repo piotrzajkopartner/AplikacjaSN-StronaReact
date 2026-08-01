@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FileText, Clock, RefreshCw, ChevronRight, AlertCircle, Search, X, Loader, Camera } from 'lucide-react';
 import MobileScanner from './MobileScanner';
 import useSWR, { mutate } from 'swr';
@@ -7,10 +7,10 @@ import api, { endpoints } from '../api';
 
 // Fetcher for SWR using existing api instance
 const fetcher = (url) => api.get(url).then(res => res.data);
+const SEARCH_RESULTS_TTL_MS = 2 * 60 * 1000;
 
 
 const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
-    const SEARCH_RESULTS_TTL_MS = 2 * 60 * 1000;
     const {
         page,
         tab,
@@ -22,7 +22,9 @@ const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
     const [searching, setSearching] = useState(false);
     const [searchPage, setSearchPage] = useState(1);
     const [searchMeta, setSearchMeta] = useState(null);
-    const [searchExpiresAt, setSearchExpiresAt] = useState(null);
+    const [searchExpiresAt, setSearchExpiresAt] = useState(() =>
+        searchResults ? Date.now() + SEARCH_RESULTS_TTL_MS : null
+    );
     const [showSearchScanner, setShowSearchScanner] = useState(false);
     const [listRef] = useAutoAnimate(); // Smooth list animations
 
@@ -183,23 +185,18 @@ const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
     };
 
     useEffect(() => {
-        if (!searchResults) {
-            setSearchExpiresAt(null);
-            return undefined;
-        }
-
-        if (!searchExpiresAt) {
-            setSearchExpiresAt(Date.now() + SEARCH_RESULTS_TTL_MS);
-            return undefined;
-        }
+        if (!searchResults || !searchExpiresAt) return undefined;
 
         const timeoutMs = Math.max(500, searchExpiresAt - Date.now());
         const timeoutId = setTimeout(() => {
-            clearSearchResultsOnly();
+            onUpdateListState({ searchResults: null });
+            setSearchMeta(null);
+            setSearchPage(1);
+            setSearchExpiresAt(null);
         }, timeoutMs);
 
         return () => clearTimeout(timeoutId);
-    }, [searchResults, searchExpiresAt]);
+    }, [searchResults, searchExpiresAt, onUpdateListState]);
 
     return (
         <>
@@ -452,15 +449,15 @@ const DocumentList = ({ onSelectDocument, listState, onUpdateListState }) => {
                     {filteredDocuments.map((doc) => {
                         const percent = doc.TotalItems ? Math.round((doc.SavedItems / doc.TotalItems) * 100) : 0;
                         const gradientId = `grad-${doc.Id}`;
-                        let gradColors = ['var(--primary)', '#60a5fa'];
+                        let gradColors;
                         if (percent > 80) gradColors = ['#16a34a', '#34d399']; // green
                         else if (percent > 50) gradColors = ['#f59e0b', '#f97316']; // amber
                         else gradColors = ['#ef4444', '#fb7185']; // red
 
                         // Styles logic (przywrócone po rollbacku Etapu 3)
-                        let iconColorClass = 'text-indigo-600';
+                        let iconColorClass;
                         let bgClass = 'bg-white';
-                        let iconBgClass = 'bg-indigo-50 group-hover:bg-indigo-100';
+                        let iconBgClass;
                         let borderColorClass = 'border-gray-100 hover:border-indigo-200';
 
                         if (doc.IsExcess) {

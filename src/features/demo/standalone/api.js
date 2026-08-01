@@ -1,11 +1,27 @@
 import { DEMO_DOCUMENTS, DEMO_ITEMS_BY_DOC_ID, DEMO_SERIAL_ROWS, DEMO_LICENSE, DEMO_LOCK } from './demoData';
 
+let memoryClientId = null;
+
 const getClientId = () => {
-  let clientId = localStorage.getItem('sn_client_id');
+  let clientId = memoryClientId;
+
+  try {
+    clientId = window.localStorage.getItem('sn_client_id') || clientId;
+  } catch {
+    // Restricted storage contexts use the in-memory identifier below.
+  }
+
   if (!clientId) {
     clientId = `demo-${Math.random().toString(36).slice(2, 14)}`;
-    localStorage.setItem('sn_client_id', clientId);
+    memoryClientId = clientId;
+    try {
+      window.localStorage.setItem('sn_client_id', clientId);
+    } catch {
+      // The demo remains usable when localStorage is unavailable.
+    }
   }
+
+  memoryClientId = clientId;
   return clientId;
 };
 

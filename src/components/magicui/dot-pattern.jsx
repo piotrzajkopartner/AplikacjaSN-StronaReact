@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../lib/utils";
 
@@ -45,8 +45,8 @@ export function DotPattern({
       return {
         x: col * width + cx + x,
         y: row * height + cy + y,
-        delay: Math.random() * 5,
-        duration: Math.random() * 3 + 2,
+        delay: ((i * 37 + row * 17) % 100) / 20,
+        duration: ((i * 53 + row * 29) % 100) / 100 * 3 + 2,
       };
     }
   );

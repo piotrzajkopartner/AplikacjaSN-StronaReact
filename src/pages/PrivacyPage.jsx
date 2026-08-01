@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft, Shield, Database, Cookie, FileText, Scale, Clock, Mail } from 'lucide-react'
+import { ArrowLeft, Shield, Database, Cookie, FileText, Scale, Clock, Mail, Smartphone } from 'lucide-react'
 import { siteContent } from '../content/siteContent.js'
 
 const iconMap = {
@@ -8,6 +8,7 @@ const iconMap = {
   purpose: FileText,
   legalBasis: Scale,
   cookies: Cookie,
+  demoAndApp: Smartphone,
   userRights: FileText,
   retention: Clock,
   contact: Mail,
@@ -20,7 +21,7 @@ function PrivacySection({ id, icon, heading, children }) {
     <section id={id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm md:p-8">
       <div className="flex items-center gap-3 mb-4">
         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#00aeff]">
-          <Icon className="h-5 w-5" />
+          <Icon aria-hidden="true" className="h-5 w-5" />
         </div>
         <h2 className="text-lg font-bold text-slate-900">{heading}</h2>
       </div>
@@ -35,13 +36,13 @@ function PrivacyPage() {
   const { privacy } = siteContent
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6 animate-fade-in-up">
+    <div className="max-w-3xl mx-auto space-y-6 animate-fade-in-up motion-reduce:animate-none">
       <div className="flex items-center gap-2 mb-2">
         <Link
           to="/"
           className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-500 hover:text-[#00aeff] transition-colors"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft aria-hidden="true" className="h-4 w-4" />
           Powrót na stronę główną
         </Link>
       </div>
@@ -95,12 +96,21 @@ function PrivacyPage() {
         <p className="mt-4">
           {privacy.cookies.settingsCta}{' '}
           <button
+            type="button"
             onClick={() => window.dispatchEvent(new CustomEvent('openCookieSettings'))}
-            className="font-semibold text-[#00aeff] hover:underline"
+            className="rounded font-semibold text-[#00aeff] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00aeff]"
           >
-            Otwórz ustawienia cookies →
+            Otwórz ustawienia strony
           </button>
         </p>
+      </PrivacySection>
+
+      <PrivacySection id="demo-and-app" icon={iconMap.demoAndApp} heading={privacy.demoAndApp.heading}>
+        <ul className="list-disc pl-5 space-y-1.5">
+          {privacy.demoAndApp.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       </PrivacySection>
 
       <PrivacySection id="user-rights" icon={iconMap.userRights} heading={privacy.userRights.heading}>
@@ -131,7 +141,7 @@ function PrivacyPage() {
           to="/"
           className="inline-flex items-center gap-2 text-sm font-medium text-[#00aeff] hover:underline"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft aria-hidden="true" className="h-4 w-4" />
           Wróć na stronę główną
         </Link>
       </div>

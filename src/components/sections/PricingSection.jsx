@@ -11,12 +11,12 @@ function PricingSection({ content }) {
         <Card as="div" className="relative overflow-hidden border-t-4 border-t-brand-blue bg-white shadow-[0_24px_70px_rgba(0,174,255,0.12)]">
           <BorderBeam duration={8} size={250} />
           <div className="pointer-events-none absolute -right-16 -top-16 h-32 w-32 rounded-full bg-brand-blue/10 blur-2xl" />
-          <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-blue">Abonament</p>
-          <p className="mt-4 text-4xl font-bold leading-none md:text-5xl text-brand-text">300 zł</p>
-          <p className="mt-2 text-base font-medium text-brand-muted">netto / miesiąc</p>
-          <p className="mt-6 text-sm leading-relaxed text-brand-muted">Bez limitów stanowisk, użytkowników i procesowanych dokumentów po stronie licencji.</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.08em] text-brand-blue">{content.planLabel}</p>
+          <p className="mt-4 text-4xl font-bold leading-none text-brand-text md:text-5xl">{content.price}</p>
+          <p className="mt-2 text-base font-medium text-brand-muted">{content.priceSuffix}</p>
+          <p className="mt-6 text-sm leading-relaxed text-brand-muted">{content.planDescription}</p>
           <div className="mt-6 inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-brand-blue ring-1 ring-inset ring-blue-500/20">
-            Subiekt nexo PRO
+            {content.compatibilityLabel}
           </div>
         </Card>
 

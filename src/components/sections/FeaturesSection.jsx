@@ -1,28 +1,48 @@
-import { MagicCard } from '../magicui/magic-card.jsx'
+import { Check, FileStack, History, ScanLine, ShieldCheck } from 'lucide-react'
 import SectionHeading from '../ui/SectionHeading.jsx'
-import { CopyX, Lock, History, FileBadge, Server } from 'lucide-react'
 
-const icons = [CopyX, Lock, History, FileBadge, Server]
+const icons = [FileStack, ScanLine, ShieldCheck, History]
 
 function FeaturesSection({ content }) {
   return (
-    <section id="funkcje" className="space-y-8 animate-fade-in-up">
+    <section id="funkcje" className="space-y-8">
       <SectionHeading eyebrow={content.subheadline} title={content.headline} />
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
-        {content.items.map((item, index) => {
+      <div className="grid gap-5 md:grid-cols-2">
+        {content.groups.map((group, index) => {
           const Icon = icons[index % icons.length]
-          
-          // Ustalenie szerokości kafelków: 3 górne zajmują po 2 kolumny, 2 dolne po 3 kolumny
-          const colSpanClass = index < 3 ? "lg:col-span-2" : "lg:col-span-3"
-          
+
           return (
-            <MagicCard key={item} className={`flex flex-col p-8 hover:border-[#00aeff]/30 cursor-default transition-colors ${colSpanClass}`}>
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#00aeff] mb-6">
-                <Icon className="h-6 w-6" />
+            <article
+              key={group.title}
+              className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-[0_16px_45px_rgba(15,23,42,0.06)] md:p-8"
+            >
+              <div className="flex items-start gap-4">
+                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-slate-950 text-cyan-300 shadow-lg shadow-slate-900/15">
+                  <Icon aria-hidden="true" className="h-6 w-6" />
+                </span>
+                <div>
+                  <p className="text-[0.625rem] font-black uppercase tracking-[0.16em] text-indigo-600">
+                    Obszar 0{index + 1}
+                  </p>
+                  <h3 className="mt-1 text-xl font-black tracking-tight text-slate-950">
+                    {group.title}
+                  </h3>
+                </div>
               </div>
-              <h3 className="text-lg leading-relaxed text-slate-800 font-semibold">{item}</h3>
-            </MagicCard>
+
+              <p className="mt-5 text-sm leading-6 text-slate-600">{group.description}</p>
+              <ul className="mt-5 space-y-3">
+                {group.items.map((item) => (
+                  <li key={item} className="flex gap-3 text-sm font-semibold leading-6 text-slate-700">
+                    <span className="mt-0.5 inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-cyan-100 text-cyan-800">
+                      <Check aria-hidden="true" className="h-3.5 w-3.5" />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </article>
           )
         })}
       </div>
