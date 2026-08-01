@@ -98,10 +98,11 @@ function SeoManager() {
 
   useEffect(() => {
     const { seo } = siteContent
-    const routeKey = routeKeys[location.pathname] || 'notFound'
+    const normalizedPath = location.pathname === '/' ? '/' : location.pathname.replace(/\/+$/, '')
+    const routeKey = routeKeys[normalizedPath] || 'notFound'
     const routeSeo = seo.routes[routeKey]
     const siteUrl = getSiteUrl()
-    const canonicalPath = routeKey === 'notFound' ? location.pathname : routeSeo.path
+    const canonicalPath = routeKey === 'notFound' ? normalizedPath : routeSeo.path
     const canonicalUrl = createAbsoluteUrl(siteUrl, canonicalPath)
     const imageUrl = createAbsoluteUrl(siteUrl, seo.image)
 

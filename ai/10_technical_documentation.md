@@ -2,7 +2,7 @@
 
 ## 1. Cel dokumentu
 Ten dokument jest aktualnym przewodnikiem utrzymaniowym projektu landing page "Partner Numery Seryjne".
-Opisuje realny stan kodu po integracji interaktywnego demo w ramach tej samej aplikacji SPA oraz po ostatnim odswiezeniu warstwy UI landingu.
+Opisuje realny stan kodu po dodaniu aplikacji Android, kompletacji mobilnej, wielostronicowych dokumentow SEO i interaktywnego demo obu interfejsow.
 
 ## 2. Szybki start
 
@@ -28,7 +28,7 @@ npm run preview
 - lucide-react
 - swr
 - html5-qrcode
-- react-qr-code (pozostaje w zaleznosciach; modal QR korzysta obecnie z obrazu generatora HTTP)
+- react-qr-code (kod QR jest generowany lokalnie, bez zewnetrznego generatora HTTP)
 - @formkit/auto-animate
 
 Pliki konfiguracyjne:
@@ -39,7 +39,7 @@ Pliki konfiguracyjne:
 - `vercel.json`
 
 ## 4. Architektura wysokiego poziomu
-Aplikacja jest SPA oparta o routing po stronie klienta.
+Aplikacja korzysta z React Router po stronie klienta, ale build emituje osobne dokumenty HTML dla glownych tras, aby zapewnic poprawne metadane bez wykonywania JavaScriptu.
 
 Wejscie:
 - `src/main.jsx` -> `BrowserRouter` -> `App`
@@ -48,7 +48,8 @@ Routing:
 - `src/App.jsx`
   - `/` -> `HomePage`
   - `/demo` -> `DemoPage` (lazy load przez `React.lazy` + `Suspense` z `DemoPageSkeleton`)
-  - `/polityka-prywatnosci` -> `PrivacyPage`
+  - `/polityka-prywatnosci` -> `PrivacyPage` (lazy load)
+  - pozostale sciezki -> `NotFoundPage` (lazy load, `noindex`)
 
 Layout:
 - `src/components/layout/Layout.jsx`
@@ -65,7 +66,8 @@ src/
 ├── main.jsx
 ├── index.css
 ├── content/
-│   └── siteContent.js
+│   ├── siteContent.js
+│   └── mobileDemoData.js
 ├── pages/
 │   ├── HomePage.jsx
 │   ├── DemoPage.jsx
@@ -74,6 +76,8 @@ src/
 │   └── demo/
 │       ├── DemoAppShell.jsx
 │       ├── demo.css
+│       ├── mobile/
+│       │   └── MobilePickingDemo.jsx
 │       └── standalone/
 │           ├── App.jsx
 │           ├── api.js
@@ -90,6 +94,11 @@ src/
 ├── components/
 │   ├── layout/
 │   ├── magicui/
+│   ├── product/
+│   │   ├── DesktopAppMockup.jsx
+│   │   ├── MobileAppMockup.jsx
+│   │   ├── PhoneFrame.jsx
+│   │   └── ScannerSimulation.jsx
 │   ├── seo/
 │   ├── sections/
 │   └── ui/
@@ -109,6 +118,7 @@ public/
 ├── favicon-32x32.png
 ├── favicon.ico
 ├── manifest.json
+├── robots.txt
 ├── site.webmanifest
 ├── partner-assets/
 │   └── 400dpiLogo.jpg
@@ -121,6 +131,11 @@ public/
 ## 6. Warstwa danych (single source of truth)
 Glowne tresci marketingowe i dane stron trzymane sa w:
 - `src/content/siteContent.js`
+
+Wspolne, syntetyczne dane makiet Androida i kompletacji znajduja sie w:
+- `src/content/mobileDemoData.js`
+
+Pliki z `AplikacjaSN/Android_Foto` sa tylko materialem referencyjnym i nie sa publikowane ani importowane przez landing.
 
 Najwazniejsze klucze obiektu `siteContent`:
 - `seo`
@@ -147,14 +162,17 @@ Uwaga: dawne `demoPreview` zostalo usuniete z homepage.
 1. `HeroSection`
 2. `ProblemSection`
 3. `SolutionSection`
-4. `BenefitsGridSection`
-5. `FeaturesSection`
-6. `PricingSection`
-7. `DeploymentSection`
-8. `SecuritySection`
-9. `PartnerNetTrustSection`
-10. `FAQSection`
-11. `FinalCTASection`
+4. `WorkflowSection`
+5. `MobileAppSection`
+6. `ScannerSection`
+7. `BenefitsGridSection`
+8. `FeaturesSection`
+9. `PricingSection` (lazy load)
+10. `DeploymentSection`
+11. `SecuritySection`
+12. `PartnerNetTrustSection`
+13. `FAQSection`
+14. `FinalCTASection`
 
 Aktualnie spacing strony glownej jest ustawiony w `HomePage.jsx` jako `space-y-12 md:space-y-16`.
 
@@ -162,6 +180,9 @@ Aktualnie spacing strony glownej jest ustawiony w `HomePage.jsx` jako `space-y-1
 Anchory sekcji:
 - `#problem`
 - `#rozwiazanie`
+- `#jak-dziala`
+- `#aplikacja-mobilna`
+- `#skanowanie`
 - `#korzysci`
 - `#funkcje`
 - `#cena`
@@ -180,12 +201,12 @@ Aktualizacja UI navbaru:
 - mobile linki rowniez maja zaokraglone pill style.
 
 ## 9. Strona `/demo` (stan aktualny)
-`src/pages/DemoPage.jsx` nie jest juz placeholderem.
-To pelna strona osadzajaca interaktywna mini-aplikacje demo:
+`src/pages/DemoPage.jsx` udostepnia dwa zachowujace stan srodowiska demonstracyjne:
 - hero sprzedazowy + CTA,
 - statystyki/argumenty biznesowe,
-- osadzony shell: `src/features/demo/DemoAppShell.jsx`,
-- runtime demo z `src/features/demo/standalone/App.jsx`.
+- panel webowy: `src/features/demo/DemoAppShell.jsx`,
+- kompletacja Android: `src/features/demo/mobile/MobilePickingDemo.jsx`,
+- lokalna symulacja skanera zsynchronizowana z postepem `0/2 -> 1/2 -> 2/2`.
 
 ## 10. Demo standalone - logika
 ### Gdzie jest logika
@@ -249,15 +270,19 @@ Scoping przez wrapper `.sn-demo` ogranicza wyciek klas demo do reszty landingu.
 
 ## 14. SEO
 `src/components/seo/SeoManager.jsx`:
-- ustawia runtime SEO dla `/`, `/demo` i `/polityka-prywatnosci`,
-- aktualizuje `title`, `description`, `og:*`.
+- ustawia runtime SEO dla `/`, `/demo`, `/polityka-prywatnosci` i 404,
+- aktualizuje `title`, `description`, canonical, robots, Open Graph i Twitter Cards,
+- dodaje JSON-LD `SoftwareApplication`, `Organization` i `FAQPage` na stronie glownej,
+- korzysta z `VITE_SITE_URL` albo aktualnego hosta.
+
+Vite buduje takze `demo.html`, `polityka-prywatnosci.html` i `404.html`, dzieki czemu podstawowe metadane sa dostepne dla crawlerow bez JavaScriptu. `sitemap.xml` wymaga finalnej domeny produkcyjnej.
 
 ## 15. Strona polityki prywatnosci (`/polityka-prywatnosci`)
-- `src/pages/PrivacyPage.jsx`: strona RODO z 9 sekcjami, kazda z ikona z lucide-react.
+- `src/pages/PrivacyPage.jsx`: strona prywatnosci z 10 sekcjami, w tym publiczne demo i aplikacja mobilna.
 - `src/content/siteContent.js` -> klucz `privacy`: pelna tresc polityki (administrator, dane, cel, podstawa prawna, cookies, prawa, retencja, kontakt, aktualizacje).
 - W stopce dodano link `Polityka prywatnosci` przez `<Link to="/polityka-prywatnosci">`.
-- CookieConsent zawiera link do polityki oraz dodatkowy przycisk "Tylko niezbędne".
-- Switche cookies zmienione na natywne `<input type="checkbox" role="switch">`.
+- CookieConsent opisuje tylko faktycznie uzywana pamiec lokalna.
+- Analityka i marketing sa oznaczone jako niewykorzystywane.
 
 ## 16. Loading skeleton demo
 - `src/components/ui/DemoPageSkeleton.jsx`: placeholder renderowany podczas lazy-load `DemoPage` w `Suspense`.
@@ -268,40 +293,33 @@ Scoping przez wrapper `.sn-demo` ogranicza wyciek klas demo do reszty landingu.
   - `/android-chrome-192x192.png`
   - `/android-chrome-512x512.png`
 - `index.html`: favicony ustawione na zestaw produkcyjny (`favicon.ico`, `favicon-32x32.png`, `favicon-16x16.png`, `apple-touch-icon.png`),
-  plus `manifest`, `theme-color`, `apple-mobile-web-app-*`, `robots`, font preload.
+  plus `manifest`, `theme-color`, `apple-mobile-web-app-*` i `robots`.
+- Zewnetrzne Google Fonts zostaly usuniete; strona korzysta z lokalnych fallbackow systemowych.
 - Dodatkowo w `public/` znajduje sie `site.webmanifest` dostarczony z paczki favicon.
 
 ## 18. CookieConsent - aktualizacja
-- `src/components/ui/CookieConsent.jsx`:
-  - Dodany przycisk "Tylko niezbędne" (obok "Akceptuj wszystkie" i "Ustawienia").
-  - Link do `/polityka-prywatnosci` w obu widokach (glowny i ustawienia).
-  - Rozszerzone opisy kategorii cookies (konkretne narzedzia: GA, Meta Pixel, LinkedIn).
-  - Switche zmienione z customowego `<button>` na natywny `<input type="checkbox" role="switch">`.
+- `src/components/ui/CookieConsent.jsx` zapisuje tylko ustawienia niezbedne.
+- Nie laduje Google Analytics, Meta Pixel ani LinkedIn Insight Tag.
+- Dialog obsluguje Escape, focus, przywracanie focusu i niskie ekrany.
+- Dostep do localStorage ma bezpieczny fallback.
 
 ## 19. Vercel i odswiezanie tras SPA
-Aby `/demo` i `/polityka-prywatnosci` nie zwracaly 404 po odswiezeniu, dodano:
-- `vercel.json` z fallbackiem tras do `/index.html` (po `handle: filesystem`).
+`vercel.json` mapuje:
+- `/demo` -> `/demo.html`,
+- `/polityka-prywatnosci` -> `/polityka-prywatnosci.html`,
+- nieznane sciezki -> `/404.html` ze statusem HTTP 404.
 
-To jest wymagane dla poprawnego dzialania React Router na hostingu Vercel.
+Kazdy dokument uruchamia ten sam React Router, ale ma wlasne statyczne metadane.
 
 ## 20. Hero strony glownej - grafika oparta o demo
 `src/components/sections/HeroSection.jsx` nie uzywa juz `PlaceholderImage` w hero.
 
-Aktualny prawy mockup hero jest recznie zbudowana miniatura realnego demo:
-- pasek aplikacji z nazwa `Partner Numery Seryjne`,
-- badge `Read-only`,
-- karta wyszukiwarki podobna do `DocumentList`,
-- przelaczniki dokumentow `PZ`, `ZK`, `WZ`,
-- przelaczniki statusow `Do uzupelnienia` / `Uzupelnione`,
-- lista dokumentow z progressem SN, statusami i klientami,
-- dolny fragment `SerialEntry` z numerami seryjnymi,
-- karta kodu kreskowego z linia skanera.
+Aktualny prawy mockup laczy:
+- `DesktopAppMockup` z lista dokumentow PZ/ZK/WZ,
+- `MobileAppMockup` z czesciowa kompletacja na Androidzie,
+- wylacznie syntetyczne dane z `mobileDemoData.js`.
 
-W tym pliku sa lokalne stale i helper:
-- `heroDocuments` -> statyczne dane do miniatury dokumentow,
-- `MiniProgress` -> maly SVG progress ring stylizowany na progress z `DocumentList`.
-
-Cel: hero ma wizualnie nawiazywac do realnego `/demo`, ale pozostaje lekkim, statycznym mockupem bez importowania calej aplikacji demo do bundle glownej strony.
+Makieta telefonu w Hero jest statyczna (`inert`, `aria-hidden`), aby nie udostepniac martwych kontrolek. Interaktywne wersje znajduja sie w sekcji Androida i na `/demo`.
 
 ## 21. Animacja startowa skanera (`LaserReveal`)
 `src/components/magicui/laser-reveal.jsx`:
@@ -372,19 +390,23 @@ Wazne: animacja nadal jest montowana w `Layout.jsx` i pojawia sie globalnie po w
 
 ## 23. Checklist utrzymaniowy przed release
 - `npm run build` przechodzi bez bledow
-- `/`, `/demo` i `/polityka-prywatnosci` dzialaja po bezposrednim odswiezeniu (Vercel rewrite aktywny)
+- `npm run lint` przechodzi bez bledow
+- `/`, `/demo` i `/polityka-prywatnosci` dzialaja po bezposrednim odswiezeniu
+- nieznana sciezka korzysta z `404.html` i statusu HTTP 404 na Vercel
 - modal QR otwiera sie poprawnie (bez "bialego tla")
 - wyszukiwarka demo przyjmuje input i filtruje poprawnie
 - placeholder w wyszukiwarce demo nie nachodzi na ikone lupy
 - symbole produktow sa 4-cyfrowe i wyszukiwalne
 - brak kodu symulacji blokady licencji
 - strona polityki prywatnosci dostepna i linkowana z footera/cookies
-- CookieConsent obsluguje wszystkie 3 opcje i linkuje do polityki
+- CookieConsent opisuje tylko niezbedna pamiec lokalna i linkuje do polityki
 - manifest.json obecny, PWA meta poprawne
 - favicony (`.ico`, 16/32 png, apple touch, android 192/512) sa podlinkowane i widoczne
 - DemoPage loading skeleton wyswietla sie podczas lazy-load
 - animacja startowa skanera (LaserReveal) pokazuje kod EAN, skanuje od gory do dolu i odslania strone przez polprzezroczysta maske
-- hero strony glownej pokazuje statyczny mockup inspirowany realnym `/demo`
+- hero strony glownej pokazuje statyczne makiety web + Android z danymi DEMO
+- interaktywna kompletacja mobilna zachowuje stan po zmianie zakladki demo
+- w publicznych assetach nie ma plikow z `Android_Foto`
 - navbar, karty i sekcje zachowuja spojny styl glass/surface
 
 ## 24. Najwazniejsze pliki do zapamietania (TOP 15)
@@ -404,7 +426,7 @@ Wazne: animacja nadal jest montowana w `Layout.jsx` i pojawia sie globalnie po w
 14. `src/components/seo/SeoManager.jsx`
 15. `src/components/magicui/laser-reveal.jsx`
 
-## 25. Ostatnie zmiany UI (2026-04-27)
+## 25. Ostatnie zmiany UI (2026-08-01)
 - Odwiezone globalne tlo landingu: radialne poswiaty, jasny gradient, subtelna siatka i mniej dominujacy `SNTicker`.
 - Dodano klasy `surface-panel` i `section-shell` w `src/index.css`.
 - Navbar zostal przebudowany na pill-navigation z jasnym tlem, mniejszym logo i CTA w kolorze `brand-blue`.
@@ -412,6 +434,10 @@ Wazne: animacja nadal jest montowana w `Layout.jsx` i pojawia sie globalnie po w
 - `HeroSection` ma nowy prawy mockup oparty o realny UI demo (`DocumentList`, statusy PZ/ZK/WZ, progress SN, `SerialEntry`, barcode).
 - `SolutionSection`, `PricingSection` i `FinalCTASection` zostaly dopasowane do nowego systemu paneli.
 - `LaserReveal` zostal przebudowany na jasna animacje skanowania od gory do dolu z przenikaniem strony pod spodem.
+- Dodano prezentacje aplikacji Android, kompletacji i dwoch trybow skanowania.
+- Dodano lokalne mobilne demo ze scenariuszami poprawnego skanu, duplikatu, nieznanego kodu, braku i notatki.
+- Cena 300 zl netto miesiecznie obejmuje panel webowy, aplikacje Android, numery SN i kompletacje; osobno wyceniane sa prace wdrozeniowe.
+- Dodano route-specific HTML, poprawne 404, prywatnosc zgodna z kodem oraz lazy loading obnizajacy glowny bundle.
 
 ---
-Dokument zaktualizowany: 2026-04-27 20:53 (CEST).
+Dokument zaktualizowany: 2026-08-01 (CEST).

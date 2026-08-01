@@ -308,6 +308,12 @@ export const siteContent = {
     subheadline: 'Kontakt',
     headline: 'Zobacz panel webowy i kompletację na Androidzie w swoim procesie.',
     body: 'Podczas prezentacji pokażemy pracę z dokumentami i numerami SN, skanowanie aparatem urządzenia Android, postęp kompletacji, braki oraz notatki. Zakres wdrożenia omówimy na podstawie środowiska Subiekt nexo PRO i sieci magazynu.',
+    directContact: {
+      label: 'Zadzwoń i umów prezentację',
+      value: '531 977 177',
+      href: 'tel:+48531977177',
+      note: 'Bezpośredni kontakt z Partner-Net w dni robocze.',
+    },
     formNotice: 'To formularz demonstracyjny. Bez podłączonego endpointu dane nie są wysyłane ani przekazywane do Partner-Net.',
     fields: {
       fullName: { label: 'Imię i nazwisko', required: true, placeholder: 'Jan Kowalski' },

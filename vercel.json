@@ -2,11 +2,20 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "routes": [
     {
+      "src": "/demo/?",
+      "dest": "/demo.html"
+    },
+    {
+      "src": "/polityka-prywatnosci/?",
+      "dest": "/polityka-prywatnosci.html"
+    },
+    {
       "handle": "filesystem"
     },
     {
       "src": "/.*",
-      "dest": "/index.html"
+      "status": 404,
+      "dest": "/404.html"
     }
   ]
 }

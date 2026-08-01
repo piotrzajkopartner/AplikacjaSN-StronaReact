@@ -2,9 +2,9 @@ import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './components/layout/Layout.jsx'
 import SeoManager from './components/seo/SeoManager.jsx'
-import HomePage from './pages/HomePage.jsx'
 import DemoPageSkeleton from './components/ui/DemoPageSkeleton.jsx'
 
+const HomePage = lazy(() => import('./pages/HomePage.jsx'))
 const DemoPage = lazy(() => import('./pages/DemoPage.jsx'))
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage.jsx'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage.jsx'))
@@ -23,7 +23,14 @@ function App() {
       <SeoManager />
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<HomePage />} />
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<RoutePageFallback />}>
+                <HomePage />
+              </Suspense>
+            }
+          />
           <Route
             path="/polityka-prywatnosci"
             element={

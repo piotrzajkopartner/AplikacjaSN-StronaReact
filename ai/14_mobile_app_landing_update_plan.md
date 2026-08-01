@@ -1,7 +1,7 @@
 # Plan aktualizacji strony o aplikacje mobilna i kompletacje
 
 Data: 2026-08-01  
-Status: plan do realizacji  
+Status: zrealizowany etapami; pozostają wyłącznie zależności zewnętrzne
 Zakres: aktualizacja strony marketingowej po zmianach w `AplikacjaSN`
 
 ## Rejestr realizacji
@@ -143,6 +143,52 @@ Weryfikacja etapu:
 - brak aktywnych odwołań do zewnętrznego QR, Google Fonts, Analytics i pikseli marketingowych,
 - jedyne wystąpienia nazw narzędzi analitycznych są negatywnym ujawnieniem w polityce prywatności,
 - build zgłasza ostrzeżenie o głównym chunku 502,78 kB; optymalizacja została przeniesiona do końcowego Etapu 7.
+
+### Etap 7 - audyt końcowy i stabilizacja
+
+Status: zrealizowany 2026-08-01
+
+- wykonano niezależny przegląd wszystkich zmian i usunięto wykryte regresje,
+- statyczna makieta w Hero nie udostępnia martwych kontrolek,
+- lista dokumentów otwiera wyłącznie spójny scenariusz `ZK DEMO`,
+- widok numerów SN korzysta z tego samego postępu co kompletacja mobilna,
+- stany `Brak` i `Notatka` są widoczne oraz resetowalne w demo,
+- paski postępu otrzymały semantykę `progressbar`,
+- przełączanie panelu webowego i mobilnego nie zeruje stanu demo,
+- zabezpieczono dostęp do localStorage i dodano fallback pamięciowy,
+- poprawiono walidację telefonu oraz sumy kontrolnej NIP,
+- dialog cookies i QR otrzymały Escape, początkowy focus, przywracanie focusu i przewijanie na niskich ekranach,
+- uzupełniono publiczne dane administratora na podstawie oficjalnej strony Partner-Net,
+- dodano działający numer telefonu obok demonstracyjnego formularza,
+- usunięto wszystkie błędy i ostrzeżenia ESLint w aktywnym `src`,
+- skonfigurowano lint tak, aby pomijał niezależne archiwa `AplikacjaSN`, `DEMO` i `partnerStrona`,
+- podzielono kod przez lazy loading; główny chunk spadł poniżej 500 kB,
+- dodano osobne dokumenty HTML dla `/demo`, `/polityka-prywatnosci` i 404,
+- Vercel serwuje właściwe statyczne metadane tras i zwraca status 404 dla nieznanych adresów,
+- ścieżki z końcowym ukośnikiem są normalizowane przez `SeoManager`.
+
+Końcowa weryfikacja obejmuje pełny `npm run lint`, produkcyjny `npm run build`, `git diff --check`, test dokumentów wynikowych, test tras przez serwer preview i kontrolę braku danych z `Android_Foto` w publicznych źródłach.
+
+Wynik końcowej weryfikacji:
+
+- `npm run lint` - zakończony poprawnie dla całego aktywnego projektu,
+- `npm run build` - zakończony poprawnie, 2242 moduły,
+- wszystkie chunki JavaScript są poniżej 500 kB,
+- główny chunk ma 191,05 kB po minifikacji i 60,47 kB gzip,
+- build emituje `index.html`, `demo.html`, `polityka-prywatnosci.html` i `404.html`,
+- serwer preview zwrócił wszystkie cztery dokumenty z właściwymi tytułami,
+- konfiguracje `package.json`, `manifest.json` i `vercel.json` przeszły walidację JSON,
+- kontrola publicznych źródeł nie znalazła nazw plików Signal, rzeczywistego dokumentu `ZK 1598`, symbolu `7521`, zewnętrznego generatora QR, starego placeholdera OG ani Google Fonts,
+- `git diff --check` po usunięciu końcowej spacji - bez błędów.
+
+### Zależności zewnętrzne po realizacji
+
+- `sitemap.xml` wymaga finalnej domeny produkcyjnej,
+- canonical i absolutne adresy OG w produkcji wymagają ustawienia `VITE_SITE_URL`,
+- dedykowany obraz OG 1200x630 wymaga zatwierdzonego finalnego assetu bez danych klientów,
+- formularz pozostaje jawnie demonstracyjny do czasu podłączenia endpointu; bezpośredni kontakt telefoniczny działa,
+- treść polityki prywatności powinna przejść formalną weryfikację prawną przed publikacją,
+- rzeczywisty skaner Android powinien zostać przetestowany na docelowych modelach telefonów niezależnie od strony marketingowej.
 
 ## 1. Cel
 
