@@ -80,6 +80,8 @@ export default async function handler(req, res) {
 
     // Option 1: Resend API (Zalecane na Vercel)
     if (resendApiKey) {
+      const senderEmail = process.env.SENDER_EMAIL || 'Partner Contact <kontakt@numeryseryjne-nexo.pl>'
+
       const response = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -87,7 +89,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          from: process.env.SENDER_EMAIL || 'Partner Contact <onboarding@resend.dev>',
+          from: senderEmail,
           to: [recipientEmail],
           reply_to: email,
           subject: emailSubject,
@@ -99,9 +101,10 @@ export default async function handler(req, res) {
 
       if (!response.ok) {
         console.error('Błąd Resend API:', resendData)
-        return res.status(500).json({
+        const detailedError = resendData?.message || resendData?.error || 'Nie udało się wysłać wiadomości e-mail.'
+        return res.status(response.status || 500).json({
           success: false,
-          error: 'Nie udało się wysłać wiadomości e-mail za pośrednictwem serwisu pocztowego.'
+          error: detailedError
         })
       }
 
