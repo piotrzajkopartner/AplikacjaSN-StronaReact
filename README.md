@@ -1,16 +1,64 @@
-# React + Vite
+# Partner Numery Seryjne — Strona Marketingowa & Demo Web/Android
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Oficjalny serwis internetowy rozwiązania **Partner Numery Seryjne** dedykowanego firmom pracującym w środowisku **Subiekt nexo PRO**. Strona zawiera panel informacji produktowej, interaktywne demo systemu oraz produkcyjny formularz kontaktowy z integracją wysyłki pocztowej.
 
-Currently, two official plugins are available:
+**Adres produkcyjny domeny:** [https://numeryseryjne-nexo.pl](https://numeryseryjne-nexo.pl)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Technologie i Funkcjonalności
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React 19 + Vite 8, Tailwind CSS, Framer Motion, Lucide Icons.
+- **Backend / Serverless**: Vercel Serverless Functions (`/api/contact.js`).
+- **Poczta e-mail**: Integracja z **Resend API** dla zweryfikowanej domeny `numeryseryjne-nexo.pl`.
+- **Analityka i SEO**:
+  - **Google Analytics 4**: identyfikator `G-L9Q9TBJSFB` podłączony we wszystkich widokach.
+  - **Google Search Console**: autoryzowany plik weryfikacyjny oraz meta-tagi.
+  - **Sitemap & Robots**: automatyczny `sitemap.xml` oraz dostosowany `robots.txt`.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🛠️ Zmienne Środowiskowe (Vercel Environment Variables)
+
+Do poprawnego działania formularza kontaktowego w środowisku produkcyjnym Vercel wymagane są następujące zmienne środowiskowe:
+
+| Nazwa Zmiennej | Opis | Domyślna Wartość |
+| :--- | :--- | :--- |
+| `RESEND_API_KEY` | Klucz API wygenerowany w panelu Resend | *(Wymagany w Vercel)* |
+| `CONTACT_EMAIL` | Adres e-mail, na który trafiają zgłoszenia z formularza | `piotr.zajko@partner-net.pl` |
+| `SENDER_EMAIL` | Zweryfikowany adres nadawcy w Resend | `Partner Contact <kontakt@numeryseryjne-nexo.pl>` |
+
+---
+
+## 📁 Dedykowany Endpoint Formularza (`/api/contact.js`)
+
+Endpoint przyjmuje żądania `POST` z formularza i przesyła sformatowaną wiadomość HTML zawierającą:
+- Imię i nazwisko nadawcy
+- Adres e-mail oraz telefon kontaktowy
+- NIP firmy (z automatyczną walidacją sumy kontrolnej NIP)
+- Treść wiadomości
+
+---
+
+## 💻 Lokalne uruchamianie i budowanie
+
+### Instalacja zależności:
+```bash
+npm install
+```
+
+### Uruchomienie serwera deweloperskiego:
+```bash
+npm run dev
+```
+
+### Budowanie wersji produkcyjnej:
+```bash
+npm run build
+```
+
+---
+
+## 📜 Licencja i Prawa Autorskie
+
+Wszelkie prawa zastrzeżone © **PARTNER Justyna Bandzarewicz** (NIP: 5372186848).
