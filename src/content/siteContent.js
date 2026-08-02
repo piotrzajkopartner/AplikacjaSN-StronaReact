@@ -22,7 +22,7 @@ export const siteContent = {
         path: '/polityka-prywatnosci',
         title: 'Polityka prywatności | Partner Numery Seryjne',
         description:
-          'Informacje o formularzu demonstracyjnym, pamięci lokalnej przeglądarki i prywatności na stronie Partner Numery Seryjne.',
+          'Informacje o formularzu kontaktowym, pamięci lokalnej przeglądarki i prywatności na stronie Partner Numery Seryjne.',
         robots: 'index, follow',
         type: 'website',
       },
@@ -314,7 +314,7 @@ export const siteContent = {
       href: 'tel:+48531977177',
       note: 'Bezpośredni kontakt z Partner-Net w dni robocze.',
     },
-    formNotice: 'To formularz demonstracyjny. Bez podłączonego endpointu dane nie są wysyłane ani przekazywane do Partner-Net.',
+    formNotice: '',
     fields: {
       fullName: { label: 'Imię i nazwisko', required: true, placeholder: 'Jan Kowalski' },
       email: { label: 'E-mail', required: true, placeholder: 'jan@firma.pl' },
@@ -322,9 +322,9 @@ export const siteContent = {
       taxId: { label: 'NIP firmy', required: true, placeholder: '5372186848' },
       message: { label: 'Wiadomość', required: false, placeholder: 'Np. typy dokumentów, urządzenia Android i obecny sposób kompletacji' },
     },
-    buttonLabel: 'Sprawdź formularz demonstracyjny',
-    submittingLabel: 'Sprawdzanie...',
-    resetLabel: 'Wypełnij formularz ponownie',
+    buttonLabel: 'Wyślij wiadomość',
+    submittingLabel: 'Wysyłanie...',
+    resetLabel: 'Wyślij kolejną wiadomość',
     validationMessages: {
       required: 'To pole jest wymagane.',
       email: 'Wpisz poprawny adres e-mail.',
@@ -337,7 +337,7 @@ export const siteContent = {
       submitting: 'submitting',
       verified: 'verified',
     },
-    verifiedMessage: 'Formularz demonstracyjny został zweryfikowany poprawnie, ale dane nie zostały wysłane. Właściwy kontakt będzie dostępny po podłączeniu endpointu.',
+    verifiedMessage: 'Dziękujemy za kontakt! Twoja wiadomość została wysłana. Skontaktujemy się z Tobą najszybciej jak to możliwe.',
   },
   demoPage: {
     badge: 'Interaktywne demo web + Android',
@@ -368,15 +368,15 @@ export const siteContent = {
   privacy: {
     title: 'Polityka prywatności',
     lastUpdated: '2026-08-01',
-    intro: 'Niniejsza polityka opisuje mechanizmy działające obecnie na stronie marketingowej Partner Numery Seryjne, w tym formularz demonstracyjny, publiczne demo i pamięć lokalną przeglądarki.',
+    intro: 'Niniejsza polityka opisuje mechanizmy działające obecnie na stronie Partner Numery Seryjne, w tym formularz kontaktowy, publiczne demo i pamięć lokalną przeglądarki.',
     administrator: {
       heading: '1. Administrator danych osobowych',
-      body: 'Administratorem danych osobowych przekazanych poza formularzem demonstracyjnym, na przykład w bezpośredniej wiadomości e-mail lub rozmowie telefonicznej, jest PARTNER Justyna Bandzarewicz, Ortel Królewski Pierwszy 31B, 21-530 Piszczac, NIP 537-218-68-48, REGON 060302243. Dane kontaktowe znajdują się w sekcji 9.',
+      body: 'Administratorem danych osobowych przekazanych w formularzu kontaktowym, w bezpośredniej wiadomości e-mail lub rozmowie telefonicznej, jest PARTNER Justyna Bandzarewicz, Ortel Królewski Pierwszy 31B, 21-530 Piszczac, NIP 537-218-68-48, REGON 060302243. Dane kontaktowe znajdują się w sekcji 9.',
     },
     collectedData: {
       heading: '2. Dane na stronie marketingowej',
       items: [
-        'Formularz kontaktowy jest demonstracyjny: sprawdza pola wyłącznie w przeglądarce, nie ma podłączonego endpointu i nie wysyła ani nie zapisuje wpisanych danych.',
+        'Formularz kontaktowy przesyła dane bezpiecznym połączeniem w celu obsługi zapytania i przygotowania oferty.',
         'Pamięć localStorage przechowuje ustawienie informacji o niezbędnych mechanizmach strony pod kluczem sn_cookie_consent.',
         'Publiczne demo zapisuje losowy identyfikator sesji demonstracyjnej pod kluczem sn_client_id. Nie jest to konto użytkownika ani identyfikator reklamowy.',
         'Strona nie uruchamia narzędzi analitycznych ani marketingowych i nie przekazuje im danych o odwiedzinach.',
@@ -428,7 +428,7 @@ export const siteContent = {
     },
     retention: {
       heading: '8. Okres przechowywania danych',
-      body: 'Wartości sn_cookie_consent i sn_client_id pozostają w localStorage do czasu wyczyszczenia danych witryny w ustawieniach przeglądarki. Formularz demonstracyjny nie przesyła ani nie zapisuje wpisanych danych. Okres przechowywania danych przekazanych bezpośrednim kanałem kontaktu zależy od celu korespondencji i obowiązujących przepisów.',
+      body: 'Wartości sn_cookie_consent i sn_client_id pozostają w localStorage do czasu wyczyszczenia danych witryny w ustawieniach przeglądarki. Dane z formularza kontaktowego są przechowywane wyłącznie przez okres niezbędny do obsługi korespondencji i przygotowania oferty zgodnie z przepisami prawa.',
     },
     contact: {
       heading: '9. Kontakt w sprawie danych osobowych',

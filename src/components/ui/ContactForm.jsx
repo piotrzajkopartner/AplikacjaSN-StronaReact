@@ -76,6 +76,7 @@ function ContactForm({ content }) {
   const [errors, setErrors] = useState({})
   const [wasSubmitted, setWasSubmitted] = useState(false)
   const [status, setStatus] = useState(states.idle)
+  const [submitError, setSubmitError] = useState('')
 
   const isSubmitting = status === states.submitting
   const isVerified = status === states.verified
@@ -95,6 +96,10 @@ function ContactForm({ content }) {
       ...currentErrors,
       [name]: '',
     }))
+
+    if (submitError) {
+      setSubmitError('')
+    }
   }
 
   const handleBlur = (event) => {
@@ -122,11 +127,6 @@ function ContactForm({ content }) {
     return nextErrors
   }
 
-  const mockSubmit = () =>
-    new Promise((resolve) => {
-      setTimeout(resolve, 900)
-    })
-
   const handleSubmit = async (event) => {
     event.preventDefault()
 
@@ -139,17 +139,37 @@ function ContactForm({ content }) {
     }
 
     setWasSubmitted(false)
+    setSubmitError('')
     setStatus(states.submitting)
 
-    await mockSubmit()
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
 
-    setStatus(states.verified)
+      const data = await response.json().catch(() => ({}))
+
+      if (!response.ok || data.success === false) {
+        throw new Error(data.error || 'Wystąpił problem podczas wysyłania wiadomości.')
+      }
+
+      setStatus(states.verified)
+    } catch (err) {
+      console.error('Błąd wysyłki formularza:', err)
+      setSubmitError(err.message || 'Wystąpił błąd podczas wysyłania. Spróbuj ponownie za chwilę.')
+      setStatus(states.idle)
+    }
   }
 
   const handleReset = () => {
     setValues(initialValues)
     setErrors({})
     setWasSubmitted(false)
+    setSubmitError('')
     setStatus(states.idle)
   }
 
@@ -161,12 +181,29 @@ function ContactForm({ content }) {
         </p>
       ) : null}
 
+      {submitError ? (
+        <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900" role="alert">
+          <p className="font-semibold">Błąd wysyłania:</p>
+          <p className="mt-1">{submitError}</p>
+        </div>
+      ) : null}
+
       {isVerified ? (
-        <div className="space-y-4 rounded-xl border border-blue-200 bg-blue-50 p-5 text-sm text-blue-900" role="status" aria-live="polite">
-          <p>{content?.verifiedMessage || 'Formularz został zweryfikowany, ale dane nie zostały wysłane.'}</p>
-          <Button type="button" variant="secondary" onClick={handleReset}>
-            {content?.resetLabel || 'Wypełnij formularz ponownie'}
-          </Button>
+        <div className="space-y-4 rounded-xl border border-emerald-200 bg-emerald-50/80 p-6 text-sm text-emerald-950 shadow-sm" role="status" aria-live="polite">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-600 text-white font-bold text-lg">
+              ✓
+            </div>
+            <div>
+              <p className="font-bold text-base text-emerald-950">Wiadomość została wysłana!</p>
+              <p className="mt-0.5 text-emerald-800">{content?.verifiedMessage || 'Dziękujemy za kontakt. Skontaktujemy się z Tobą najszybciej jak to możliwe.'}</p>
+            </div>
+          </div>
+          <div className="pt-2">
+            <Button type="button" variant="secondary" onClick={handleReset}>
+              {content?.resetLabel || 'Wyślij kolejną wiadomość'}
+            </Button>
+          </div>
         </div>
       ) : (
         <form className="space-y-4" onSubmit={handleSubmit} noValidate>
