@@ -1,6 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import QRCode from 'react-qr-code';
 import DocumentList from './components/DocumentList';
 import SerialEntry from './components/SerialEntry';
 import Toast from './components/Toast';
@@ -139,11 +138,12 @@ function App() {
           >
             <h3 id="demo-qr-title" className="text-lg font-bold text-gray-900">Otwórz tę stronę demo na telefonie</h3>
             <div className="mt-4 flex justify-center rounded-xl border-2 border-gray-100 bg-white p-4">
-              <QRCode
-                value={demoUrl}
-                size={200}
-                title="Kod QR prowadzący do strony demo"
-                className="h-[200px] w-[200px]"
+              <img
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(demoUrl)}`}
+                alt="Kod QR prowadzący do strony demo"
+                width={200}
+                height={200}
+                className="h-[200px] w-[200px] rounded-lg object-contain shadow-xs"
               />
             </div>
             <p className="mt-4 text-sm text-gray-500">
