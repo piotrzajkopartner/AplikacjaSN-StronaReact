@@ -49,9 +49,6 @@ function HeroSection({ content }) {
           <div inert aria-hidden="true" className="relative">
             <DesktopAppMockup />
           </div>
-          <p className="relative mt-3 text-center text-xs font-semibold text-slate-500">
-            Aktualny widok panelu webowego na bezpiecznych danych demonstracyjnych
-          </p>
         </div>
       </div>
     </section>
