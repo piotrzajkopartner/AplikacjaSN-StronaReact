@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://numeryseryjne-nexo.pl/sitemap.xml
+Sitemap: https://www.numeryseryjne-nexo.pl/sitemap.xml
